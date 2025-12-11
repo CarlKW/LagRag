@@ -1,0 +1,37 @@
+# Core dependencies for current project
+requests>=2.31.0
+langchain-core>=0.1.0
+langchain>=0.1.0
+
+# LangChain integrations
+langchain-community>=0.0.20
+langchain-openai>=0.0.5
+# langchain-anthropic>=0.1.0  # Uncomment if using Anthropic Claude
+
+# Vector stores (choose one or more based on your needs)
+chromadb>=0.4.0
+faiss-cpu>=1.7.4  # Use faiss-gpu if you have CUDA
+# pinecone-client>=2.2.4  # Uncomment if using Pinecone
+# weaviate-client>=3.25.0  # Uncomment if using Weaviate
+
+# Embeddings
+openai>=1.0.0
+sentence-transformers>=2.2.0  # For local embeddings
+
+# Environment and configuration
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# Text processing and utilities
+tiktoken>=0.5.0  # For token counting
+
+# Optional: For advanced text processing
+nltk>=3.8.0
+spacy>=3.7.0
+
+# Development dependencies (optional, uncomment if needed)
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.0.0
+# mypy>=1.5.0
+

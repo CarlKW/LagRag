@@ -69,7 +69,6 @@ def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f_out:
         for year in range(START_YEAR, CURRENT_YEAR + 1):
             from_date = f"{year}-01-01"
-            # För innevarande år låter vi tom vara tom (fram till nu)
             if year < CURRENT_YEAR:
                 tom_date = f"{year}-12-31"
             else:
@@ -77,7 +76,6 @@ def main():
 
             print(f"\n==================== ÅR {year} ====================")
 
-            # första sidan för året
             if tom_date:
                 current_url = (
                     "https://data.riksdagen.se/dokumentlista/"
@@ -100,7 +98,6 @@ def main():
                 label = f"år {year}, sida {page_no}"
                 data = fetch_doclist_page(current_url, label)
                 if data is None:
-                    # kunde inte få ut mer för det här året
                     break
 
                 doc_list = data.get("dokumentlista", {})
@@ -164,7 +161,6 @@ def main():
                     print(f"Ingen @nasta_sida för år {year} — klart för året.")
                     break
 
-            # liten paus mellan år för att inte trigga ev. rate limit
             time.sleep(2)
 
     print(f"\n✅ Klar! Sparade totalt {total_count} SFS-dokument (från {START_YEAR}) i {OUTPUT_FILE}")
