@@ -1,0 +1,9 @@
+# requirements-gpu.txt
+# Install this ONLY after you have an interactive GPU allocation (e.g. via salloc).
+# This pins the CUDA 12.1 wheels like you used locally.
+
+--index-url https://download.pytorch.org/whl/cu121
+
+torch
+torchvision
+torchaudio
