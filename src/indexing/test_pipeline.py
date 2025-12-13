@@ -58,6 +58,12 @@ def print_chunk_info(chunks: List[Document], max_chunks: int = 10):
             print(f"Subchunk index: {chunk.metadata['subchunk_index']}")
         if 'merged_paragraphs' in chunk.metadata:
             print(f"Merged paragraphs: {chunk.metadata['merged_paragraphs']}")
+        if 'is_short_document' in chunk.metadata and chunk.metadata['is_short_document']:
+            print(f"Short document: Yes (total words: {chunk.metadata.get('total_words', 'N/A')})")
+        if 'has_surrounding_context' in chunk.metadata and chunk.metadata.get('has_surrounding_context'):
+            print(f"Has surrounding context: Yes")
+            if 'context_paragraphs' in chunk.metadata and chunk.metadata['context_paragraphs']:
+                print(f"Context paragraphs: {chunk.metadata['context_paragraphs']}")
         print(f"Word count: ~{len(chunk.page_content.split())} words")
         print(f"Content preview:")
         print(f"  {chunk.page_content[:200]}...")
@@ -103,6 +109,14 @@ def test_query(
         print(f"Paragraph: {doc.metadata.get('paragraf', 'N/A')}")
         if 'subchunk_index' in doc.metadata:
             print(f"Subchunk index: {doc.metadata['subchunk_index']}")
+        if 'merged_paragraphs' in doc.metadata:
+            print(f"Merged paragraphs: {doc.metadata['merged_paragraphs']}")
+        if 'is_short_document' in doc.metadata and doc.metadata['is_short_document']:
+            print(f"Short document: Yes (total words: {doc.metadata.get('total_words', 'N/A')})")
+        if 'has_surrounding_context' in doc.metadata and doc.metadata.get('has_surrounding_context'):
+            print(f"Has surrounding context: Yes")
+            if 'context_paragraphs' in doc.metadata and doc.metadata['context_paragraphs']:
+                print(f"Context paragraphs: {doc.metadata['context_paragraphs']}")
         if 'organ' in doc.metadata:
             print(f"Organ: {doc.metadata['organ']}")
         print(f"\nContent:")
@@ -151,7 +165,14 @@ def run_pipeline_test(
     
     # Step 2: Chunk documents
     print(f"\n[2/4] Chunking documents...")
-    chunks = chunk_documents(documents)
+    chunks = chunk_documents(
+        documents,
+        min_words=100,
+        max_words=1200,
+        overlap_sentences=5,
+        include_surrounding_paragraphs=True,
+        short_document_threshold=300
+    )
     print(f"Created {len(chunks)} chunks from {len(documents)} documents")
     
     # Show chunk information

@@ -2,7 +2,12 @@
 Quick interactive test script for testing queries against the vector store.
 Run this after running test_pipeline.py to test queries interactively.
 """
+import sys
+from pathlib import Path
 
+# Add project root to path before importing src modules
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 from pathlib import Path
 
 from langchain_community.vectorstores import Chroma

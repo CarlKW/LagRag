@@ -7,7 +7,7 @@ This uses LLM2Vec with a base model and PEFT adapters:
 """
 
 from typing import List
-
+import numpy as np
 import torch
 from langchain_core.embeddings import Embeddings
 from transformers import AutoConfig, AutoModel, AutoTokenizer
@@ -148,6 +148,9 @@ class TTCEmbeddings(Embeddings):
                 show_progress_bar=False,
                 convert_to_numpy=True
             )
+        
+        # Normalize embeddings (L2 norm = 1)
+        embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
         
         # Convert to CPU and then to Python list
         if isinstance(embeddings, torch.Tensor):
