@@ -2,12 +2,15 @@
 Test script for the complete RAG pipeline.
 Tests document loading, chunking, embedding, and retrieval.
 """
-
+import sys
 from pathlib import Path
 from typing import List
 
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
+
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 
 from src.ingestion.loader import load_sfs_documents
 from src.indexing.chunker import chunk_documents
@@ -194,19 +197,15 @@ if __name__ == "__main__":
     
     # Custom test queries (optional - will use defaults if None)
     custom_queries = [
-        "skatt",
-        "bostadslån",
-        "miljö",
-        "arbetsmiljö",
-        "förvaltning"
+        "När får bidraget betalas ut för investeringsbidrag?",
+        "skatt för singapor",
     ]
     
     # Run the test pipeline
-    # Process first 5 documents for faster testing
     vectorstore = run_pipeline_test(
         jsonl_path=str(jsonl_file),
         persist_directory="./chroma_db_test",
-        num_docs=5,  # Change to None to process all documents
+        num_docs=100,  # Change to None to process all documents
         test_queries=custom_queries
     )
     

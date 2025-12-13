@@ -1,6 +1,3 @@
-"""
-Chunker for splitting SFS laws and regulations into paragraph-level chunks.
-"""
 
 import re
 from typing import List
@@ -79,11 +76,10 @@ def split_into_sentences(text: str) -> List[str]:
 
 
 def count_words(text: str) -> int:
-    """Count approximate number of words in text."""
     return len(text.split())
 
 
-def chunk_documents(docs: List[Document], min_words: int = 35, max_words: int = 350, overlap_sentences: int = 2) -> List[Document]:
+def chunk_documents(docs: List[Document], min_words: int = 50, max_words: int = 400, overlap_sentences: int = 2) -> List[Document]:
     """
     Split documents into paragraph-level chunks.
     
@@ -113,7 +109,7 @@ def chunk_documents(docs: List[Document], min_words: int = 35, max_words: int = 
             # No paragraphs found, treat entire document as one chunk
             chunk = Document(
                 page_content=text.strip(),
-                metadata={**doc.metadata, "paragraf": "unknown"}
+                metadata={**doc.metadata, "paragraf": "unknown"} #** unpack, add key val
             )
             all_chunks.append(chunk)
             continue
@@ -207,7 +203,7 @@ def chunk_documents(docs: List[Document], min_words: int = 35, max_words: int = 
                         metadata={
                             **doc.metadata,
                             "paragraf": merged_label,
-                            "merged_paragraphs": [para_label, next_label]
+                            "merged_paragraphs": ", ".join([para_label, next_label])
                         }
                     )
                     all_chunks.append(chunk)
@@ -231,10 +227,14 @@ def chunk_documents(docs: List[Document], min_words: int = 35, max_words: int = 
 
 if __name__ == "__main__":
     # Example usage
+    import sys
     from pathlib import Path
-    from src.ingestion.loader import load_sfs_documents
     
+    # Add project root to Python path for imports
     project_root = Path(__file__).parent.parent.parent
+    sys.path.insert(0, str(project_root))
+    
+    from src.ingestion.loader import load_sfs_documents
     jsonl_file = project_root / "data" / "sfs_lagboken_1990plus_filtered.jsonl"
     
     print("Loading documents...")
@@ -242,10 +242,48 @@ if __name__ == "__main__":
     print(f"Loaded {len(documents)} documents")
     
     print("\nChunking documents...")
-    chunks = chunk_documents(documents[:5])  # Test with first 5 documents
+    chunks = chunk_documents(documents[:40])  # Test 
     print(f"Created {len(chunks)} chunks")
     
     if chunks:
+        # Write chunks to a readable text file
+        output_file = project_root / "data" / "chunks_output.txt"
+        print(f"\nWriting chunks to {output_file}...")
+        
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write("=" * 80 + "\n")
+            f.write(f"CHUNKER TEST OUTPUT\n")
+            f.write(f"Total chunks: {len(chunks)}\n")
+            f.write(f"Source documents: {len(documents[:40])}\n")
+            f.write("=" * 80 + "\n\n")
+            
+            for i, chunk in enumerate(chunks, 1):
+                f.write("-" * 80 + "\n")
+                f.write(f"CHUNK {i} / {len(chunks)}\n")
+                f.write("-" * 80 + "\n")
+                f.write(f"Paragraph: {chunk.metadata.get('paragraf', 'N/A')}\n")
+                f.write(f"SFS nr: {chunk.metadata.get('sfs_nr', 'N/A')}\n")
+                f.write(f"Title: {chunk.metadata.get('titel', 'N/A')}\n")
+                
+                # Write additional metadata if present
+                if 'subchunk_index' in chunk.metadata:
+                    f.write(f"Subchunk index: {chunk.metadata['subchunk_index']}\n")
+                if 'merged_paragraphs' in chunk.metadata:
+                    f.write(f"Merged paragraphs: {chunk.metadata['merged_paragraphs']}\n")
+                
+                # Write word count
+                word_count = count_words(chunk.page_content)
+                f.write(f"Word count: {word_count}\n")
+                
+                f.write("\n" + "-" * 80 + "\n")
+                f.write("CONTENT:\n")
+                f.write("-" * 80 + "\n")
+                f.write(chunk.page_content)
+                f.write("\n\n")
+        
+        print(f"✓ Chunks written to {output_file}")
+        
+        # Also print first chunk example to console
         print("\nFirst chunk example:")
         print(f"  Paragraph: {chunks[0].metadata.get('paragraf', 'N/A')}")
         print(f"  SFS nr: {chunks[0].metadata.get('sfs_nr', 'N/A')}")
