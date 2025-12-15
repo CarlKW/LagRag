@@ -61,3 +61,4 @@ watchfiles==1.1.1
 # --- Misc ---
 tqdm==4.67.1
 regex==2025.11.3
+einops

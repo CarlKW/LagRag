@@ -3,10 +3,11 @@ Retriever module that loads a persisted Chroma DB, runs an initial similarity
 search with the same embedding model used for indexing, and reranks the
 candidate chunks with a cross-encoder (jinaai/jina-reranker-v2-base-multilingual).
 """
-
+import sys
 from typing import Any, Dict, List, Tuple
 from pathlib import Path
-
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 import torch
 from langchain_community.vectorstores import Chroma
 from sentence_transformers import CrossEncoder
@@ -45,7 +46,12 @@ class RerankingRetriever:
 
         # Load reranker once; it is a cross-encoder that scores (query, doc) pairs.
         device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.reranker = CrossEncoder(self.reranker_model, device=device)
+        self.reranker = CrossEncoder(
+            self.reranker_model,
+            device=device,
+            trust_remote_code=True
+
+        )
 
     def _initial_retrieve(self, query: str) -> List[Tuple[Any, float]]:
         """Run initial similarity search in Chroma and return (doc, score) tuples."""
@@ -98,24 +104,48 @@ if __name__ == "__main__":
     print(f"Loading retriever with DB at: {default_db}")
     retriever = RerankingRetriever(persist_directory=str(default_db))
 
-    sample_query = "När får bidraget betalas ut för investeringsbidrag?"
-    print(f"\nRunning sample query: {sample_query!r}")
-    results = retriever.retrieve(sample_query)
+    # Define a list of queries to test.
+    queries = [
+        "Vilken lag snackar om att narkotika bara får säljas för medicinsk användning?",
 
-    if not results:
-        print("No results found. Ensure the Chroma DB has been created by the pipeline.")
-    else:
-        print("\nTop reranked chunks:")
-        for i, item in enumerate(results, 1):
-            title = item.get("titel") or item.get("title") or "N/A"
-            paragraf = item.get("paragraf", "N/A")
-            print("=" * 80)
-            print(f"Result {i}")
-            print(f"Title: {title}")
-            print(f"Paragraph: {paragraf}")
-            print(f"Retrieval score: {item['score_retrieval']:.4f}")
-            print(f"Rerank score: {item['score_rerank']:.4f}")
-            print("Content preview:")
-            print(item["text"][:400] + ("..." if len(item["text"]) > 400 else ""))
-            print()
+        #: "Lag (1992:860)
+        #2 § Narkotika får föras in till eller ut från landet,\r\ntillverkas, bjudas ut till försäljning,
+        # överlåtas eller innehas\r\nendast för\r\n\r\n1. medicinskt ändamål\r\n\r\n2. vetenskapligt 
+        #ändamål\r\n\r\n3. annat samhällsnyttigt ändamål som är särskilt angeläget,\r\neller\r\n\r\n4.
+        # industriellt ändamål\r\n\r\na) i de fall regeringen särskilt föreskriver det, eller\r\n\r\nb)
+        # om undantag från kravet på tillstånd har meddelats enligt\r\n12 § fjärde stycket.\r\n\r\nVid
+        #tillämpning av denna lag ska en vara anses ha förts in till\r\neller ut från landet när den har
+        # förts över gränsen för svenskt\r\nterritorium. Lag (2011:114).\r\n\r\nInförsel och utförsel\r\
+        #n\r\n
 
+        "vad gäller för en kommun ska få bidrag för att ta in untlänningar?",
+
+        #"Lag (1992:1068) o
+        #3 § Ett villkor för att introduktionsersättning skall få beviljas är 
+        #att\r\nutlänningen förbinder sig att följa en introduktionsplan som 
+        #fastställts\r\nav kommunen efter samråd med utlänningen.\r\n\r\n
+
+        # "Vilka krav gäller för stöd till energieffektivisering?",
+    ]
+
+    for query in queries:
+        print("\n" + "#" * 80)
+        print(f"Running query: {query!r}")
+        results = retriever.retrieve(query)
+
+        if not results:
+            print("No results found. Ensure the Chroma DB has been created by the pipeline.")
+        else:
+            print("\nTop reranked chunks:")
+            for i, item in enumerate(results, 1):
+                title = item.get("titel") or item.get("title") or "N/A"
+                paragraf = item.get("paragraf", "N/A")
+                print("=" * 80)
+                print(f"Result {i}")
+                print(f"Title: {title}")
+                print(f"Paragraph: {paragraf}")
+                print(f"Retrieval score: {item['score_retrieval']:.4f}")
+                print(f"Rerank score: {item['score_rerank']:.4f}")
+                print("Content preview:")
+                print(item["text"][:700] + ("..." if len(item["text"]) > 400 else ""))
+                print()
