@@ -24,7 +24,7 @@ class RerankingRetriever:
     def __init__(
         self,
         persist_directory: str = "./chroma_db_test",
-        k_initial: int = 50,
+        k_initial: int = 30,
         k_final: int = 5,
         reranker_model: str = "jinaai/jina-reranker-v2-base-multilingual",
         batch_size: int = 16,

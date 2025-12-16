@@ -81,11 +81,11 @@ def count_words(text: str) -> int:
 
 def chunk_documents(
     docs: List[Document], 
-    min_words: int = 100, 
-    max_words: int = 1200, 
-    overlap_sentences: int = 5,
+    min_words: int = 30, 
+    max_words: int = 200, 
+    overlap_sentences: int = 2,
     include_surrounding_paragraphs: bool = True,
-    short_document_threshold: int = 300
+    short_document_threshold: int = 100
 ) -> List[Document]:
     """
     Split documents into paragraph-level chunks with optimized settings for legal documents.
@@ -146,6 +146,8 @@ def chunk_documents(
             continue
         
         # Process each paragraph
+        # Note: We never skip paragraphs due to surrounding context; only due to explicit merge.
+        # Every paragraph is indexed as its own chunk, even if included as context in another chunk.
         i = 0
         while i < len(para_starts):
             start_pos, para_label = para_starts[i]
@@ -163,7 +165,6 @@ def chunk_documents(
             chunk_text = para_text
             context_paragraphs = [para_label]
             has_surrounding_context = False
-            included_next_paragraph = False
             
             if include_surrounding_paragraphs:
                 # Try to include previous paragraph for context
@@ -193,7 +194,6 @@ def chunk_documents(
                         chunk_text = chunk_text + "\n\n" + next_para_text
                         context_paragraphs.append(next_label)
                         has_surrounding_context = True
-                        included_next_paragraph = True
             
             # Check if paragraph needs to be split (too long)
             word_count = count_words(chunk_text)
@@ -249,54 +249,38 @@ def chunk_documents(
                     )
                     all_chunks.append(chunk)
                 
-                # Skip next paragraph if we included it in surrounding context
-                if included_next_paragraph:
-                    i += 1  # Skip the next paragraph since we already included it
+                # Move to next paragraph (never skip due to surrounding context)
                 i += 1
             else:
                 # Check if paragraph is too short (merge with next)
                 if word_count < min_words and i + 1 < len(para_starts):
-                    # Check if we already included next paragraph in surrounding context
-                    if not included_next_paragraph:
-                        # Merge with next paragraph (not already included)
-                        next_start, next_label = para_starts[i + 1]
-                        next_end = para_starts[i + 2][0] if i + 2 < len(para_starts) else len(text)
-                        next_para_text = text[next_start:next_end].strip()
-                        
-                        merged_text = chunk_text + "\n\n" + next_para_text
-                        merged_label = para_label  # Use first paragraph's label
-                        merged_context = context_paragraphs + [next_label]
-                        
-                        chunk = Document(
-                            page_content=merged_text.strip(),
-                            metadata={
-                                **doc.metadata,
-                                "paragraf": merged_label,
-                                "merged_paragraphs": ", ".join([para_label, next_label]),
-                                "has_surrounding_context": len(merged_context) > 1,
-                                "context_paragraphs": ", ".join(merged_context) if len(merged_context) > 1 else None,
-                                "is_short_document": False
-                            }
-                        )
-                        all_chunks.append(chunk)
-                        
-                        # Skip next paragraph since we merged it
-                        i += 2
-                    else:
-                        # Next paragraph already included in surrounding context, just use current chunk
-                        chunk = Document(
-                            page_content=chunk_text.strip(),
-                            metadata={
-                                **doc.metadata,
-                                "paragraf": para_label,
-                                "has_surrounding_context": has_surrounding_context,
-                                "context_paragraphs": ", ".join(context_paragraphs) if context_paragraphs else None,
-                                "is_short_document": False
-                            }
-                        )
-                        all_chunks.append(chunk)
-                        # Skip next paragraph since we already included it
-                        i += 2
+                    # Explicit merge: combine short paragraph with next paragraph
+                    # This is the ONLY case where we skip indexing the next paragraph
+                    next_start, next_label = para_starts[i + 1]
+                    next_end = para_starts[i + 2][0] if i + 2 < len(para_starts) else len(text)
+                    next_para_text = text[next_start:next_end].strip()
+                    
+                    # Use the current chunk_text (which may already include surrounding context)
+                    # but append the next paragraph for explicit merge
+                    merged_text = chunk_text + "\n\n" + next_para_text
+                    merged_label = para_label  # Use first paragraph's label
+                    merged_context = context_paragraphs + [next_label]
+                    
+                    chunk = Document(
+                        page_content=merged_text.strip(),
+                        metadata={
+                            **doc.metadata,
+                            "paragraf": merged_label,
+                            "merged_paragraphs": ", ".join([para_label, next_label]),
+                            "has_surrounding_context": len(merged_context) > 1,
+                            "context_paragraphs": ", ".join(merged_context) if len(merged_context) > 1 else None,
+                            "is_short_document": False
+                        }
+                    )
+                    all_chunks.append(chunk)
+                    
+                    # Skip next paragraph since we explicitly merged it
+                    i += 2
                 else:
                     # Normal-sized paragraph
                     chunk = Document(
@@ -310,9 +294,7 @@ def chunk_documents(
                         }
                     )
                     all_chunks.append(chunk)
-                    # Skip next paragraph if we included it in surrounding context
-                    if included_next_paragraph:
-                        i += 1  # Skip the next paragraph since we already included it
+                    # Move to next paragraph (never skip due to surrounding context)
                     i += 1
     
     return all_chunks

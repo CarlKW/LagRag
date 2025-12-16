@@ -1,0 +1,475 @@
+==========================================
+Job ID: 114059
+Job Name: lagrag_pipeline
+Node: neptune
+Start Time: Tue Dec 16 02:54:10 PM CET 2025
+Working Directory: /data/users/kyleback/LagRag
+==========================================
+Starting pipeline...
+================================================================================
+RAG PIPELINE TEST
+================================================================================
+
+[1/4] Loading documents from /data/users/kyleback/LagRag/data/sfs_lagboken_1990plus_filtered.jsonl...
+Loaded 5415 total documents
+Processing 2000 documents for testing
+
+First document:
+  SFS nr: 1991:1867
+  Type: lag
+  Title: Lag (1991:1867)
+om avdrag för kostnader för bilresor 
+till och från  arbetsplats...
+  Content length: 674 characters
+
+[2/4] Chunking documents...
+Created 36103 chunks from 2000 documents
+
+================================================================================
+CHUNK SUMMARY
+================================================================================
+Total chunks created: 36103
+
+Chunks per paragraph (top 10):
+  3 §: 3458 chunk(s)
+  1 §: 2699 chunk(s)
+  2 §: 2588 chunk(s)
+  4 §: 2063 chunk(s)
+  5 §: 1908 chunk(s)
+  7 §: 1890 chunk(s)
+  6 §: 1883 chunk(s)
+  9 §: 1599 chunk(s)
+  8 §: 1423 chunk(s)
+  10 §: 1392 chunk(s)
+
+================================================================================
+SAMPLE CHUNKS (first 5 chunks)
+================================================================================
+
+--- Chunk 1 ---
+SFS nr: 1991:1867
+Type: lag
+Paragraph: complete_document
+Short document: Yes (total words: 94)
+Word count: ~94 words
+Content preview:
+  Lag (1991:1867)
+om avdrag för kostnader för bilresor 
+till och från arbetsplatsen
+vid 1993 års taxering
+
+SFS nr: 1991:1867
+Departement/myndighet: Finansdepartementet S5 
+Utfärdad: 1991-12-19
+Omtryck: ...
+  ... (474 more characters)
+
+--- Chunk 2 ---
+SFS nr: 1991:1870
+Type: lag
+Paragraph: complete_document
+Short document: Yes (total words: 90)
+Word count: ~90 words
+Content preview:
+  Lag (1991:1870) om överflyttande av 
+arbetsuppgifter från Riksskatteverkets
+sjömansskattekontor till skattemyndigheten 
+i Göteborgs och Bohus län;
+
+SFS nr: 1991:1870
+Departement/myndighet: Finansdepar...
+  ... (565 more characters)
+
+--- Chunk 3 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 1 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §
+Word count: ~70 words
+Content preview:
+  1 § Frågor om medgivande enligt 59 § sjömanslagen (1973:282), 4 §
+mönstringslagen (1983:929) och 7 § förordningen (1989:548) om
+tillstånd för anställning på fartyg prövas av
+Transportstyrelsen. Vid pr...
+  ... (342 more characters)
+
+--- Chunk 4 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 2 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §, 3 §
+Word count: ~108 words
+Content preview:
+  1 § Frågor om medgivande enligt 59 § sjömanslagen (1973:282), 4 §
+mönstringslagen (1983:929) och 7 § förordningen (1989:548) om
+tillstånd för anställning på fartyg prövas av
+Transportstyrelsen. Vid pr...
+  ... (626 more characters)
+
+--- Chunk 5 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 3 §
+Has surrounding context: Yes
+Context paragraphs: 2 §, 3 §, 4 §
+Word count: ~66 words
+Content preview:
+  2 § Innan ärendet avgörs skall Transportstyrelsen samråda med
+berörda svenska organisationer för redare och ombordanställda.
+Förordning (2008:1160).
+
+3 § Transportstyrelsen skall med eget yttrande öve...
+  ... (319 more characters)
+
+[3/4] Creating embeddings and vector store...
+Loading embedding model (this may take a moment on first run)...
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda, Dtype: torch.bfloat16
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+Embedding model loaded.
+Creating vector store in ./chroma_db_test...
+Collection name: sfs_paragraphs
+Similarity metric: cosine
+Vector store created successfully!
+Collection contains 36103 documents
+
+[4/4] Testing queries...
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "Narkotika får föras in till eller ut från landet"
+Retrieving top 3 results...
+
+================================================================================
+Result 1 (Score: 0.1789)
+================================================================================
+SFS nr: 1992:860
+Type: lag
+Title: Lag (1992:860) om kontroll av narkotika...
+Paragraph: 12 §
+Has surrounding context: Yes
+Context paragraphs: 2 §, 12 §, 3 §
+Organ: Socialdepartementet
+
+Content:
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+3 § Narkotika får föras in till eller ut ur landet endast av
+den som har tillstånd till det.
+
+Om inte regeringen eller den myndighet som regeringen bestämmer
+föreskriver något annat, får dock resande utan tillstånd föra
+in narkotiska läkemedel i Sverige och föra ut sådana läkemedel
+från landet, om de är avsedda för medicinskt ändamål och den
+resandes personliga bruk.
+
+Narkotika får inte utan tillstånd sändas genom landet eller, i
+annat fall än som avses i andra stycket, föras ut ur landet. I
+övrigt gäller lagen (1973:980) om transport, förvaring och
+förstöring av införselreglerade varor, m.m. Lag (2011:114).
+
+================================================================================
+Result 2 (Score: 0.1809)
+================================================================================
+SFS nr: 1992:860
+Type: lag
+Title: Lag (1992:860) om kontroll av narkotika...
+Paragraph: 4 §
+Has surrounding context: Yes
+Context paragraphs: 3 a §, 4 §, 5 §
+Organ: Socialdepartementet
+
+Content:
+3 a § Den som har tillstånd att bedriva detaljhandel med
+läkemedel enligt 2 kap. 1 § lagen (2009:366) om handel med
+läkemedel får utfärda sådana intyg som avses i artikel 75 i
+konventionen om tillämpning av Schengenavtalet av den 14 juni
+1985. Ett intyg får utfärdas att gälla för en period om högst
+30 dagar. Lag (2009:369).
+
+Tillverkning
+
+4 § Med tillverkning avses i denna lag 
+framställning, omvandling, bearbetning, avvägning, 
+uppräkning, förpackning eller ompackning av narkotika.
+
+Tillverkning av narkotika får bedrivas endast av den som har 
+tillstånd till det. Tillstånd behövs dock inte för att i 
+vetenskapligt syfte framställa narkotika vid en vetenskaplig 
+institution, som ägs eller stöds av staten. Lag (2016:532).
+
+Handel
+
+5 § Handel med narkotika får bedrivas endast av
+
+1. den som med tillstånd antingen har fört in varan till 
+Sverige eller har vidtagit sådan åtgärd med varan som innebär 
+tillverkning, eller
+
+2. den som har tillstånd att handla med varan.
+
+Handel med narkotiska läkemedel får bedrivas utan sådant 
+tillstånd som anges i första stycket av den som enligt 2 kap.
+
+================================================================================
+Result 3 (Score: 0.1838)
+================================================================================
+SFS nr: 1992:860
+Type: lag
+Title: Lag (1992:860) om kontroll av narkotika...
+Paragraph: 2 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §, 12 §
+Organ: Socialdepartementet
+
+Content:
+1 § Med narkotika avses i denna lag detsamma som i 8 §
+narkotikastrafflagen (1968:64).
+
+Regeringen eller, efter regeringens bemyndigande, Läkemedelsverket skall
+upprätta och kungöra förteckningar över narkotika.
+
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "Ett villkor för att introduktionsersättning"
+Retrieving top 3 results...
+
+================================================================================
+Result 1 (Score: 0.1993)
+================================================================================
+SFS nr: 1998:1784
+Type: förordning
+Title: Förordning (1998:1784) om arbetsmarknadspolitiska
+aktiviteter...
+Paragraph: 28 §
+Has surrounding context: Yes
+Context paragraphs: 27 §, 28 §, 29 §
+Organ: Näringsdepartementet
+
+Content:
+27 § Yrkesinriktad rehabilitering är sådana utredande,
+vägledande, rehabiliterande och arbetsförberedande insatser som
+Arbetsmarknadsverket bedriver vid ett arbetsmarknadsinstitut
+eller någon annanstans.
+
+28 § Den som behöver yrkesinriktad rehabilitering och som
+annars inte skulle kunna få eller behålla ett arbete får
+anvisas sådan rehabilitering.
+
+29 § Yrkesinriktad rehabilitering är inte tidsbegränsad.
+
+Start av näringsverksamhet
+
+================================================================================
+Result 2 (Score: 0.2006)
+================================================================================
+SFS nr: 1992:1068
+Type: lag
+Title: Lag (1992:1068) om introduktionsersättning för flyktingar och vissa andra utlänningar...
+Paragraph: 4 §
+Has surrounding context: Yes
+Context paragraphs: 3 §, 4 §, 5 §
+Organ: Integrations- och jämställdhetsdepartementet IU
+
+Content:
+3 § Ett villkor för att introduktionsersättning skall få beviljas är att
+utlänningen förbinder sig att följa en introduktionsplan som fastställts
+av kommunen efter samråd med utlänningen.
+
+4 § Om utlänningen inte följer den upprättade introduktionsplanen får
+kommunen bestämma att introduktionsersättning inte skall betalas ut för
+en viss tid eller att introduktionsersättning helt skall utgå.
+
+5 § Kommunens beslut att inte betala ut introduktionsersättning får
+överklagas hos allmän förvaltningsdomstol.
+
+Prövningstillstånd krävs vid överklagande till kammarrätten.
+
+Beslut om introduktionsersättningens storlek får inte överklagas.
+Lag (1995:92).
+
+================================================================================
+Result 3 (Score: 0.2017)
+================================================================================
+SFS nr: 2001:626
+Type: förordning
+Title: Förordning (2001:626) om stöd till utbildning av anställda...
+Paragraph: 5 §
+Has surrounding context: Yes
+Context paragraphs: 4 §, 5 §, 6 §
+Organ: Näringsdepartementet
+
+Content:
+4 § Även om ingen anställs som ersättare för den eller dem som
+tar del av utbildningen får stöd lämnas om utbildningen
+genomförs för att stärka deras möjligheter att i samband med
+permitteringar eller uppsägningar behålla en anställning eller
+få ett nytt arbete.
+
+5 § För att kunna få stöd skall arbetsgivaren för anställda som
+tar del av utbildningen tillämpa löne- och andra
+anställningsvillkor som följer av eller är likvärdiga med
+villkor enligt kollektivavtal inom branschen.
+Anställningsförmånerna får inte minskas under utbildningstiden
+av det skälet att den anställde genomgår utbildning.
+
+6 § Stöd får inte lämnas
+
+- för utbildningar som arbetsgivaren enligt lag eller avtal är
+skyldig att bekosta,
+
+- till arbetsgivare som ingår i Samhallkoncernen.
+Förordning (2002:735).
+
+Godkännande av Europeiska gemenskapernas kommission
+
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "begäran om att skicka ett viktigt meddelande till allmänheten"
+Retrieving top 3 results...
+
+================================================================================
+Result 1 (Score: 0.2523)
+================================================================================
+SFS nr: 1997:894
+Type: förordning
+Title: Förordning (1997:894) om marksänd digital TV...
+Paragraph: 7 §
+Subchunk index: 1
+Organ: Kulturdepartementet
+
+Content:
+iaktta att ägarförhållandena och inflytandet i företaget
+inte får förändras mer än i begränsad omfattning. Avseende sådana uppgifter som avses i 7 skall sökanden bifoga
+en programförklaring enligt de anvisningar som framgår av
+ansökningsblanketten. Av ansökan skall vidare framgå om den sökande önskar förena
+sändningstillståndet med villkor enligt 3 kap. 2 § 14 radio-
+och TV-lagen (1996:844) som avser skyldighet att regionalt
+sända och producera program.
+
+================================================================================
+Result 2 (Score: 0.2653)
+================================================================================
+SFS nr: 1995:1020
+Type: förordning
+Title: Förordning (1995:1020) om digitala ljudradiosändningar...
+Paragraph: 5 §
+Has surrounding context: Yes
+Context paragraphs: 4 §, 5 §, 4 §
+Organ: Kulturdepartementet
+
+Content:
+4 § Till ansökan skall bifogas en kortfattad beskrivning av hur
+sökanden tänker utforma och finansiera programverksamheten samt
+vilken överföringskapacitet den kräver.
+
+5 § Om Radio- och TV-verket anser att de uppgifter som lämnas enligt
+
+4 § inte är tillräckliga för att verket skall kunna ta ställning till
+ansökan skall verket begära att den kompletteras.
+
+================================================================================
+Result 3 (Score: 0.2679)
+================================================================================
+SFS nr: 2002:518
+Type: förordning
+Title: Förordning (2002:518) med instruktion för 
+Krisberedskapsmyndigheten...
+Paragraph: 6 §
+Has surrounding context: Yes
+Context paragraphs: 5 §, 6 §, 7 §
+Organ: Försvarsdepartementet
+
+Content:
+5 § Krisberedskapsmyndigheten skall ha ett sammanhållande
+myndighetsansvar för samhällets informationssäkerhet genom att
+sammanställa en helhetsbild av informationssäkerheten.
+Myndigheten skall i detta arbete
+
+1. analysera omvärldsutvecklingen inom området mot bakgrund av
+erhållet underrättelseunderlag och årligen lämna en samlad
+bedömning till regeringen,
+
+2. utveckla samarbetet mellan offentlig sektor och näringsliv,
+
+3. arbeta förebyggande med utbildning och information i dessa
+frågor.
+
+6 § Krisberedskapsmyndigheten skall utveckla och förvalta
+tekniskt stöd för ledning och beslutsfattande. Myndigheten
+skall även samordna signalskyddsverksamheten inom sitt
+verksamhetsområde.
+
+7 § Krisberedskapsmyndigheten får åta sig att mot avgift
+utveckla och förvalta tekniskt stöd åt andra myndigheter samt
+åt kommuner och landsting. Avgifternas storlek bestäms av
+myndigheten.
+
+
+================================================================================
+Pipeline test completed successfully!
+Vector store saved to: ./chroma_db_test
+================================================================================
+==========================================
+End Time: Tue Dec 16 03:15:15 PM CET 2025
+Job completed
+==========================================

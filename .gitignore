@@ -208,3 +208,4 @@ __marimo__/
 
 # Vector stores 
 chroma_db_test/
+chroma_old/

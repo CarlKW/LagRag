@@ -164,14 +164,22 @@ def run_pipeline_test(
     print(f"  Content length: {len(documents[0].page_content)} characters")
     
     # Step 2: Chunk documents
+
+    min_words=30
+    max_words=200
+    overlap_sentences=2
+    include_surrounding_paragraphs=True
+    short_document_threshold=100
+
+    print(f" min words: {min_words}, max words: {max_words},overlap: {overlap_sentences},surrounding params: {include_surrounding_paragraphs}, short doc th {short_document_threshold} ")
     print(f"\n[2/4] Chunking documents...")
     chunks = chunk_documents(
         documents,
-        min_words=100,
-        max_words=1200,
-        overlap_sentences=5,
-        include_surrounding_paragraphs=True,
-        short_document_threshold=300
+        min_words=min_words,
+        max_words=max_words,
+        overlap_sentences=overlap_sentences,
+        include_surrounding_paragraphs=include_surrounding_paragraphs,
+        short_document_threshold=short_document_threshold
     )
     print(f"Created {len(chunks)} chunks from {len(documents)} documents")
     
@@ -230,15 +238,22 @@ if __name__ == "__main__":
     
     # Custom test queries (optional - will use defaults if None)
     custom_queries = [
-        "När får bidraget betalas ut för investeringsbidrag?",
-        "skatt för singapor",
+        "Narkotika får föras in till eller ut från landet",
+        "Ett villkor för att introduktionsersättning",
+
+        "begäran om att skicka ett viktigt meddelande till allmänheten"
+        #"Lag (2023:407) om viktigt meddelande till allmänheten", 
+        #§ En begäran om sändning av ett viktigt meddelande till \nallmänheten ska göras till samhällets alarmeringstjänst. 
+        # \nSamhällets alarmeringstjänst ska ta emot och vidareförmedla 
+        # \nbegäran till den eller dem som ansvarar för sändning av 
+        # \nmeddelandet.\n\nEtt viktigt meddelande till allmänheten om
     ]
     
     # Run the test pipeline
     vectorstore = run_pipeline_test(
         jsonl_path=str(jsonl_file),
         persist_directory="./chroma_db_test",
-        num_docs=None,  # Change to None to process all documents
+        num_docs=2000,  # Change to None to process all documents
         test_queries=custom_queries
     )
     

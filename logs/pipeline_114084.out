@@ -1,0 +1,356 @@
+==========================================
+Job ID: 114084
+Job Name: lagrag_pipeline
+Node: callisto
+Start Time: Tue Dec 16 03:37:08 PM CET 2025
+Working Directory: /data/users/kyleback/LagRag
+==========================================
+Starting pipeline...
+Loading retriever with DB at: /data/users/kyleback/LagRag/chroma_db_test
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda, Dtype: torch.bfloat16
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+Loaded Chroma collection 'sfs_paragraphs' with 36103 documents
+
+################################################################################
+Running query: 'Narkotika får föras in till eller ut från landet'
+
+[Bästa basträff från Chroma (embedding-likhet)]
+================================================================================
+Score (Chroma): 0.1789
+Title: Lag (1992:860) om kontroll av narkotika
+Paragraph: 12 §
+Content preview:
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+3 § Narkotika får föras in till eller ut ur landet endast av
+den som har tillstånd till det.
+
+Om inte reger...
+
+Top reranked chunks:
+================================================================================
+Result 1
+Title: Lag (1992:860) om kontroll av narkotika
+Paragraph: 12 §
+Retrieval score (Chroma): 0.1789
+Rerank score (Jina): 0.9023
+Content preview:
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+3 § Narkotika får föras in till eller ut ur landet endast av
+den som har tillstånd till det.
+
+Om inte reger...
+
+================================================================================
+Result 2
+Title: Lag (1992:860) om kontroll av narkotika
+Paragraph: 3 a §
+Retrieval score (Chroma): 0.2131
+Rerank score (Jina): 0.8828
+Content preview:
+3 § Narkotika får föras in till eller ut ur landet endast av
+den som har tillstånd till det.
+
+Om inte regeringen eller den myndighet som regeringen bestämmer
+föreskriver något annat, får dock resande utan tillstånd föra
+in narkotiska läkemedel i Sverige och föra ut sådana läkemedel
+från landet, om de är avsedda för medicinskt ändamål och den
+resandes personliga bruk.
+
+Narkotika får inte utan tillstånd sändas genom landet eller, i
+annat fall än som avses i andra stycket, föras ut ur landet. I
+övrigt gäller lagen (1973:980) om transport, förvaring och
+förstöring av införselreglerade varor, m.m. Lag (2011:114).
+
+3 a § Den som har tillstånd att bedriva detaljhandel med
+läkemedel enligt 2 kap. 1 ...
+
+================================================================================
+Result 3
+Title: Lag (1992:860) om kontroll av narkotika
+Paragraph: 3 §
+Retrieval score (Chroma): 0.2120
+Rerank score (Jina): 0.8398
+Content preview:
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+3 § Narkotika får föras in till eller ut ur landet endast av
+den som har tillstånd till det.
+
+Om inte regeringen eller den myndighet som regeringen bestämmer
+föreskriver något annat, får dock resande utan tillstånd föra
+in narkotiska läkemedel i Sverige och föra ut sådana läkemedel
+från landet, om de är avsedda för medicinskt ändamål och den
+resandes personliga bruk.
+
+Narkotika får inte utan tillstånd sändas genom landet eller, i
+annat fall än som avses i andra stycket, föras ut ur landet. I
+...
+
+================================================================================
+Result 4
+Title: Lag (1992:860) om kontroll av narkotika
+Paragraph: 2 §
+Retrieval score (Chroma): 0.1837
+Rerank score (Jina): 0.8242
+Content preview:
+1 § Med narkotika avses i denna lag detsamma som i 8 §
+narkotikastrafflagen (1968:64).
+
+Regeringen eller, efter regeringens bemyndigande, Läkemedelsverket skall
+upprätta och kungöra förteckningar över narkotika.
+
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut fr...
+
+================================================================================
+Result 5
+Title: Lag (1992:860) om kontroll av narkotika
+Paragraph: 1 §
+Retrieval score (Chroma): 0.1912
+Rerank score (Jina): 0.7969
+Content preview:
+1 § Med narkotika avses i denna lag detsamma som i 8 §
+narkotikastrafflagen (1968:64).
+
+Regeringen eller, efter regeringens bemyndigande, Läkemedelsverket skall
+upprätta och kungöra förteckningar över narkotika.
+
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+
+################################################################################
+Running query: 'Ett villkor för att introduktionsersättning'
+
+[Bästa basträff från Chroma (embedding-likhet)]
+================================================================================
+Score (Chroma): 0.1995
+Title: Förordning (1998:1784) om arbetsmarknadspolitiska
+aktiviteter
+Paragraph: 28 §
+Content preview:
+27 § Yrkesinriktad rehabilitering är sådana utredande,
+vägledande, rehabiliterande och arbetsförberedande insatser som
+Arbetsmarknadsverket bedriver vid ett arbetsmarknadsinstitut
+eller någon annanstans.
+
+28 § Den som behöver yrkesinriktad rehabilitering och som
+annars inte skulle kunna få eller behålla ett arbete får
+anvisas sådan rehabilitering.
+
+29 § Yrkesinriktad rehabilitering är inte tidsbegränsad.
+
+Start av näringsverksamhet
+
+Top reranked chunks:
+================================================================================
+Result 1
+Title: Lag (1992:1068) om introduktionsersättning för flyktingar och vissa andra utlänningar
+Paragraph: 4 §
+Retrieval score (Chroma): 0.2006
+Rerank score (Jina): 0.7812
+Content preview:
+3 § Ett villkor för att introduktionsersättning skall få beviljas är att
+utlänningen förbinder sig att följa en introduktionsplan som fastställts
+av kommunen efter samråd med utlänningen.
+
+4 § Om utlänningen inte följer den upprättade introduktionsplanen får
+kommunen bestämma att introduktionsersättning inte skall betalas ut för
+en viss tid eller att introduktionsersättning helt skall utgå.
+
+5 § Kommunens beslut att inte betala ut introduktionsersättning får
+överklagas hos allmän förvaltningsdomstol.
+
+Prövningstillstånd krävs vid överklagande till kammarrätten.
+
+Beslut om introduktionsersättningens storlek får inte överklagas.
+Lag (1995:92).
+
+================================================================================
+Result 2
+Title: Lag (1992:1068) om introduktionsersättning för flyktingar och vissa andra utlänningar
+Paragraph: 3 §
+Retrieval score (Chroma): 0.2114
+Rerank score (Jina): 0.7500
+Content preview:
+2 a § En kommun får, om det finns särskilda skäl till det,
+bevilja introduktionsersättning till andra nyanlända invandrare
+än vad som föreskrivs i 2 §. Lag (1997:1136).
+
+3 § Ett villkor för att introduktionsersättning skall få beviljas är att
+utlänningen förbinder sig att följa en introduktionsplan som fastställts
+av kommunen efter samråd med utlänningen.
+
+4 § Om utlänningen inte följer den upprättade introduktionsplanen får
+kommunen bestämma att introduktionsersättning inte skall betalas ut för
+en viss tid eller att introduktionsersättning helt skall utgå.
+
+================================================================================
+Result 3
+Title: Lag (1992:1068) om introduktionsersättning för flyktingar och vissa andra utlänningar
+Paragraph: 2 a §
+Retrieval score (Chroma): 0.2106
+Rerank score (Jina): 0.7188
+Content preview:
+2 § Introduktionsersättning får beviljas
+
+1. utlänningar som överförts till Sverige med stöd av ett
+särskilt regeringsbeslut,
+
+2. utlänningar som har fått uppehållstillstånd efter att ha
+varit registrerade vid en förläggning för asylsökande,
+
+3. andra utlänningar som har fått uppehållstillstånd med
+tillämpning av 5 kap. 1 eller 6 § utlänningslagen (2005:716)
+eller motsvarande äldre bestämmelser,
+
+4. utlänningar som har fått uppehållstillstånd på grund av sin
+anknytning till en utlänning som avses under 1-3.
+
+Ersättning enligt 4 får lämnas endast för en utlänning som
+ansökt om uppehållstillstånd inom två år från det att den
+person som han eller hon har anknytning till först togs emot i
+en kom...
+
+================================================================================
+Result 4
+Title: Förordning (1995:711) om arbetsplatsintroduktion
+Paragraph: 12 §
+Retrieval score (Chroma): 0.2143
+Rerank score (Jina): 0.4219
+Content preview:
+11 § Innan en arbetslös anvisas en introduktionsplats skall,
+med undantag för vad som anges i tredje stycket, arbetsgivaren
+genom en skriftlig överenskommelse med länsarbetsnämnden ha
+åtagit sig att månadsvis i efterskott till staten betala ett
+finansieringsbidrag.
+
+Bidragets storlek skall för deltagare över 60 år, invandrare
+och arbetshandikappade vara 1 000 kronor per månad och för
+övriga deltagare 3 000 kronor per månad.
+
+Länsarbetsnämnden får anvisa introduktionsplats utan sådan
+skriftlig överenskommelse som avses i första stycket för
+
+1. unga handikappade,
+
+2. den som deltar i praktikperioder i vägledningssyfte under
+maximalt fyra veckor, samt
+
+3. den som får ersättning enligt 2 § andra...
+
+================================================================================
+Result 5
+Title: Förordning (1997:1275) om anställningsstöd
+Paragraph: 7 §
+Retrieval score (Chroma): 0.2035
+Rerank score (Jina): 0.3867
+Content preview:
+6 b § Har upphävts genom förordning (2008:271).
+
+Förutsättningar för att få anställningsstöd
+
+7 § Har upphävts genom förordning (2013:682).
+
+8 § Anställningsstöd lämnas endast under förutsättning att
+arbetsgivaren intygar att lön och andra anställningsförmåner
+lämnas enligt kollektivavtal eller att de är likvärdiga med
+förmåner enligt kollektivavtal i branschen.
+Förordning (2007:420).
+
+==========================================
+End Time: Tue Dec 16 03:47:46 PM CET 2025
+Job completed
+==========================================

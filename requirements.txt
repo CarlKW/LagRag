@@ -27,6 +27,9 @@ faiss-cpu==1.13.1
 # -------------------------
 # Embeddings / LLM
 # -------------------------
+--extra-index-url https://download.pytorch.org/whl/cu124
+torch==2.6.0+cu124
+
 torch==2.6.0+cu124
 transformers==4.44.2
 tokenizers==0.19.1
@@ -80,3 +83,4 @@ watchfiles==1.1.1
 tqdm==4.67.1
 regex==2025.11.3
 einops
+langchain-chroma
