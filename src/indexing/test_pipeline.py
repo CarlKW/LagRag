@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 from typing import List
 
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 project_root = Path(__file__).parent.parent.parent
@@ -184,13 +184,25 @@ def run_pipeline_test(
     embeddings = get_embedding_function()
     print("Embedding model loaded.")
     
+    # Chroma configuration: use explicit collection name and cosine similarity
+    collection_name = "sfs_paragraphs"
+    collection_metadata = {"hnsw:space": "cosine"}
+    
     print(f"Creating vector store in {persist_directory}...")
+    print(f"Collection name: {collection_name}")
+    print(f"Similarity metric: cosine")
     vectorstore = Chroma.from_documents(
         documents=chunks,
         embedding=embeddings,
-        persist_directory=persist_directory
+        persist_directory=persist_directory,
+        collection_name=collection_name,
+        collection_metadata=collection_metadata
     )
     print("Vector store created successfully!")
+    
+    # Sanity check: log collection count
+    collection_count = vectorstore._collection.count()
+    print(f"Collection contains {collection_count} documents")
     
     # Step 4: Test queries
     print(f"\n[4/4] Testing queries...")
