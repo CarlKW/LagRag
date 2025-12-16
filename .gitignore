@@ -207,4 +207,4 @@ marimo/_lsp/
 __marimo__/
 
 # Vector stores 
-chroma_db_test/
+chroma_db_pipeline/

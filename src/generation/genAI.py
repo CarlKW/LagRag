@@ -47,8 +47,9 @@ import re
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, Iterable, List, Optional
-from generation.lm_wrapper import LocalHFModel, get_local_lm
-from generator.retriever import RerankingRetriever 
+from src.generation.lm_wrapper import LocalHFModel, get_local_lm
+from src.generator.retriever import RerankingRetriever
+from src.generation.adapters import retriever_results_to_context_chunks 
 
 
 logger = logging.getLogger(__name__)
@@ -411,7 +412,10 @@ class RAGGenerator:
                     status.value,
                     score,
                 )
-                context = self.retriever(query, self.k)
+                # Retrieve results (retriever.retrieve() only takes query, k is set in constructor)
+                retriever_results = self.retriever.retrieve(query)
+                # Convert dict results to ContextChunk format
+                context = retriever_results_to_context_chunks(retriever_results)
                 continue
 
             # No more retrieval possible; decide final outcome.

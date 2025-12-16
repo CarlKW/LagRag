@@ -160,11 +160,11 @@ def validate_chunks(chunks: List[Document], min_words: int, max_words: int) -> d
 
 def chunk_documents(
     docs: List[Document], 
-    min_words: int = 100, 
-    max_words: int = 1200, 
-    overlap_sentences: int = 5,
+    min_words: int = 75, 
+    max_words: int = 500, 
+    overlap_sentences: int = 2,
     include_surrounding_paragraphs: bool = True,
-    short_document_threshold: int = 300
+    short_document_threshold: int = 100
 ) -> List[Document]:
     """
     Split documents into paragraph-level chunks with optimized settings for legal documents.

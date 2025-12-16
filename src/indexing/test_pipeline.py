@@ -237,8 +237,8 @@ if __name__ == "__main__":
     # Run the test pipeline
     vectorstore = run_pipeline_test(
         jsonl_path=str(jsonl_file),
-        persist_directory="./chroma_db_test",
-        num_docs=1000,  # Change to None to process all documents
+        persist_directory="./chroma_db_pipeline",
+        num_docs= 2000,  # Change to None to process all documents
         test_queries=custom_queries
     )
     
