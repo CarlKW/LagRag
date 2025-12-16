@@ -9,7 +9,7 @@ from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 import torch
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from sentence_transformers import CrossEncoder
 
 from src.indexing.embedder import get_embedding_function
@@ -28,21 +28,32 @@ class RerankingRetriever:
         k_final: int = 5,
         reranker_model: str = "jinaai/jina-reranker-v2-base-multilingual",
         batch_size: int = 16,
+        collection_name: str = "sfs_paragraphs",
     ):
         self.persist_directory = persist_directory
         self.k_initial = k_initial
         self.k_final = k_final
         self.batch_size = batch_size
         self.reranker_model = reranker_model
+        self.collection_name = collection_name
 
         # Load the same embedding model used for chunk creation.
         self.embeddings = get_embedding_function()
 
-        # Connect to the existing Chroma DB.
+        # Connect to the existing Chroma DB with the same collection name.
+        # Chroma will use cosine similarity as configured during indexing.
         self.vectorstore = Chroma(
             persist_directory=self.persist_directory,
             embedding_function=self.embeddings,
+            collection_name=self.collection_name,
         )
+        
+        # Sanity check: log collection count
+        try:
+            collection_count = self.vectorstore._collection.count()
+            print(f"Loaded Chroma collection '{self.collection_name}' with {collection_count} documents")
+        except Exception as e:
+            print(f"Warning: Could not retrieve collection count: {e}")
 
         # Load reranker once; it is a cross-encoder that scores (query, doc) pairs.
         device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -80,12 +91,13 @@ class RerankingRetriever:
         rerank_scores = self._rerank(query, candidates)
 
         # Combine scores with documents.
+        # Note: retrieval_score is cosine distance (1 - cosine_similarity) from Chroma
         enriched = []
         for (doc, retrieval_score), rerank_score in zip(candidates, rerank_scores):
             result = {
                 "text": doc.page_content,
-                "score_retrieval": float(retrieval_score),
-                "score_rerank": float(rerank_score),
+                "score_retrieval": float(retrieval_score),  # Cosine distance (lower is better)
+                "score_rerank": float(rerank_score),  # Reranker score (higher is better)
             }
             # Include all metadata fields if present.
             if doc.metadata:
@@ -106,7 +118,7 @@ if __name__ == "__main__":
 
     # Define a list of queries to test.
     queries = [
-        "Vilken lag snackar om att narkotika bara får säljas för medicinsk användning?",
+        "Narkotika får föras in till eller ut från landet",
 
         #: "Lag (1992:860)
         #2 § Narkotika får föras in till eller ut från landet,\r\ntillverkas, bjudas ut till försäljning,
@@ -118,7 +130,7 @@ if __name__ == "__main__":
         # förts över gränsen för svenskt\r\nterritorium. Lag (2011:114).\r\n\r\nInförsel och utförsel\r\
         #n\r\n
 
-        "vad gäller för en kommun ska få bidrag för att ta in untlänningar?",
+        "Ett villkor för att introduktionsersättning",
 
         #"Lag (1992:1068) o
         #3 § Ett villkor för att introduktionsersättning skall få beviljas är 
@@ -131,6 +143,21 @@ if __name__ == "__main__":
     for query in queries:
         print("\n" + "#" * 80)
         print(f"Running query: {query!r}")
+
+        # --- NYTT: visa bästa basträff från Chroma (embedding-likhet) ---
+        base_results = retriever.vectorstore.similarity_search_with_score(query, k=1)
+        if base_results:
+            base_doc, base_score = base_results[0]
+            print("\n[Bästa basträff från Chroma (embedding-likhet)]")
+            print("=" * 80)
+            print(f"Score (Chroma): {base_score:.4f}")
+            print(f"Title: {base_doc.metadata.get('titel') or base_doc.metadata.get('title') or 'N/A'}")
+            print(f"Paragraph: {base_doc.metadata.get('paragraf', 'N/A')}")
+            print("Content preview:")
+            text = base_doc.page_content
+            print(text[:700] + ("..." if len(text) > 700 else ""))
+        # --- slut nytt ---
+
         results = retriever.retrieve(query)
 
         if not results:
@@ -144,8 +171,9 @@ if __name__ == "__main__":
                 print(f"Result {i}")
                 print(f"Title: {title}")
                 print(f"Paragraph: {paragraf}")
-                print(f"Retrieval score: {item['score_retrieval']:.4f}")
-                print(f"Rerank score: {item['score_rerank']:.4f}")
+                print(f"Retrieval score (Chroma): {item['score_retrieval']:.4f}")
+                print(f"Rerank score (Jina): {item['score_rerank']:.4f}")
                 print("Content preview:")
-                print(item["text"][:700] + ("..." if len(item["text"]) > 400 else ""))
+                print(item["text"][:700] + ("..." if len(item["text"]) > 700 else ""))
                 print()
+# ... existing code ...

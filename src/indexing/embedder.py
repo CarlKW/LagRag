@@ -139,7 +139,7 @@ class TTCEmbeddings(Embeddings):
             texts: List of text strings to embed
             
         Returns:
-            List of embedding vectors (each is a list of floats)
+            List of embedding vectors (each is a list of float32 values)
         """
         with torch.no_grad():
             embeddings = self.model.encode(
@@ -149,13 +149,26 @@ class TTCEmbeddings(Embeddings):
                 convert_to_numpy=True
             )
         
-        # Normalize embeddings (L2 norm = 1)
-        embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
-        
-        # Convert to CPU and then to Python list
+        # Convert to numpy array if not already
         if isinstance(embeddings, torch.Tensor):
             embeddings = embeddings.cpu().numpy()
         
+        # Ensure float32 dtype
+        embeddings = embeddings.astype(np.float32)
+        
+        # Clean any NaN or Inf values (replace with zeros)
+        embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=0.0, neginf=0.0)
+        
+        # Safe L2 normalization: divide by (norm + epsilon) to avoid division by zero
+        # For cosine similarity, embeddings must be L2-normalized
+        norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
+        epsilon = 1e-12
+        embeddings = embeddings / (norms + epsilon)
+        
+        # Ensure still float32 after normalization
+        embeddings = embeddings.astype(np.float32)
+        
+        # Convert to plain Python list of floats (float32)
         return embeddings.tolist()
     
     def embed_query(self, text: str) -> List[float]:
