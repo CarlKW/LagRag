@@ -21,13 +21,11 @@ Typical usage (pseudocode):
         RAGGenerator,
     )
 
-    def my_retriever(query: str, k: int) -> list[ContextChunk]:
-        # Call your existing index / retriever here and wrap results.
-        ...
-
     lm = LocalHFModel(model_name_or_path="gpt2")  # example model
     generator = RAGGenerator(lm=lm, retriever=my_retriever)
+    retriever = RerankingRetriever(database)
 
+    retriver = RerankingRetriever(persistent dir)
     chunks = my_retriever("What is RAG?", k=10)
     result = generator.generate_answer(query="What is RAG?", initial_context=chunks)
 
@@ -48,18 +46,10 @@ import logging
 import re
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Callable, Dict, Iterable, List, Optional, Protocol
+from typing import Any, Dict, Iterable, List, Optional
 from generation.lm_wrapper import LocalHFModel, get_local_lm
+from generator.retriever import RerankingRetriever 
 
-
-try:
-    from transformers import AutoModelForCausalLM, AutoTokenizer
-    import torch
-except ImportError as exc:  # pragma: no cover - import-time dependency
-    raise ImportError(
-        "transformers and torch are required for LocalHFModel. "
-        "Install them with `pip install transformers torch`."
-    ) from exc
 
 logger = logging.getLogger(__name__)
 
@@ -323,7 +313,7 @@ class RAGGenerator:
     def __init__(
         self,
         lm: LocalHFModel,   ### Our downloaded model
-        retriever: Optional[RetrieverFn] = None,   # The reetriever from Carl 
+        retriever: Optional[RerankingRetriever] = None,   # The reetriever from Carl 
         k: int = 10,  # tune
         max_retrieval_rounds: int = 2,  # tune
         high_threshold: float = 0.75,  # tune
@@ -446,8 +436,6 @@ __all__ = [
     "ContextChunk",
     "AnswerStatus",
     "GenerationResult",
-    "RetrieverFn",
-    "LocalHFModel",
     "generate_raw_answer",
     "score_answer",
     "evaluate_answer",

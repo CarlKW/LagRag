@@ -1,0 +1,395 @@
+==========================================
+Job ID: 114007
+Job Name: lagrag_pipeline
+Node: neptune
+Start Time: Tue Dec 16 10:57:14 AM CET 2025
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+Starting pipeline...
+================================================================================
+RAG PIPELINE TEST
+================================================================================
+
+[1/4] Loading documents from /data/users/spreitz/LagRag/data/sfs_lagboken_1990plus_filtered.jsonl...
+Loaded 5415 total documents
+Processing 1000 documents for testing
+
+First document:
+  SFS nr: 1991:1867
+  Type: lag
+  Title: Lag (1991:1867)
+om avdrag för kostnader för bilresor 
+till och från  arbetsplats...
+  Content length: 674 characters
+
+[2/4] Chunking documents...
+Warning: 2015 chunks below min_words, 16 chunks above max_words
+Created 7389 chunks from 1000 documents
+
+================================================================================
+CHUNK SUMMARY
+================================================================================
+Total chunks created: 7389
+
+Chunks per paragraph (top 10):
+  1 §: 831 chunk(s)
+  3 §: 716 chunk(s)
+  5 §: 562 chunk(s)
+  7 §: 471 chunk(s)
+  9 §: 408 chunk(s)
+  complete_document: 334 chunk(s)
+  11 §: 299 chunk(s)
+  4 §: 294 chunk(s)
+  13 §: 256 chunk(s)
+  6 §: 231 chunk(s)
+
+================================================================================
+SAMPLE CHUNKS (first 5 chunks)
+================================================================================
+
+--- Chunk 1 ---
+SFS nr: 1991:1867
+Type: lag
+Paragraph: complete_document
+Short document: Yes (total words: 94)
+Word count: ~94 words
+Content preview:
+  Lag (1991:1867)
+om avdrag för kostnader för bilresor 
+till och från arbetsplatsen
+vid 1993 års taxering
+
+SFS nr: 1991:1867
+Departement/myndighet: Finansdepartementet S5 
+Utfärdad: 1991-12-19
+Omtryck: ...
+  ... (474 more characters)
+
+--- Chunk 2 ---
+SFS nr: 1991:1870
+Type: lag
+Paragraph: complete_document
+Short document: Yes (total words: 90)
+Word count: ~90 words
+Content preview:
+  Lag (1991:1870) om överflyttande av 
+arbetsuppgifter från Riksskatteverkets
+sjömansskattekontor till skattemyndigheten 
+i Göteborgs och Bohus län;
+
+SFS nr: 1991:1870
+Departement/myndighet: Finansdepar...
+  ... (565 more characters)
+
+--- Chunk 3 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: complete_document
+Short document: Yes (total words: 147)
+Word count: ~147 words
+Content preview:
+  Förordning (1991:1881) om medgivande enligt sjömanslagen (1973:282)
+
+SFS nr: 1991:1881
+Departement/myndighet: Landsbygds- och infrastrukturdepartementet RSIB TM 
+Utfärdad: 1991-12-19
+Omtryck: 
+Ändrad:...
+  ... (986 more characters)
+
+--- Chunk 4 ---
+SFS nr: 1991:1886
+Type: lag
+Paragraph: complete_document
+Short document: Yes (total words: 269)
+Word count: ~269 words
+Content preview:
+  Lag (1991:1886) om dubbelbeskattningsavtal mellan Sverige och Singapore
+
+SFS nr: 1991:1886
+Departement/myndighet: Finansdepartementet S3 
+Utfärdad: 1991-12-19
+Omtryck: 
+Ändrad: t.o.m. SFS 2011:1348
+Öv...
+  ... (1658 more characters)
+
+--- Chunk 5 ---
+SFS nr: 1991:1919
+Type: lag
+Paragraph: complete_document
+Short document: Yes (total words: 72)
+Word count: ~72 words
+Content preview:
+  Lag (1991:1919) om uttag av preliminär B-skatt under uppbördsåret 1992/93
+
+SFS nr: 1991:1919
+Departement/myndighet: Finansdepartementet S3 
+Utfärdad: 1991-12-19
+Omtryck: 
+Ändrad: 
+Övrig text: 
+Källa: ...
+  ... (323 more characters)
+
+[3/4] Creating embeddings and vector store...
+Loading embedding model (this may take a moment on first run)...
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda, Dtype: torch.bfloat16
+Base model loaded (MNTP adapter not found as separate PEFT adapter - may be merged)
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+Embedding model loaded.
+Creating vector store in ./chroma_db_test...
+Vector store created successfully!
+
+[4/4] Testing queries...
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "När får bidraget betalas ut för investeringsbidrag?"
+Retrieving top 3 results...
+
+================================================================================
+Result 1 (Score: 0.4308)
+================================================================================
+SFS nr: 1992:986
+Type: förordning
+Title: Förordning (1992:986) om statlig bostadsbyggnadssubvention...
+Paragraph: 19 §
+Has surrounding context: Yes
+Context paragraphs: 18 §, 19 §, 19 a §
+Organ: Socialdepartementet
+
+Content:
+18 § En ansökan om bidrag skall ha kommit in till länsstyrelsen
+senast den 30 juni 2007. Förordning (2006:1586).
+
+19 § Om länsstyrelsen finner att bidrag kan lämnas, skall den
+meddela ett bidragsbeslut om storleken av bidragsunderlaget. I
+annat fall skall ansökan avslås.
+
+Om länsstyrelsen har meddelat ett bidragsbeslut skall
+länsstyrelsen, om sökanden ansöker om utbetalning av bidraget,
+meddela ett beslut om utbetalning. Förordning (2006:1586).
+
+19 a § En ansökan om utbetalning av bidrag ska ha kommit in
+till länsstyrelsen
+
+1. om projektet har färdigställts före den 1 januari 2007,
+senast den 30 juni 2007 eller, om länsstyrelsens bidragsbeslut
+meddelats efter den 30 april 2007, inom två månader från
+bidragsbeslutet,
+
+2. om projektet har färdigställts efter den 30 september 2011,
+senast den 31 mars 2012, och
+
+3. i övriga fall, inom sex månader från det att projektet har
+färdigställts eller inom två månader från bidragsbeslutet.
+Förordning (2008:746).
+
+================================================================================
+Result 2 (Score: 0.4515)
+================================================================================
+SFS nr: 1995:802
+Type: förordning
+Title: Förordning (1995:802) om bidrag för förbättring 
+av inomhusmiljön i bostäder och vissa lokaler...
+Paragraph: 7 §
+Has surrounding context: Yes
+Context paragraphs: 6 §, 7 §, 8 §
+Organ: Miljödepartementet
+
+Content:
+6 § Bidrag lämnas med högst 30 procent av ett bidragsunderlag som
+består av
+
+1. kostnaden enligt det eller de anbud som redovisar den lägsta
+kostnaden för bidragsberättigade åtgärder, och
+
+2. skäliga kostnader för kontroll och besiktning av utförda arbeten.
+
+Bidrag lämnas inte om kostnaden enligt första stycket 1 understiger
+50 000 kronor.
+
+Förfarandet i bidragsärenden
+
+7 § Ansökan om bidrag skall göras hos länsstyrelsen i det län där
+byggnaden är belägen. Länsstyrelsen prövar om projektet skall ha rätt
+till bidrag och beslutar vid bifall att bidrag skall lämnas under
+angivna förutsättningar.
+
+Bidrag betalas ut efter särskild begäran hos länsstyrelsen sedan de
+bidragsberättigade åtgärderna har slutförts. Ansökan om utbetalning
+av bidrag skall ha kommit in till länsstyrelsen senast den 31 mars
+1998.
+
+Beslut om bidrag skall återkallas helt eller delvis, om projektet
+
+1. inte uppfyller de krav som uppställts för bidrag eller
+
+2. inte har påbörjats inom den tid som angetts i beslutet och det
+inte finns särskilda skäl att medge anstånd med påbörjandet.
+
+Om förutsättningarna för bidrag har uppfyllts, skall länsstyrelsen
+besluta om att utbetalning skall ske med belopp som följer av 6 §.
+Förordning (1996:1372).
+
+Hur bidraget utbetalas
+
+8 § Utbetalningen av bidraget verkställs av Boverket.
+
+Bidrag betalas ut till den som äger huset vid tidpunkten för
+utbetalningen.
+
+Särskilda uppgifter för Boverket
+
+================================================================================
+Result 3 (Score: 0.4530)
+================================================================================
+SFS nr: 1993:382
+Type: förordning
+Title: Förordning (1993:382) om statligt stöd till yrkesfisket m.m....
+Paragraph: 15 §
+Has surrounding context: Yes
+Context paragraphs: 14 §, 15 §, 16 §
+Organ: Jordbruksdepartementet
+
+Content:
+14 § Lånegaranti får lämnas för de ändamål som anges i 7 § och för
+sådana investeringar i fiskodlingsföretag som har en ekonomisk
+livslängd som kan beräknas överstiga tre år. Förordning (1993:975).
+
+Särskilda bestämmelser om statsbidrag
+
+15 § Ett beslut om bidrag får upphävas och bidrag som lämnats ut
+får återkrävas, om bidraget beviljats på grund av oriktig eller
+ofullständig uppgift från bidragstagaren eller denne bryter mot
+villkoren för bidraget.
+
+16 § Bidrag som avses i 6 § lämnas som avskrivningslån.
+
+Avskrivningslån skall skrivas av tio år efter det att lånet helt har
+betalats ut, om inte något annat följer av 15 eller 17 §. Annan
+avskrivningstid får bestämmas om det finns särskilda skäl.
+
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "skatt för singapor"
+Retrieving top 3 results...
+
+================================================================================
+Result 1 (Score: 0.4784)
+================================================================================
+SFS nr: 1995:240
+Type: förordning
+Title: Förordning (1995:240) om möjlighet för kvinnor att fullgöra värnplikt eller civilplikt med längre gr...
+Paragraph: 1 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 4 §
+Organ: Försvarsdepartementet
+
+Content:
+1 § Ansökan om antagning till grundutbildning enligt lagen
+(1994:1810) om möjlighet för kvinnor att fullgöra värnplikt
+eller civilplikt med längre grundutbildning ska ges in till
+Totalförsvarets pliktverk. Den som har gett in en ansökan före
+den 1 november ett år och som uppfyller eller vid
+antagningsprövningen kommer att uppfylla förutsättningarna i
+
+4 § och som bedöms ha förutsättningar för att antas till
+grundutbildning enligt 3 § andra stycket nämnda lag ska kallas
+till en antagningsprövning senast under det följande året.
+
+Skatteverket ska före den 15 januari varje år lämna uppgifter
+till Totalförsvarets pliktverk om varje svensk kvinna som är
+folkbokförd i landet och som under året fyller 17 år.
+Förordning (2007:1262).
+
+================================================================================
+Result 2 (Score: 0.4805)
+================================================================================
+SFS nr: 1992:670
+Type: lag
+Title: Lag (1992:670) om statligt utjämningsbidrag 
+till kommuner...
+Paragraph: 12 §
+Has surrounding context: Yes
+Context paragraphs: 11 §, 12 §, 13 §
+Organ: Inrikesdepartementet KL
+
+Content:
+11 § Regeringen, eller den myndighet regeringen bestämmer, meddelar
+närmare bestämmelser om beräkningen av tillägg och avdrag enligt 5 §.
+
+Regeringen skall förordna om den skattesats som skall tillämpas enligt 3
+§. När regeringen fastställer skattesatsen skall hänsyn tas till
+överenskommelser mellan respektive landsting och kommuner inom
+landstingsområdet om en ändrad fördelning av uppgifterna inom området
+jämte åtföljande förändrad fördelning av den sammanlagda landstings- och
+kommunalskatten. Lag (1992:1585).
+
+12 § Statistiska centralbyrån skall senast den 10 september året för
+bidragsåret lämna uppgift till kommunen om uppskattat statligt
+utjämningsbidrag. Lag (1992:1585).
+
+13 § Statistiska centralbyrån fastställer den uppräknade
+medelskattekraften senast den 31 december året före bidragsåret.
+
+Skattemyndigheten fastställer statligt utjämningsbidrag samt lämnar
+senast den 25 januari bidragsåret uppgift till kommunen om bidragets
+storlek.
+
+================================================================================
+Result 3 (Score: 0.4855)
+================================================================================
+SFS nr: 1995:1516
+Type: lag
+Title: Lag (1995:1516) om utjämningsavgift för kommuner
+och landsting...
+Paragraph: 8 §
+Has surrounding context: Yes
+Context paragraphs: 7 §, 8 §, 9 §
+Organ: Finansdepartementet KE
+
+Content:
+7 § Regeringen eller den myndighet regeringen bestämmer meddelar
+närmare föreskrifter om beräkningen av avgiften enligt 4 och 5 §§.
+
+Regeringen skall fastställa de skattesatser som skall tillämpas
+enligt 4 §. När regeringen fastställer skattesatserna skall hänsyn
+tas till överenskommelser mellan landstinget och kommunerna inom
+landstingsområdet om en ändrad fördelning av uppgifterna inom området
+och den ändrade fördelning av den sammanlagda landstings- och
+kommunalskatten som följer av överenskommelserna.
+
+8 § Statistiska centralbyrån skall senast den 1 oktober året före
+avgiftsåret lämna uppgift till varje kommun och landsting om
+preliminära avgifter enligt 4 och 5 §§. Lag (1996:745).
+
+9 § Skatteverket beslutar preliminärt avgifternas storlek
+samt lämnar senast den 20 januari under avgiftsåret uppgift
+till varje kommun och landsting om storleken av dess
+preliminära avgift.
+
+Kommuner och landsting kan senast den 15 februari påtala att
+ett fel uppkommit i underlaget för beslutet.
+
+Skatteverket fastställer avgifternas storlek samt lämnar
+senast den 15 april uppgift till varje kommun och landsting om
+storleken av dess avgift. Lag (2003:663).
+
+
+================================================================================
+Pipeline test completed successfully!
+Vector store saved to: ./chroma_db_test
+================================================================================
+==========================================
+End Time: Tue Dec 16 11:04:20 AM CET 2025
+Job completed
+==========================================
