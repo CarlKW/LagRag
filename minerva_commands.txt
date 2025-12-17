@@ -1,0 +1,11 @@
+short:
+salloc --gres=gpu --time=00:30:00
+
+long:
+salloc --gres=gpu --time=01:00:00 -p long
+
+srun --pty bash
+
+sbatch RUN.sh
+
+scancel ID

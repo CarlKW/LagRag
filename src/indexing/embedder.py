@@ -25,9 +25,9 @@ class TTCEmbeddings(Embeddings):
     """
     LangChain-compatible embedding class using TTC-L2V-supervised-2 model.
     
-    This class loads the base model jealk/llm2vec-scandi-mntp-v2,
-    applies the MNTP LoRA adapter from the base model, and then applies
-    the supervised adapter jealk/TTC-L2V-supervised-2.
+    This class loads the base model jealk/llm2vec-scandi-mntp-v2
+    (which already has MNTP merged) and applies the supervised adapter
+    jealk/TTC-L2V-supervised-2.
     """
     
     def __init__(self, base_model_name: str = "jealk/llm2vec-scandi-mntp-v2", 
@@ -55,57 +55,36 @@ class TTCEmbeddings(Embeddings):
         self.tokenizer = AutoTokenizer.from_pretrained(base_model_name)
         # Load config first and modify it
         config = AutoConfig.from_pretrained(base_model_name)
-        # Remove adapter configs to prevent auto-loading
-        if hasattr(config, 'adapter_config') or hasattr(config, 'peft_config'):
-            # Clear any adapter-related configs
-            pass
 
-        # Load model without auto-loading adapters
+
+        # # Remove adapter configs to prevent auto-loading
+        # if hasattr(config, 'adapter_config') or hasattr(config, 'peft_config'):
+        #     # Clear any adapter-related configs
+        #     pass
+
+        # Load base model (MNTP is already merged into jealk/llm2vec-scandi-mntp-v2)
         base_model = AutoModel.from_pretrained(
             base_model_name,
             config=config,
             torch_dtype=self.dtype,
             trust_remote_code=True
         )
-        
-        # Apply MNTP adapter from base model repo if it exists
-        # The base model jealk/llm2vec-scandi-mntp-v2 may have MNTP adapter in a subdirectory
-        # Common locations: the base model repo might have an "adapter" or "mntp_adapter" subdirectory
-        # or the MNTP adapter may already be merged into the base model
-        model_with_mntp = base_model
-        
-        # Try to load MNTP adapter from common subdirectory locations in the base model repo
-        mntp_adapter_paths = [
-            f"{base_model_name}/adapter",  # Common subdirectory name
-            f"{base_model_name}/mntp_adapter",  # Alternative name
-        ]
-        
-        # Try loading MNTP adapter
-        mntp_loaded = False
-        for mntp_path in mntp_adapter_paths:
+
+        # If the model object has a peft_config attribute, remove it to avoid stacked adapters warnings
+        if hasattr(base_model, "peft_config"):
+            print("WARNING: base_model already has peft_config; deleting to avoid stacked adapters")
             try:
-                model_with_mntp = PeftModel.from_pretrained(
-                    base_model,
-                    mntp_path,
-                    torch_dtype=self.dtype
-                )
-                print(f"Loaded MNTP adapter from: {mntp_path}")
-                mntp_loaded = True
-                break
-            except (ValueError, OSError, TypeError, Exception):
-                # If loading fails, the adapter doesn't exist at this path
-                # This is expected if MNTP is already merged or doesn't exist separately
-                continue
+                delattr(base_model, "peft_config")
+            except Exception as e:
+                print(f"WARNING: could not delete peft_config: {e}")
         
-        if not mntp_loaded:
-            # Base model may already have MNTP merged, or it's a standard model
-            print("Base model loaded (MNTP adapter not found as separate PEFT adapter - may be merged)")
-        
-        # Load the supervised adapter on top of the model (with or without MNTP)
+        # Load the supervised adapter on top of the base model
+        # Note: We skip trying to load MNTP separately to avoid double-PEFT issues.
+        # The base model jealk/llm2vec-scandi-mntp-v2 already has MNTP merged.
         print(f"Loading supervised adapter: {adapter_name}")
         try:
             model_with_supervised = PeftModel.from_pretrained(
-                model_with_mntp,
+                base_model,
                 adapter_name,
                 torch_dtype=self.dtype
             )
@@ -156,19 +135,32 @@ class TTCEmbeddings(Embeddings):
         # Ensure float32 dtype
         embeddings = embeddings.astype(np.float32)
         
-        # Clean any NaN or Inf values (replace with zeros)
+        # Clean any NaN or Inf values BEFORE normalization (replace with zeros)
+        # This prevents NaN/Inf from propagating through normalization
         embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=0.0, neginf=0.0)
         
         # Safe L2 normalization: divide by (norm + epsilon) to avoid division by zero
         # For cosine similarity, embeddings must be L2-normalized
+        # Expected norm after normalization: ≈ 1.0 (within numerical precision)
         norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
         epsilon = 1e-12
         embeddings = embeddings / (norms + epsilon)
         
-        # Ensure still float32 after normalization
+        # Clean NaN/Inf values AGAIN after normalization (defensive programming)
+        # This guarantees no NaN/Inf can ever reach Chroma
+        embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=0.0, neginf=0.0)
+        
+        # Sanity check: verify all norms are finite after normalization
+        final_norms = np.linalg.norm(embeddings, axis=1)
+        assert np.all(np.isfinite(final_norms)), "Embeddings contain non-finite values after normalization"
+        # Expected norm ≈ 1.0 (within numerical precision due to epsilon)
+        # In practice, norms will be slightly less than 1.0 due to epsilon in denominator
+        
+        # Ensure still float32 after normalization and cleaning
         embeddings = embeddings.astype(np.float32)
         
         # Convert to plain Python list of floats (float32)
+        # This ensures Chroma receives clean, normalized, float32 embeddings
         return embeddings.tolist()
     
     def embed_query(self, text: str) -> List[float]:
