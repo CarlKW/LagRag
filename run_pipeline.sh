@@ -83,8 +83,6 @@ python -u src/pipeline.py \
     --retriever-type "reranking" \
     --k-initial 50 \
     --k-final 1 \
-    --reranker-model "jinaai/jina-reranker-v2-base-multilingual" \
-    --lm-model "gpt2" \
     --max-retrieval-rounds 2 \
     --high-threshold 0.75 \
     --low-threshold 0.40 \

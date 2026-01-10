@@ -314,7 +314,7 @@ class RAGGenerator:
     def __init__(
         self,
         lm: LocalHFModel,   ### Our downloaded model
-        retriever: Optional[RerankingRetriever] = None,   # The reetriever from Carl 
+        retriever: Optional[RerankingRetriever] = None,   # The reetriever from our pipeline
         k: int = 10,  # tune
         max_retrieval_rounds: int = 2,  # tune
         high_threshold: float = 0.75,  # tune

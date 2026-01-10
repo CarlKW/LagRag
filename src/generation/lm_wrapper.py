@@ -98,7 +98,7 @@ _LM_INSTANCE: Optional[LocalHFModel] = None
 
 
 def get_local_lm(
-    model_name_or_path: str = "gpt2",  # TODO: set your real model
+    model_name_or_path: str =  "AI-Sweden-Models/Llama-3-8B-instruct",  
     device: Optional[str] = None,
     dtype: Optional[torch.dtype] = None,
     **default_generate_kwargs: Any,

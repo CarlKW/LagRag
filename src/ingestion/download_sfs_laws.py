@@ -115,19 +115,19 @@ def main():
 
                     text_url = get_text_url(d)
                     if not text_url:
-                        print(f"⚠️ Ingen text-URL för {dok_id} ({titel}), hoppar över.")
+                        print(f"Ingen text-URL för {dok_id} ({titel}), hoppar över.")
                         continue
 
                     try:
                         fulltext = fetch_fulltext(text_url)
                     except requests.HTTPError as e:
                         if e.response is not None and e.response.status_code == 404:
-                            print(f"⚠️ 404 för {dok_id} ({titel}), hoppar över.")
+                            print(f" 404 för {dok_id} ({titel}), hoppar över.")
                             continue
-                        print(f"⚠️ HTTP-fel för {dok_id} ({titel}): {e}")
+                        print(f" HTTP-fel för {dok_id} ({titel}): {e}")
                         continue
                     except Exception as e:
-                        print(f"⚠️ Kunde inte hämta text för {dok_id} ({titel}): {e}")
+                        print(f"Kunde inte hämta text för {dok_id} ({titel}): {e}")
                         continue
 
                     record = {
@@ -163,7 +163,7 @@ def main():
 
             time.sleep(2)
 
-    print(f"\n✅ Klar! Sparade totalt {total_count} SFS-dokument (från {START_YEAR}) i {OUTPUT_FILE}")
+    print(f"\nKlar! Sparade totalt {total_count} SFS-dokument (från {START_YEAR}) i {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":
