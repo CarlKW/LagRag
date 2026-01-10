@@ -6,12 +6,12 @@ This uses LLM2Vec with a base model and PEFT adapters:
 - Adapter: jealk/TTC-L2V-supervised-2
 """
 
-from typing import List
+from typing import List, Optional
 import numpy as np
 import torch
 from langchain_core.embeddings import Embeddings
 from transformers import AutoConfig, AutoModel, AutoTokenizer
-
+# from src.config import DEFAULT_MODEL_CONFIG  potentisl circular import
 try:
     from llm2vec import LLM2Vec
     from peft import PeftModel
@@ -19,6 +19,8 @@ except ImportError:
     raise ImportError(
         "Required packages not installed. Please run: pip install llm2vec peft accelerate"
     )
+
+
 
 
 class TTCEmbeddings(Embeddings):
@@ -31,7 +33,8 @@ class TTCEmbeddings(Embeddings):
     """
     
     def __init__(self, base_model_name: str = "jealk/llm2vec-scandi-mntp-v2", 
-                 adapter_name: str = "jealk/TTC-L2V-supervised-2"):
+                 adapter_name: str = "jealk/TTC-L2V-supervised-2", 
+                 device: Optional[str] = None):
         """
         Initialize the embedding model.
         
@@ -39,12 +42,17 @@ class TTCEmbeddings(Embeddings):
             base_model_name: Name of the base model (default: jealk/llm2vec-scandi-mntp-v2)
             adapter_name: Name of the adapter (default: jealk/TTC-L2V-supervised-2)
         """
+        from src.config import DEFAULT_MODEL_CONFIG
+
         self.base_model_name = base_model_name
         self.adapter_name = adapter_name
         
-        # Detect device
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        
+
+        # Use specified device
+        if device is None:
+            device = DEFAULT_MODEL_CONFIG.embedding_device
+        self.device = torch.device(device)
+
         # Determine dtype based on device
         self.dtype = torch.bfloat16 if self.device.type == "cuda" else torch.float32
         
@@ -177,19 +185,22 @@ class TTCEmbeddings(Embeddings):
         return self.embed_documents([text])[0]
 
 
-def get_embedding_function(base_model_name: str = "jealk/llm2vec-scandi-mntp-v2",
-                          adapter_name: str = "jealk/TTC-L2V-supervised-2") -> Embeddings:
-    """
-    Get a LangChain-compatible embedding function.
+def get_embedding_function(
+    base_model_name: Optional[str] = None,
+    adapter_name: Optional[str] = None,
+    device: Optional[str] = None
+) -> Embeddings:
+    """Get a LangChain-compatible embedding function."""
+    from src.config import DEFAULT_MODEL_CONFIG
     
-    Args:
-        base_model_name: Name of the base model (default: jealk/llm2vec-scandi-mntp-v2)
-        adapter_name: Name of the adapter (default: jealk/TTC-L2V-supervised-2)
-        
-    Returns:
-        LangChain Embeddings object that can be passed to vector stores
-    """
-    return TTCEmbeddings(base_model_name=base_model_name, adapter_name=adapter_name)
+    if base_model_name is None:
+        base_model_name = DEFAULT_MODEL_CONFIG.embedding_base_model
+    if adapter_name is None:
+        adapter_name = DEFAULT_MODEL_CONFIG.embedding_adapter
+    if device is None:
+        device = DEFAULT_MODEL_CONFIG.embedding_device
+    
+    return TTCEmbeddings(base_model_name=base_model_name, adapter_name=adapter_name, device=device)
 
 
 if __name__ == "__main__":

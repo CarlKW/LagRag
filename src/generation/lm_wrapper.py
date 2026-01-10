@@ -10,6 +10,8 @@ from typing import Any, Dict, Optional
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from src.config import DEFAULT_MODEL_CONFIG
+
 logger = logging.getLogger(__name__)
 
 
@@ -18,7 +20,11 @@ class LocalHFModel:
     Thin wrapper around a local HuggingFace causal language model.
 
     Usage:
-        lm = LocalHFModel("gpt2")
+        lm = LocalHFModel("AI-Sweden-Models/Llama-3-8B-instruct")
+        out = lm.generate("Hello", max_new_tokens=32)
+        
+    Or use get_local_lm() which uses DEFAULT_MODEL_CONFIG.generation_model:
+        lm = get_local_lm()
         out = lm.generate("Hello", max_new_tokens=32)
     """
 
@@ -98,7 +104,7 @@ _LM_INSTANCE: Optional[LocalHFModel] = None
 
 
 def get_local_lm(
-    model_name_or_path: str =  "AI-Sweden-Models/Llama-3-8B-instruct",  
+    model_name_or_path: Optional[str] = None,
     device: Optional[str] = None,
     dtype: Optional[torch.dtype] = None,
     **default_generate_kwargs: Any,
@@ -106,10 +112,13 @@ def get_local_lm(
     """
     Lazily create and return a singleton LocalHFModel.
 
+    If model_name_or_path is None, uses DEFAULT_MODEL_CONFIG.generation_model.
     Call this once at startup or wherever you wire the pipeline together.
     """
     global _LM_INSTANCE
     if _LM_INSTANCE is None:
+        if model_name_or_path is None:
+            model_name_or_path = DEFAULT_MODEL_CONFIG.generation_model
         _LM_INSTANCE = LocalHFModel(
             model_name_or_path=model_name_or_path,
             device=device,

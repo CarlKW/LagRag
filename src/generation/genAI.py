@@ -15,18 +15,19 @@ This module provides:
 
 Typical usage (pseudocode):
 
-    from generation.genAI import (
+    from src.generation.genAI import (
         ContextChunk,
-        LocalHFModel,
         RAGGenerator,
     )
+    from src.generation.lm_wrapper import get_local_lm
+    from src.generator.retriever import RerankingRetriever
 
-    lm = LocalHFModel(model_name_or_path="gpt2")  # example model
-    generator = RAGGenerator(lm=lm, retriever=my_retriever)
-    retriever = RerankingRetriever(database)
+    # Models use defaults from src.config.DEFAULT_MODEL_CONFIG
+    lm = get_local_lm()  # Uses DEFAULT_MODEL_CONFIG.generation_model
+    retriever = RerankingRetriever(persist_directory="./chroma_db_pipeline")
+    generator = RAGGenerator(lm=lm, retriever=retriever)
 
-    retriver = RerankingRetriever(persistent dir)
-    chunks = my_retriever("What is RAG?", k=10)
+    chunks = retriever.retrieve("What is RAG?")
     result = generator.generate_answer(query="What is RAG?", initial_context=chunks)
 
     print(result.status)

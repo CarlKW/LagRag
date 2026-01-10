@@ -4,15 +4,15 @@ search with the same embedding model used for indexing, and reranks the
 candidate chunks with a cross-encoder (jinaai/jina-reranker-v2-base-multilingual).
 """
 import sys
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Optional
 from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 import torch
 from langchain_chroma import Chroma
 from sentence_transformers import CrossEncoder
-
 from src.indexing.embedder import get_embedding_function
+from src.config import DEFAULT_MODEL_CONFIG, DEFAULT_PIPELINE_CONFIG
 
 
 class RerankingRetriever:
@@ -23,19 +23,20 @@ class RerankingRetriever:
 
     def __init__(
         self,
-        persist_directory: str = "./chroma_db_test",
-        k_initial: int = 30,
-        k_final: int = 5,
-        reranker_model: str = "jinaai/jina-reranker-v2-base-multilingual",
-        batch_size: int = 16,
-        collection_name: str = "sfs_paragraphs",
+        persist_directory: Optional[str] = None,
+        k_initial: Optional[int] = None,
+        k_final: Optional[int] = None,
+        reranker_model: Optional[str] = None,
+        batch_size: Optional[int] = None,
+        collection_name: Optional[str] = None,
     ):
-        self.persist_directory = persist_directory
-        self.k_initial = k_initial
-        self.k_final = k_final
-        self.batch_size = batch_size
-        self.reranker_model = reranker_model
-        self.collection_name = collection_name
+        # Use config defaults if arguments are None
+        self.persist_directory = persist_directory or DEFAULT_PIPELINE_CONFIG.chroma_db_path
+        self.k_initial = k_initial if k_initial is not None else DEFAULT_PIPELINE_CONFIG.k_initial
+        self.k_final = k_final if k_final is not None else DEFAULT_PIPELINE_CONFIG.k_final
+        self.batch_size = batch_size if batch_size is not None else DEFAULT_MODEL_CONFIG.reranker_batch_size
+        self.reranker_model = reranker_model or DEFAULT_MODEL_CONFIG.reranker_model
+        self.collection_name = collection_name or DEFAULT_PIPELINE_CONFIG.collection_name
 
         # Load the same embedding model used for chunk creation.
         self.embeddings = get_embedding_function()
@@ -55,13 +56,12 @@ class RerankingRetriever:
         except Exception as e:
             print(f"Warning: Could not retrieve collection count: {e}")
 
-        # Load reranker once; it is a cross-encoder that scores (query, doc) pairs.
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        # Load reranker with device from config
+        device = DEFAULT_MODEL_CONFIG.reranker_device
         self.reranker = CrossEncoder(
             self.reranker_model,
             device=device,
             trust_remote_code=True
-
         )
 
     def _initial_retrieve(self, query: str) -> List[Tuple[Any, float]]:

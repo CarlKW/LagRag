@@ -21,38 +21,53 @@ from src.generator.retriever_basic import BasicRetriever
 from src.generation.lm_wrapper import LocalHFModel, get_local_lm
 from src.generation.genAI import RAGGenerator, ContextChunk
 from src.generation.adapters import retriever_results_to_context_chunks
+from src.config import DEFAULT_MODEL_CONFIG, DEFAULT_PIPELINE_CONFIG
 
 
 def initialize_pipeline(
-    chroma_db_path: str = "./chroma_db_test",
-    retriever_type: str = "reranking",
-    collection_name: str = "sfs_paragraphs",
-    k_initial: int = 50,
-    k_final: int = 10,
-    reranker_model: str = "jinaai/jina-reranker-v2-base-multilingual",
-    lm_model_path: str = "gpt2",
-    max_retrieval_rounds: int = 2,
-    high_threshold: float = 0.75,
-    low_threshold: float = 0.40,
+    chroma_db_path: Optional[str] = None,
+    retriever_type: Optional[str] = None,
+    collection_name: Optional[str] = None,
+    k_initial: Optional[int] = None,
+    k_final: Optional[int] = None,
+    reranker_model: Optional[str] = None,
+    lm_model_path: Optional[str] = None,
+    max_retrieval_rounds: Optional[int] = None,
+    high_threshold: Optional[float] = None,
+    low_threshold: Optional[float] = None,
 ):
     """
     Initialize the complete RAG pipeline.
     
+    All arguments are optional and will use defaults from DEFAULT_MODEL_CONFIG
+    and DEFAULT_PIPELINE_CONFIG if None.
+    
     Args:
-        chroma_db_path: Path to ChromaDB directory
-        retriever_type: "reranking" or "basic"
-        collection_name: ChromaDB collection name
-        k_initial: Initial retrieval count for reranking retriever
-        k_final: Final retrieval count after reranking
-        reranker_model: Model name for reranker
-        lm_model_path: Path to language model for generation
-        max_retrieval_rounds: Maximum active retrieval rounds
-        high_threshold: High confidence threshold for answers
-        low_threshold: Low confidence threshold for answers
+        chroma_db_path: Path to ChromaDB directory (default: from DEFAULT_PIPELINE_CONFIG)
+        retriever_type: "reranking" or "basic" (default: from DEFAULT_PIPELINE_CONFIG)
+        collection_name: ChromaDB collection name (default: from DEFAULT_PIPELINE_CONFIG)
+        k_initial: Initial retrieval count for reranking retriever (default: from DEFAULT_PIPELINE_CONFIG)
+        k_final: Final retrieval count after reranking (default: from DEFAULT_PIPELINE_CONFIG)
+        reranker_model: Model name for reranker (default: from DEFAULT_MODEL_CONFIG)
+        lm_model_path: Path to language model for generation (default: from DEFAULT_MODEL_CONFIG)
+        max_retrieval_rounds: Maximum active retrieval rounds (default: from DEFAULT_PIPELINE_CONFIG)
+        high_threshold: High confidence threshold for answers (default: from DEFAULT_PIPELINE_CONFIG)
+        low_threshold: Low confidence threshold for answers (default: from DEFAULT_PIPELINE_CONFIG)
         
     Returns:
         Tuple of (retriever, generator)
     """
+    # Use config defaults if arguments are None
+    chroma_db_path = chroma_db_path or DEFAULT_PIPELINE_CONFIG.chroma_db_path
+    retriever_type = retriever_type or DEFAULT_PIPELINE_CONFIG.retriever_type
+    collection_name = collection_name or DEFAULT_PIPELINE_CONFIG.collection_name
+    k_initial = k_initial if k_initial is not None else DEFAULT_PIPELINE_CONFIG.k_initial
+    k_final = k_final if k_final is not None else DEFAULT_PIPELINE_CONFIG.k_final
+    reranker_model = reranker_model or DEFAULT_MODEL_CONFIG.reranker_model
+    lm_model_path = lm_model_path or DEFAULT_MODEL_CONFIG.generation_model
+    max_retrieval_rounds = max_retrieval_rounds if max_retrieval_rounds is not None else DEFAULT_PIPELINE_CONFIG.max_retrieval_rounds
+    high_threshold = high_threshold if high_threshold is not None else DEFAULT_PIPELINE_CONFIG.high_threshold
+    low_threshold = low_threshold if low_threshold is not None else DEFAULT_PIPELINE_CONFIG.low_threshold
     print("=" * 80)
     print("Initializing RAG Pipeline")
     print("=" * 80)
@@ -75,12 +90,16 @@ def initialize_pipeline(
         )
     else:
         raise ValueError(f"Unknown retriever type: {retriever_type}")
-    print("✓ Retriever initialized")
+    print("Retriever initialized")
     
-    # Initialize language model
+   # Initialize language model
     print(f"\n[2/3] Loading language model: {lm_model_path}...")
-    lm = get_local_lm(model_name_or_path=lm_model_path)
-    print("✓ Language model loaded")
+    from src.config import DEFAULT_MODEL_CONFIG
+    lm = get_local_lm(
+        model_name_or_path=lm_model_path,
+        device=DEFAULT_MODEL_CONFIG.generation_device  # Use GPU 1
+    )
+    print(f"Language model loaded on {DEFAULT_MODEL_CONFIG.generation_device}")
     
     # Initialize RAG generator
     print(f"\n[3/3] Initializing RAG generator...")
@@ -180,14 +199,14 @@ def main():
     parser.add_argument(
         "--chroma-db",
         type=str,
-        default="./chroma_db_test",
-        help="Path to ChromaDB directory (default: ./chroma_db_test)",
+        default=None,
+        help=f"Path to ChromaDB directory (default: {DEFAULT_PIPELINE_CONFIG.chroma_db_path})",
     )
     parser.add_argument(
         "--collection-name",
         type=str,
-        default="sfs_paragraphs",
-        help="ChromaDB collection name (default: sfs_paragraphs)",
+        default=None,
+        help=f"ChromaDB collection name (default: {DEFAULT_PIPELINE_CONFIG.collection_name})",
     )
     
     # Retriever configuration
@@ -195,52 +214,52 @@ def main():
         "--retriever-type",
         type=str,
         choices=["reranking", "basic"],
-        default="reranking",
-        help="Type of retriever to use (default: reranking)",
+        default=None,
+        help=f"Type of retriever to use (default: {DEFAULT_PIPELINE_CONFIG.retriever_type})",
     )
     parser.add_argument(
         "--k-initial",
         type=int,
-        default=50,
-        help="Initial retrieval count for reranking retriever (default: 50)",
+        default=None,
+        help=f"Initial retrieval count for reranking retriever (default: {DEFAULT_PIPELINE_CONFIG.k_initial})",
     )
     parser.add_argument(
         "--k-final",
         type=int,
-        default=10,
-        help="Final retrieval count after reranking (default: 10)",
+        default=None,
+        help=f"Final retrieval count after reranking (default: {DEFAULT_PIPELINE_CONFIG.k_final})",
     )
     parser.add_argument(
         "--reranker-model",
         type=str,
-        default="jinaai/jina-reranker-v2-base-multilingual",
-        help="Reranker model name (default: jinaai/jina-reranker-v2-base-multilingual)",
+        default=None,
+        help=f"Reranker model name (default: {DEFAULT_MODEL_CONFIG.reranker_model})",
     )
     
     # Generation configuration
     parser.add_argument(
         "--lm-model",
         type=str,
-        default="gpt2",
-        help="Language model path/name for generation (default: gpt2)",
+        default=None,
+        help=f"Language model path/name for generation (default: {DEFAULT_MODEL_CONFIG.generation_model})",
     )
     parser.add_argument(
         "--max-retrieval-rounds",
         type=int,
-        default=2,
-        help="Maximum active retrieval rounds (default: 2)",
+        default=None,
+        help=f"Maximum active retrieval rounds (default: {DEFAULT_PIPELINE_CONFIG.max_retrieval_rounds})",
     )
     parser.add_argument(
         "--high-threshold",
         type=float,
-        default=0.75,
-        help="High confidence threshold (default: 0.75)",
+        default=None,
+        help=f"High confidence threshold (default: {DEFAULT_PIPELINE_CONFIG.high_threshold})",
     )
     parser.add_argument(
         "--low-threshold",
         type=float,
-        default=0.40,
-        help="Low confidence threshold (default: 0.40)",
+        default=None,
+        help=f"Low confidence threshold (default: {DEFAULT_PIPELINE_CONFIG.low_threshold})",
     )
     
     # Query input
@@ -279,6 +298,7 @@ def main():
         parser.error("Must specify --query, --query-file, or --interactive")
     
     # Initialize pipeline
+    # Pass None for arguments not provided (will use config defaults)
     try:
         retriever, generator = initialize_pipeline(
             chroma_db_path=args.chroma_db,

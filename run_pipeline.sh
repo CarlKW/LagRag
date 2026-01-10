@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:2
 
 
 # Print job information
@@ -32,7 +32,7 @@ nvidia-smi --query-gpu=index,name,memory.total,utilization.gpu --format=csv 2>/d
 echo "=========================================="
 
 # Set up environment
-export CUDA_VISIBLE_DEVICES=0
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # Create logs directory if it doesn't exist
 mkdir -p logs
@@ -78,14 +78,6 @@ echo ""
 
 # Run the pipeline
 python -u src/pipeline.py \
-    --chroma-db "$CHROMA_DB" \
-    --collection-name "sfs_paragraphs" \
-    --retriever-type "reranking" \
-    --k-initial 50 \
-    --k-final 1 \
-    --max-retrieval-rounds 2 \
-    --high-threshold 0.75 \
-    --low-threshold 0.40 \
     --query-file "$QUERIES_FILE" \
     --output "$RESULTS_FILE" \
     2>&1 | tee "$METRICS_FILE"
