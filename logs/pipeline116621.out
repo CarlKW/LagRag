@@ -1,0 +1,56 @@
+==========================================
+Job ID: 116621
+Job Name: lagrag_pipeline
+Node: callisto
+Start Time: Sun Jan 11 02:09:38 PM CET 2026
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+==========================================
+Resource Information
+==========================================
+Allocated CPUs: 8
+Allocated Memory: 65536 MB
+Allocated GPUs: 
+
+CPU Count: 8
+GPU Info:
+index, name, memory.total [MiB], utilization.gpu [%]
+0, NVIDIA L4, 23034 MiB, 0 %
+1, NVIDIA L4, 23034 MiB, 0 %
+2, NVIDIA L4, 23034 MiB, 100 %
+3, NVIDIA L4, 23034 MiB, 96 %
+4, NVIDIA L4, 23034 MiB, 0 %
+5, NVIDIA L4, 23034 MiB, 0 %
+6, NVIDIA L4, 23034 MiB, 0 %
+7, NVIDIA L4, 23034 MiB, 0 %
+==========================================
+==========================================
+Starting RAG Pipeline
+==========================================
+ChromaDB path: ./chroma_db_pipeline
+Queries file: /data/users/spreitz/LagRag/src/generation/queries.txt
+Results will be saved to: logs/pipeline_results_116621.json
+Metrics will be saved to: logs/pipeline_metrics_116621.txt
+
+Error initializing pipeline: cannot access local variable 'DEFAULT_MODEL_CONFIG' where it is not associated with a value
+Traceback (most recent call last):
+  File "/data/users/spreitz/LagRag/src/pipeline.py", line 303, in main
+    retriever, generator = initialize_pipeline(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "/data/users/spreitz/LagRag/src/pipeline.py", line 66, in initialize_pipeline
+    reranker_model = reranker_model or DEFAULT_MODEL_CONFIG.reranker_model
+                                       ^^^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'DEFAULT_MODEL_CONFIG' where it is not associated with a value
+
+==========================================
+Pipeline Metrics Summary
+==========================================
+Results file not found: logs/pipeline_results_116621.json
+==========================================
+Full results saved to: logs/pipeline_results_116621.json
+Metrics saved to: logs/pipeline_metrics_116621.txt
+==========================================
+==========================================
+End Time: Sun Jan 11 02:16:50 PM CET 2026
+Job completed
+==========================================

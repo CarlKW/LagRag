@@ -60,7 +60,13 @@ class PipelineConfig:
 
 # Global default configuration instances
 # Override these or pass custom config to functions as needed
+# #region agent log
+import json; open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'config.py:63','message':'About to initialize DEFAULT_MODEL_CONFIG','data':{},'timestamp':__import__('time').time()*1000})+'\n')
+# #endregion
 DEFAULT_MODEL_CONFIG = ModelConfig()
+# #region agent log
+open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'config.py:64','message':'DEFAULT_MODEL_CONFIG initialized','data':{'type':type(DEFAULT_MODEL_CONFIG).__name__,'hasattr_embedding_device':hasattr(DEFAULT_MODEL_CONFIG,'embedding_device')},'timestamp':__import__('time').time()*1000})+'\n')
+# #endregion
 DEFAULT_PIPELINE_CONFIG = PipelineConfig()
 
 

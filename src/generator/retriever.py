@@ -4,6 +4,7 @@ search with the same embedding model used for indexing, and reranks the
 candidate chunks with a cross-encoder (jinaai/jina-reranker-v2-base-multilingual).
 """
 import sys
+import src.config
 from typing import Any, Dict, List, Tuple, Optional
 from pathlib import Path
 project_root = Path(__file__).parent.parent.parent
@@ -11,9 +12,14 @@ sys.path.insert(0, str(project_root))
 import torch
 from langchain_chroma import Chroma
 from sentence_transformers import CrossEncoder
-from src.indexing.embedder import get_embedding_function
+# #region agent log
+import json, sys; open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'retriever.py:15','message':'About to import DEFAULT_MODEL_CONFIG','data':{'config_in_sys_modules':'src.config' in sys.modules},'timestamp':__import__('time').time()*1000})+'\n')
+# #endregion
 from src.config import DEFAULT_MODEL_CONFIG, DEFAULT_PIPELINE_CONFIG
-
+# #region agent log
+open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'retriever.py:16','message':'DEFAULT_MODEL_CONFIG imported successfully','data':{'has_attr':hasattr(DEFAULT_MODEL_CONFIG if 'DEFAULT_MODEL_CONFIG' in locals() or 'DEFAULT_MODEL_CONFIG' in globals() else type('obj',(object,),{})(),'reranker_device') if 'DEFAULT_MODEL_CONFIG' in locals() or 'DEFAULT_MODEL_CONFIG' in globals() else False},'timestamp':__import__('time').time()*1000})+'\n')
+# #endregion
+from src.indexing.embedder import get_embedding_function
 
 class RerankingRetriever:
     """
@@ -39,7 +45,13 @@ class RerankingRetriever:
         self.collection_name = collection_name or DEFAULT_PIPELINE_CONFIG.collection_name
 
         # Load the same embedding model used for chunk creation.
+        # #region agent log
+        open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'retriever.py:42','message':'About to call get_embedding_function','data':{'DEFAULT_MODEL_CONFIG_in_globals':'DEFAULT_MODEL_CONFIG' in globals(),'DEFAULT_MODEL_CONFIG_in_locals':'DEFAULT_MODEL_CONFIG' in locals()},'timestamp':__import__('time').time()*1000})+'\n')
+        # #endregion
         self.embeddings = get_embedding_function()
+        # #region agent log
+        open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'retriever.py:43','message':'get_embedding_function returned','data':{},'timestamp':__import__('time').time()*1000})+'\n')
+        # #endregion
 
         # Connect to the existing Chroma DB with the same collection name.
         # Chroma will use cosine similarity as configured during indexing.
@@ -57,6 +69,10 @@ class RerankingRetriever:
             print(f"Warning: Could not retrieve collection count: {e}")
 
         # Load reranker with device from config
+        # #region agent log
+        try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'retriever.py:60','message':'About to access DEFAULT_MODEL_CONFIG.reranker_device','data':{'in_globals':'DEFAULT_MODEL_CONFIG' in globals(),'in_locals':'DEFAULT_MODEL_CONFIG' in locals(),'type_DEFAULT_MODEL_CONFIG':type(globals().get('DEFAULT_MODEL_CONFIG',None)).__name__ if 'DEFAULT_MODEL_CONFIG' in globals() else 'NOT_IN_GLOBALS'},'timestamp':__import__('time').time()*1000})+'\n')
+        except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'retriever.py:60','message':'ERROR accessing DEFAULT_MODEL_CONFIG for log','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
+        # #endregion
         device = DEFAULT_MODEL_CONFIG.reranker_device
         self.reranker = CrossEncoder(
             self.reranker_model,

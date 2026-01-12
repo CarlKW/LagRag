@@ -42,10 +42,13 @@ class LocalHFModel:
         logger.info("Loading generation model %s on %s", model_name_or_path, self.device)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)
 
+        # Use device_map to load directly on target device, avoiding temporary GPU memory usage
+        # device_map={"": str(self.device)} loads all layers on the specified device
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name_or_path,
             torch_dtype=dtype,
-        ).to(self.device)
+            device_map={"": str(self.device)},  # Load directly on target device
+        )
         self.model.eval()
 
         # Default generate kwargs (e.g. top_p, repetition_penalty, etc.)

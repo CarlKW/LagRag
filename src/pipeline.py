@@ -9,6 +9,8 @@ This script integrates all components:
 """
 import sys
 import argparse
+import json
+import time
 from pathlib import Path
 from typing import List, Optional
 
@@ -16,12 +18,37 @@ from typing import List, Optional
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
+import torch
 from src.generator.retriever import RerankingRetriever
 from src.generator.retriever_basic import BasicRetriever
 from src.generation.lm_wrapper import LocalHFModel, get_local_lm
 from src.generation.genAI import RAGGenerator, ContextChunk
 from src.generation.adapters import retriever_results_to_context_chunks
 from src.config import DEFAULT_MODEL_CONFIG, DEFAULT_PIPELINE_CONFIG
+
+
+def _log_gpu_memory(location: str, hypothesis_id: str):
+    """Log GPU memory usage for debugging."""
+    try:
+        if torch.cuda.is_available():
+            log_data = {
+                'sessionId': 'debug-session',
+                'runId': 'run1',
+                'hypothesisId': hypothesis_id,
+                'location': location,
+                'message': 'GPU memory check',
+                'data': {}
+            }
+            for i in range(torch.cuda.device_count()):
+                allocated = torch.cuda.memory_allocated(i) / (1024**3)  # GB
+                reserved = torch.cuda.memory_reserved(i) / (1024**3)  # GB
+                log_data['data'][f'gpu_{i}_allocated_gb'] = round(allocated, 2)
+                log_data['data'][f'gpu_{i}_reserved_gb'] = round(reserved, 2)
+            log_data['timestamp'] = time.time() * 1000
+            with open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a') as f:
+                f.write(json.dumps(log_data) + '\n')
+    except Exception:
+        pass
 
 
 def initialize_pipeline(
@@ -72,6 +99,17 @@ def initialize_pipeline(
     print("Initializing RAG Pipeline")
     print("=" * 80)
     
+    # #region agent log
+    _log_gpu_memory('pipeline.py:71', 'A,B,C,D,E')
+    try:
+        if torch.cuda.is_available():
+            default_device = torch.cuda.current_device()
+            log_data = {'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'pipeline.py:72','message':'Default CUDA device check','data':{'default_device':default_device,'gpu_count':torch.cuda.device_count()},'timestamp':time.time()*1000}
+            with open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a') as f:
+                f.write(json.dumps(log_data) + '\n')
+    except: pass
+    # #endregion
+    
     # Initialize retriever
     print(f"\n[1/3] Initializing {retriever_type} retriever...")
     if retriever_type == "reranking":
@@ -92,9 +130,16 @@ def initialize_pipeline(
         raise ValueError(f"Unknown retriever type: {retriever_type}")
     print("Retriever initialized")
     
+    # #region agent log
+    _log_gpu_memory('pipeline.py:93', 'A,B,C,D,E')
+    # #endregion
+    
    # Initialize language model
     print(f"\n[2/3] Loading language model: {lm_model_path}...")
-    from src.config import DEFAULT_MODEL_CONFIG
+    
+    # #region agent log
+    _log_gpu_memory('pipeline.py:99', 'A,B,C,D,E')
+    # #endregion
     lm = get_local_lm(
         model_name_or_path=lm_model_path,
         device=DEFAULT_MODEL_CONFIG.generation_device  # Use GPU 1
@@ -313,7 +358,9 @@ def main():
             low_threshold=args.low_threshold,
         )
     except Exception as e:
+        import traceback
         print(f"Error initializing pipeline: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
         return 1
     
     # Collect queries

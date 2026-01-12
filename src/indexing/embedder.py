@@ -42,7 +42,14 @@ class TTCEmbeddings(Embeddings):
             base_model_name: Name of the base model (default: jealk/llm2vec-scandi-mntp-v2)
             adapter_name: Name of the adapter (default: jealk/TTC-L2V-supervised-2)
         """
+        # #region agent log
+        import json, sys; open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'embedder.py:45','message':'TTCEmbeddings.__init__ entry, about to import DEFAULT_MODEL_CONFIG','data':{'config_in_sys_modules':'src.config' in sys.modules},'timestamp':__import__('time').time()*1000})+'\n')
+        # #endregion
         from src.config import DEFAULT_MODEL_CONFIG
+        # #region agent log
+        try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'embedder.py:46','message':'DEFAULT_MODEL_CONFIG imported in __init__','data':{'type':type(DEFAULT_MODEL_CONFIG).__name__ if 'DEFAULT_MODEL_CONFIG' in locals() else 'NOT_IN_LOCALS','in_locals':'DEFAULT_MODEL_CONFIG' in locals()},'timestamp':__import__('time').time()*1000})+'\n')
+        except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'embedder.py:46','message':'ERROR after import DEFAULT_MODEL_CONFIG','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
+        # #endregion
 
         self.base_model_name = base_model_name
         self.adapter_name = adapter_name
@@ -50,6 +57,10 @@ class TTCEmbeddings(Embeddings):
 
         # Use specified device
         if device is None:
+            # #region agent log
+            try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'embedder.py:53','message':'About to access DEFAULT_MODEL_CONFIG.embedding_device','data':{'in_locals':'DEFAULT_MODEL_CONFIG' in locals(),'in_globals':'DEFAULT_MODEL_CONFIG' in globals()},'timestamp':__import__('time').time()*1000})+'\n')
+            except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'embedder.py:53','message':'ERROR before accessing DEFAULT_MODEL_CONFIG','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
+            # #endregion
             device = DEFAULT_MODEL_CONFIG.embedding_device
         self.device = torch.device(device)
 
@@ -107,7 +118,26 @@ class TTCEmbeddings(Embeddings):
         model_final = model_with_supervised.merge_and_unload()
         
         # Move model to device
+        # #region agent log
+        import json, time; 
+        try:
+            log_data = {'sessionId':'debug-session','runId':'run1','hypothesisId':'A,B','location':'embedder.py:121','message':'About to move embedding model to device','data':{'target_device':str(self.device),'gpu_count':torch.cuda.device_count() if torch.cuda.is_available() else 0},'timestamp':time.time()*1000}
+            if torch.cuda.is_available():
+                for i in range(torch.cuda.device_count()):
+                    log_data['data'][f'gpu_{i}_before_mb'] = round(torch.cuda.memory_allocated(i) / (1024**2), 2)
+            open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps(log_data) + '\n')
+        except: pass
+        # #endregion
         model_final = model_final.to(self.device)
+        # #region agent log
+        try:
+            log_data = {'sessionId':'debug-session','runId':'run1','hypothesisId':'A,B','location':'embedder.py:124','message':'After moving embedding model to device','data':{'target_device':str(self.device),'model_device':str(next(model_final.parameters()).device)},'timestamp':time.time()*1000}
+            if torch.cuda.is_available():
+                for i in range(torch.cuda.device_count()):
+                    log_data['data'][f'gpu_{i}_after_mb'] = round(torch.cuda.memory_allocated(i) / (1024**2), 2)
+            open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps(log_data) + '\n')
+        except: pass
+        # #endregion
         
         # Wrap with LLM2Vec
         print("Wrapping model with LLM2Vec...")
@@ -191,7 +221,14 @@ def get_embedding_function(
     device: Optional[str] = None
 ) -> Embeddings:
     """Get a LangChain-compatible embedding function."""
+    # #region agent log
+    import json, sys; open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'embedder.py:194','message':'get_embedding_function entry, about to import DEFAULT_MODEL_CONFIG','data':{'config_in_sys_modules':'src.config' in sys.modules},'timestamp':__import__('time').time()*1000})+'\n')
+    # #endregion
     from src.config import DEFAULT_MODEL_CONFIG
+    # #region agent log
+    try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'embedder.py:195','message':'DEFAULT_MODEL_CONFIG imported in get_embedding_function','data':{'in_locals':'DEFAULT_MODEL_CONFIG' in locals()},'timestamp':__import__('time').time()*1000})+'\n')
+    except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'embedder.py:195','message':'ERROR after import in get_embedding_function','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
+    # #endregion
     
     if base_model_name is None:
         base_model_name = DEFAULT_MODEL_CONFIG.embedding_base_model

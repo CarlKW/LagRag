@@ -1,8 +1,8 @@
 ==========================================
-Job ID: 116473
+Job ID: 116617
 Job Name: lagrag_pipeline
-Node: uranus
-Start Time: Sat Jan 10 03:36:31 PM CET 2026
+Node: callisto
+Start Time: Sun Jan 11 12:26:13 PM CET 2026
 Working Directory: /data/users/spreitz/LagRag
 ==========================================
 ==========================================
@@ -15,30 +15,34 @@ Allocated GPUs:
 CPU Count: 8
 GPU Info:
 index, name, memory.total [MiB], utilization.gpu [%]
-0, NVIDIA L40S, 46068 MiB, 12 %
-1, NVIDIA L40S, 46068 MiB, 40 %
-2, NVIDIA L40S, 46068 MiB, 0 %
-3, NVIDIA L40S, 46068 MiB, 0 %
+0, NVIDIA L4, 23034 MiB, 0 %
+1, NVIDIA L4, 23034 MiB, 0 %
+2, NVIDIA L4, 23034 MiB, 0 %
+3, NVIDIA L4, 23034 MiB, 0 %
+4, NVIDIA L4, 23034 MiB, 0 %
+5, NVIDIA L4, 23034 MiB, 0 %
+6, NVIDIA L4, 23034 MiB, 0 %
+7, NVIDIA L4, 23034 MiB, 0 %
 ==========================================
 ==========================================
 Starting RAG Pipeline
 ==========================================
 ChromaDB path: ./chroma_db_pipeline
 Queries file: /data/users/spreitz/LagRag/src/generation/queries.txt
-Results will be saved to: logs/pipeline_results_116473.json
-Metrics will be saved to: logs/pipeline_metrics_116473.txt
+Results will be saved to: logs/pipeline_results_116617.json
+Metrics will be saved to: logs/pipeline_metrics_116617.txt
 
 Error initializing pipeline: cannot access local variable 'DEFAULT_MODEL_CONFIG' where it is not associated with a value
 
 ==========================================
 Pipeline Metrics Summary
 ==========================================
-Results file not found: logs/pipeline_results_116473.json
+Results file not found: logs/pipeline_results_116617.json
 ==========================================
-Full results saved to: logs/pipeline_results_116473.json
-Metrics saved to: logs/pipeline_metrics_116473.txt
+Full results saved to: logs/pipeline_results_116617.json
+Metrics saved to: logs/pipeline_metrics_116617.txt
 ==========================================
 ==========================================
-End Time: Sat Jan 10 03:37:41 PM CET 2026
+End Time: Sun Jan 11 12:40:34 PM CET 2026
 Job completed
 ==========================================

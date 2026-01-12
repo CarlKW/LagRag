@@ -33,7 +33,8 @@ echo "=========================================="
 
 # Set up environment
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-
+# Better error handling
+export CUDA_LAUNCH_BLOCKING=1
 # Create logs directory if it doesn't exist
 mkdir -p logs
 
@@ -77,7 +78,7 @@ echo "Metrics will be saved to: $METRICS_FILE"
 echo ""
 
 # Run the pipeline
-python -u src/pipeline.py \
+PYTHONUNBUFFERED=1 python src/pipeline.py \
     --query-file "$QUERIES_FILE" \
     --output "$RESULTS_FILE" \
     2>&1 | tee "$METRICS_FILE"
