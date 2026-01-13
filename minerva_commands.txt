@@ -9,3 +9,5 @@ srun --pty bash
 sbatch RUN.sh
 
 scancel ID
+
+squeue -u $USER
