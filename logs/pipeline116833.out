@@ -1,0 +1,99 @@
+==========================================
+Job ID: 116833
+Job Name: lagrag_pipeline
+Node: neptune
+Start Time: Tue Jan 13 11:59:11 AM CET 2026
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+==========================================
+Resource Information
+==========================================
+Allocated CPUs: 8
+Allocated Memory: 65536 MB
+Allocated GPUs: 
+
+CPU Count: 8
+GPU Info:
+index, name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]
+0, NVIDIA L40S, 46068 MiB, 13793 MiB, 31693 MiB, 93 %
+1, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+2, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+3, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+
+Detailed GPU Memory (before job):
+Tue Jan 13 11:59:11 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 565.57.01              Driver Version: 565.57.01      CUDA Version: 12.7     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    Off |   00000000:4A:00.0 Off |                    0 |
+| N/A   67C    P0            308W /  350W |   13793MiB /  46068MiB |     93%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA L40S                    Off |   00000000:61:00.0 Off |                    0 |
+| N/A   23C    P8             31W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA L40S                    Off |   00000000:CA:00.0 Off |                    0 |
+| N/A   22C    P8             31W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA L40S                    Off |   00000000:E1:00.0 Off |                    0 |
+| N/A   20C    P8             21W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A   1026975      C   python                                      13784MiB |
++-----------------------------------------------------------------------------------------+
+==========================================
+
+==========================================
+GPU Processes Before Job Start
+==========================================
+pid, process_name, used_gpu_memory [MiB], gpu_uuid
+1026975, python, 13784 MiB, GPU-35fd1bf9-5849-1263-ccc4-a5ccc837400f
+==========================================
+
+==========================================
+Starting RAG Pipeline
+==========================================
+ChromaDB path: ./chroma_db_pipeline
+Queries file: /data/users/spreitz/LagRag/src/generation/queries.txt
+Results will be saved to: logs/pipeline_results_116833.json
+Metrics will be saved to: logs/pipeline_metrics_116833.txt
+
+================================================================================
+Initializing RAG Pipeline
+================================================================================
+Error initializing pipeline: Invalid device argument 
+Traceback (most recent call last):
+  File "/data/users/spreitz/LagRag/src/pipeline.py", line 423, in main
+    retriever, generator = initialize_pipeline(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "/data/users/spreitz/LagRag/src/pipeline.py", line 159, in initialize_pipeline
+    torch.cuda.reset_peak_memory_stats(i)
+  File "/data/users/spreitz/LagRag/.venv/lib/python3.12/site-packages/torch/cuda/memory.py", line 370, in reset_peak_memory_stats
+    return torch._C._cuda_resetPeakMemoryStats(device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Invalid device argument 
+
+==========================================
+Pipeline Metrics Summary
+==========================================
+Results file not found: logs/pipeline_results_116833.json
+==========================================
+Full results saved to: logs/pipeline_results_116833.json
+Metrics saved to: logs/pipeline_metrics_116833.txt
+==========================================
+==========================================
+End Time: Tue Jan 13 11:59:22 AM CET 2026
+Job completed
+==========================================

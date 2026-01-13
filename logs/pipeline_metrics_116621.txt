@@ -1,9 +1,0 @@
-Error initializing pipeline: cannot access local variable 'DEFAULT_MODEL_CONFIG' where it is not associated with a value
-Traceback (most recent call last):
-  File "/data/users/spreitz/LagRag/src/pipeline.py", line 303, in main
-    retriever, generator = initialize_pipeline(
-                           ^^^^^^^^^^^^^^^^^^^^
-  File "/data/users/spreitz/LagRag/src/pipeline.py", line 66, in initialize_pipeline
-    reranker_model = reranker_model or DEFAULT_MODEL_CONFIG.reranker_model
-                                       ^^^^^^^^^^^^^^^^^^^^
-UnboundLocalError: cannot access local variable 'DEFAULT_MODEL_CONFIG' where it is not associated with a value

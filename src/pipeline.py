@@ -51,6 +51,59 @@ def _log_gpu_memory(location: str, hypothesis_id: str):
         pass
 
 
+def print_gpu_memory(stage: str = ""):
+    """
+    Print detailed GPU memory information to stdout.
+    
+    Args:
+        stage: Description of the current stage (e.g., "Before loading models")
+    """
+    if not torch.cuda.is_available():
+        print("CUDA not available")
+        return
+    
+    print("\n" + "=" * 80)
+    if stage:
+        print(f"GPU Memory Status: {stage}")
+    else:
+        print("GPU Memory Status")
+    print("=" * 80)
+    
+    for i in range(torch.cuda.device_count()):
+        props = torch.cuda.get_device_properties(i)
+        allocated = torch.cuda.memory_allocated(i) / (1024**3)  # GiB
+        reserved = torch.cuda.memory_reserved(i) / (1024**3)  # GiB
+        total = props.total_memory / (1024**3)  # GiB
+        free = total - reserved
+        
+        # Get peak memory if available
+        try:
+            peak_allocated = torch.cuda.max_memory_allocated(i) / (1024**3)
+            peak_reserved = torch.cuda.max_memory_reserved(i) / (1024**3)
+        except:
+            peak_allocated = None
+            peak_reserved = None
+        
+        print(f"\nGPU {i}: {props.name}")
+        print(f"  Total Memory:     {total:8.2f} GiB")
+        print(f"  Allocated:         {allocated:8.2f} GiB ({allocated/total*100:5.1f}%)")
+        print(f"  Reserved:          {reserved:8.2f} GiB ({reserved/total*100:5.1f}%)")
+        print(f"  Free:              {free:8.2f} GiB ({free/total*100:5.1f}%)")
+        
+        if peak_allocated is not None:
+            print(f"  Peak Allocated:    {peak_allocated:8.2f} GiB")
+        if peak_reserved is not None:
+            print(f"  Peak Reserved:     {peak_reserved:8.2f} GiB")
+        
+        # Check for potential issues
+        if free < 1.0:
+            print(f"  ⚠️  WARNING: Less than 1 GiB free!")
+        if reserved > total * 0.95:
+            print(f"  ⚠️  WARNING: GPU {i} is >95% full!")
+    
+    print("=" * 80 + "\n")
+
+
 def initialize_pipeline(
     chroma_db_path: Optional[str] = None,
     retriever_type: Optional[str] = None,
@@ -99,6 +152,24 @@ def initialize_pipeline(
     print("Initializing RAG Pipeline")
     print("=" * 80)
     
+    # Clear GPU memory and reset stats
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+        num_gpus = torch.cuda.device_count()
+        if num_gpus > 0:
+            for i in range(num_gpus):
+                try:
+                    # Try with device index
+                    torch.cuda.reset_peak_memory_stats(i)
+                except (RuntimeError, ValueError) as e:
+                    # Some GPUs might not support peak memory stats or might not be accessible
+                    # This is not critical, so we just continue
+                    pass
+        print("GPU memory cache cleared")
+    
+    # Print initial GPU memory status
+    print_gpu_memory("Before loading any models")
+    
     # #region agent log
     _log_gpu_memory('pipeline.py:71', 'A,B,C,D,E')
     try:
@@ -130,12 +201,18 @@ def initialize_pipeline(
         raise ValueError(f"Unknown retriever type: {retriever_type}")
     print("Retriever initialized")
     
+    # Print GPU memory after embedding/reranker loaded
+    print_gpu_memory("After loading embedding model and reranker")
+    
     # #region agent log
     _log_gpu_memory('pipeline.py:93', 'A,B,C,D,E')
     # #endregion
     
    # Initialize language model
     print(f"\n[2/3] Loading language model: {lm_model_path}...")
+    
+    # Print GPU memory before loading generation model
+    print_gpu_memory("Before loading generation model")
     
     # #region agent log
     _log_gpu_memory('pipeline.py:99', 'A,B,C,D,E')
@@ -145,6 +222,9 @@ def initialize_pipeline(
         device=DEFAULT_MODEL_CONFIG.generation_device  # Use GPU 1
     )
     print(f"Language model loaded on {DEFAULT_MODEL_CONFIG.generation_device}")
+    
+    # Print GPU memory after generation model loaded
+    print_gpu_memory("After loading generation model")
     
     # Initialize RAG generator
     print(f"\n[3/3] Initializing RAG generator...")
@@ -157,6 +237,9 @@ def initialize_pipeline(
         low_threshold=low_threshold,
     )
     print("✓ RAG generator initialized")
+    
+    # Final GPU memory status
+    print_gpu_memory("Pipeline initialization complete")
     
     print("\n" + "=" * 80)
     print("Pipeline ready!")

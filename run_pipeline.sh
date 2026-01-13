@@ -6,8 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --gres=gpu:2
-
+#SBATCH --gres=gpu:L40s:1
 
 # Print job information
 echo "=========================================="
@@ -28,13 +27,26 @@ echo "Allocated GPUs: $SLURM_GPUS"
 echo ""
 echo "CPU Count: $(nproc)"
 echo "GPU Info:"
-nvidia-smi --query-gpu=index,name,memory.total,utilization.gpu --format=csv 2>/dev/null || echo "  nvidia-smi not available"
+nvidia-smi --query-gpu=index,name,memory.total,memory.used,memory.free,utilization.gpu --format=csv 2>/dev/null || echo "  nvidia-smi not available"
+echo ""
+echo "Detailed GPU Memory (before job):"
+nvidia-smi 2>/dev/null || echo "  nvidia-smi not available"
 echo "=========================================="
 
 # Set up environment
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 # Better error handling
 export CUDA_LAUNCH_BLOCKING=1
+
+# Check what processes are using GPUs before starting
+echo ""
+echo "=========================================="
+echo "GPU Processes Before Job Start"
+echo "=========================================="
+nvidia-smi --query-compute-apps=pid,process_name,used_memory,gpu_uuid --format=csv 2>/dev/null || echo "  No compute processes found or nvidia-smi not available"
+echo "=========================================="
+echo ""
+
 # Create logs directory if it doesn't exist
 mkdir -p logs
 

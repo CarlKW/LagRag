@@ -1,0 +1,14 @@
+================================================================================
+Initializing RAG Pipeline
+================================================================================
+Error initializing pipeline: Invalid device argument 
+Traceback (most recent call last):
+  File "/data/users/spreitz/LagRag/src/pipeline.py", line 423, in main
+    retriever, generator = initialize_pipeline(
+                           ^^^^^^^^^^^^^^^^^^^^
+  File "/data/users/spreitz/LagRag/src/pipeline.py", line 159, in initialize_pipeline
+    torch.cuda.reset_peak_memory_stats(i)
+  File "/data/users/spreitz/LagRag/.venv/lib/python3.12/site-packages/torch/cuda/memory.py", line 370, in reset_peak_memory_stats
+    return torch._C._cuda_resetPeakMemoryStats(device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Invalid device argument 

@@ -14,11 +14,11 @@ class ModelConfig:
     """Configuration for all models used in the pipeline."""
     
     # Generation model (LLM for answer generation)
-    generation_model: str = "AI-Sweden-Models/Llama-3-8B-instruct"
+    generation_model: str = "Qwen/Qwen2.5-1.5B-Instruct"
     
     # Device configuration
     embedding_device: str = "cuda:0"  # Embedding model on GPU 0
-    generation_device: str = "cuda:1"  # Generation model on GPU 1
+    generation_device: str = "cuda:0"  # Generation model on GPU 0
     reranker_device: str = "cuda:0"    # Reranker on GPU 0 (smaller, can share)
     
 
