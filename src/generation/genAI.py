@@ -154,14 +154,14 @@ def build_answer_prompt(
     context_text = _format_context_chunks(context_chunks)
 
     prompt = (
-        "You are a precise assistant. Use ONLY the information in the context to answer.\n"
-        "If the answer is not fully supported by the context, say exactly:\n"
-        "\"I'm sorry, I can't answer that based on my knowledge.\"\n\n"
-        "Context:\n"
+        "Du är en precis assistent. Använd ENDAST informationen i kontexten för att svara.\n"
+        "Om svaret inte stöds fullt ut av kontexten, säg exakt:\n"
+        "\"Jag är ledsen, jag kan inte svara på det baserat på min kunskap.\"\n\n"
+        "Kontext:\n"
         f"{context_text}\n\n"
-        "Question:\n"
+        "Fråga:\n"
         f"{query}\n\n"
-        "Answer:\n"
+        "Svar:\n"
     )
     return prompt
 
@@ -177,18 +177,18 @@ def build_scoring_prompt(
 
     context_text = _format_context_chunks(context_chunks)
     prompt = (
-        "You are evaluating an answer given some context and a question.\n\n"
-        "Context:\n"
+        "Du utvärderar ett svar givet någon kontext och en fråga.\n\n"
+        "Kontext:\n"
         f"{context_text}\n\n"
-        "Question:\n"
+        "Fråga:\n"
         f"{query}\n\n"
-        "Answer:\n"
+        "Svar:\n"
         f"{answer}\n\n"
-        "Evaluate how well the answer is supported by the CONTEXT ONLY.\n"
-        "- 1.0 = fully supported, precise, no hallucinations\n"
-        "- 0.5 = partially supported or somewhat vague\n"
-        "- 0.0 = not supported or clearly hallucinated\n\n"
-        "Respond with ONLY a single number between 0.0 and 1.0.\n"
+        "Utvärdera hur väl svaret stöds av ENDAST KONTEXTEN.\n"
+        "- 1.0 = fullt stött, precist, inga hallucinationer\n"
+        "- 0.5 = delvis stött eller något otydligt\n"
+        "- 0.0 = inte stött eller tydligt hallucinerat\n\n"
+        "Svara med ENDAST ett enda tal mellan 0.0 och 1.0.\n"
     )
     return prompt
 
@@ -321,7 +321,7 @@ class RAGGenerator:
         high_threshold: float = 0.75,  # tune
         low_threshold: float = 0.40,  # tune 
         canonical_cannot_answer_text: str = (
-            "I'm sorry I dont have information on that."
+            "Jag är ledsen, jag har ingen information om det."
         ),
     ) -> None:
         """
