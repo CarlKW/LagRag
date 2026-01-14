@@ -48,6 +48,7 @@ def filter_and_clean_jsonl(input_file: str, output_file: str = None):
     
     total_rows = 0
     filtered_rows = 0
+    revoked_rows = 0
     
     with open(input_path, "r", encoding="utf-8") as f_in:
         with open(output_path, "w", encoding="utf-8") as f_out:
@@ -63,6 +64,15 @@ def filter_and_clean_jsonl(input_file: str, output_file: str = None):
                     
                     if "Lag" not in titel and "Förordning" not in titel:
                         continue
+                    
+                    # Filter out laws/regulations that are revoked (upphävd)
+                    if "metadata" in record and isinstance(record["metadata"], dict):
+                        sokdata = record["metadata"].get("sokdata", {})
+                        if isinstance(sokdata, dict):
+                            statusrad = sokdata.get("statusrad", "")
+                            if isinstance(statusrad, str) and "upphävd" in statusrad.lower():
+                                revoked_rows += 1
+                                continue
                     
                     if "/r1/" in titel:
                         titel = titel.replace("/r1/", "")
@@ -86,7 +96,8 @@ def filter_and_clean_jsonl(input_file: str, output_file: str = None):
     print(f"Processing complete:")
     print(f"  Total rows processed: {total_rows}")
     print(f"  Rows kept (with 'Lag' or 'Förordning'): {filtered_rows}")
-    print(f"  Rows removed: {total_rows - filtered_rows}")
+    print(f"  Rows removed (revoked/upphävd): {revoked_rows}")
+    print(f"  Rows removed (other): {total_rows - filtered_rows - revoked_rows}")
     print(f"  Output file: {output_path}")
 
 
