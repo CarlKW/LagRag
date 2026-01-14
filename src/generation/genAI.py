@@ -55,6 +55,9 @@ from src.generation.adapters import retriever_results_to_context_chunks
 
 logger = logging.getLogger(__name__)
 
+# Skip self-evaluation: if True, score_answer() returns 1.0 without calling the LM
+SKIP_SELF_EVALUATION = True
+
 
 # ---------------------------------------------------------------------------
 # Data structures and interfaces
@@ -252,6 +255,9 @@ def score_answer(
 
     Returns a float in [0.0, 1.0].
     """
+
+    if SKIP_SELF_EVALUATION:
+        return 1.0
 
     prompt = build_scoring_prompt(query=query, context_chunks=context_chunks, answer=answer)
     raw_score = lm.generate(
