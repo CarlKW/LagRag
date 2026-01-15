@@ -27,7 +27,7 @@ Typical usage (pseudocode):
     retriever = RerankingRetriever(persist_directory="./chroma_db_pipeline")
     generator = RAGGenerator(lm=lm, retriever=retriever)
 
-    chunks = retriever.retrieve("What is RAG?")
+    chunks = retriever.retrieve("What is RAG?")["reranked_results"]
     result = generator.generate_answer(query="What is RAG?", initial_context=chunks)
 
     print(result.status)
@@ -49,7 +49,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, Iterable, List, Optional
 from src.generation.lm_wrapper import LocalHFModel, get_local_lm
-from src.generator.retriever import RerankingRetriever
+from src.retrieval.retriever import RerankingRetriever
 from src.generation.adapters import retriever_results_to_context_chunks 
 
 

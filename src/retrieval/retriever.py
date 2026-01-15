@@ -93,16 +93,21 @@ class RerankingRetriever:
         scores = self.reranker.predict(pairs, batch_size=self.batch_size, show_progress_bar=False)
         return scores.tolist() if hasattr(scores, "tolist") else scores
 
-    def retrieve(self, query: str) -> List[Dict[str, Any]]:
+        
+    def retrieve(self, query: str) -> Dict[str, List[Dict[str, Any]]]:
         """
         Retrieve and rerank chunks for the given query.
 
-        Returns a list of dictionaries with text, retrieval score, rerank score,
-        and the original metadata fields.
+        Returns a dictionary with:
+        - 'initial_candidates': All candidates from initial vector search (k_initial)
+        - 'reranked_results': Top reranked results (k_final)
         """
         candidates = self._initial_retrieve(query)
         if not candidates:
-            return []
+            return {
+                "initial_candidates": [],
+                "reranked_results": []
+            }
 
         rerank_scores = self._rerank(query, candidates)
 
@@ -120,10 +125,17 @@ class RerankingRetriever:
                 result.update(doc.metadata)
             enriched.append(result)
 
-        # Sort by rerank score descending and take top k_final.
+        # Create initial candidates list (sorted by retrieval score, lower is better)
+        initial_candidates = sorted(enriched, key=lambda x: x["score_retrieval"])
+        
+        # Sort by rerank score descending and take top k_final for reranked results
         enriched.sort(key=lambda x: x["score_rerank"], reverse=True)
-        return enriched[: self.k_final]
-
+        reranked_results = enriched[: self.k_final]
+        
+        return {
+            "initial_candidates": initial_candidates,
+            "reranked_results": reranked_results
+        }
 
 if __name__ == "__main__":
     project_root = Path(__file__).parent.parent.parent

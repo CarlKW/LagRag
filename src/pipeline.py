@@ -19,8 +19,8 @@ project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
 import torch
-from src.generator.retriever import RerankingRetriever
-from src.generator.retriever_basic import BasicRetriever
+from src.retrieval.retriever import RerankingRetriever
+from src.retrieval.retriever_basic import BasicRetriever
 from src.generation.lm_wrapper import LocalHFModel, get_local_lm
 from src.generation.genAI import RAGGenerator, ContextChunk
 from src.generation.adapters import retriever_results_to_context_chunks
@@ -97,9 +97,9 @@ def print_gpu_memory(stage: str = ""):
         
         # Check for potential issues
         if free < 1.0:
-            print(f"  ⚠️  WARNING: Less than 1 GiB free!")
+            print(f"  WARNING: Less than 1 GiB free!")
         if reserved > total * 0.95:
-            print(f"  ⚠️  WARNING: GPU {i} is >95% full!")
+            print(f"  WARNING: GPU {i} is >95% full!")
     
     print("=" * 80 + "\n")
 
@@ -264,7 +264,7 @@ def process_query(
         verbose: Whether to print detailed output
         
     Returns:
-        Dictionary with answer, score, status, and metadata
+        Dictionary with answer, score, status, metadata, and chunks
     """
     if verbose:
         print("\n" + "=" * 80)
@@ -274,13 +274,34 @@ def process_query(
     # Get initial context from retriever
     if verbose:
         print("\n[Retrieval] Fetching initial context...")
-    retriever_results = retriever.retrieve(query)
+    retriever_results_dict = retriever.retrieve(query)
+    initial_candidates = retriever_results_dict["initial_candidates"]
+    retriever_results = retriever_results_dict["reranked_results"]  # Extract reranked results
     initial_context = retriever_results_to_context_chunks(retriever_results)
     
     if verbose:
-        print(f"Retrieved {len(initial_context)} chunks")
+        print(f"Retrieved {len(initial_candidates)} initial candidates (before reranking)")
+        print(f"After reranking: {len(initial_context)} chunks")
         if initial_context:
-            print(f"Top chunk score: {initial_context[0].score:.4f}")
+            print(f"Top reranked chunk score: {initial_context[0].score:.4f}")
+        
+        # Print initial candidates for debugging
+        print("\n" + "=" * 80)
+        print("Initial Candidates (before reranking):")
+        print("=" * 80)
+        for i, candidate in enumerate(initial_candidates[:49], 1):  # Show top 10
+            score_str = f"{candidate.get('score_retrieval', 'N/A'):.4f}" if candidate.get('score_retrieval') is not None else "N/A"
+            title = candidate.get("titel") or candidate.get("title") or "N/A"
+            paragraf = candidate.get("paragraf", "N/A")
+            print(f"\nInitial Candidate {i}:")
+            print(f"  Title: {title}")
+            print(f"  Paragraph: {paragraf}")
+            print(f"  Retrieval Score: {score_str}")
+            text_preview = candidate.get("text", "")[:200] + "..." if len(candidate.get("text", "")) > 200 else candidate.get("text", "")
+            print(f"  Text: {text_preview}")
+        if len(initial_candidates) > 10:
+            print(f"\n... and {len(initial_candidates) - 10} more initial candidates")
+        print("=" * 80)
     
     # Generate answer
     if verbose:
@@ -289,6 +310,29 @@ def process_query(
         query=query,
         initial_context=initial_context,
     )
+    
+    # Convert chunks to dictionaries for JSON serialization
+    chunks_data = []
+    for chunk in result.used_chunks:
+        chunk_dict = {
+            "id": chunk.id,
+            "text": chunk.text,
+            "score": chunk.score,
+            "metadata": chunk.metadata,
+        }
+        chunks_data.append(chunk_dict)
+    
+    # Convert initial candidates to dictionaries for JSON serialization
+    initial_candidates_data = []
+    for candidate in initial_candidates:
+        candidate_dict = {
+            "text": candidate.get("text", ""),
+            "score_retrieval": candidate.get("score_retrieval"),
+            "score_rerank": candidate.get("score_rerank"),
+            "metadata": {k: v for k, v in candidate.items() 
+                        if k not in ("text", "score_retrieval", "score_rerank")}
+        }
+        initial_candidates_data.append(candidate_dict)
     
     # Format output
     output = {
@@ -299,6 +343,8 @@ def process_query(
         "num_retrieval_rounds": result.num_retrieval_rounds,
         "num_chunks_used": len(result.used_chunks),
         "reason": result.reason,
+        "chunks": chunks_data,  # Reranked chunks used in generation
+        "initial_candidates": initial_candidates_data,  # All initial candidates (50)
     }
     
     if verbose:
@@ -311,6 +357,19 @@ def process_query(
         print(f"  Reason: {result.reason}")
         print("\nAnswer:")
         print(f"  {result.answer}")
+        print("\n" + "-" * 80)
+        print("Source Chunks:")
+        print("-" * 80)
+        for i, chunk in enumerate(result.used_chunks, 1):
+            score_str = f"{chunk.score:.4f}" if chunk.score is not None else "N/A"
+            print(f"\nChunk {i} (Score: {score_str}):")
+            if chunk.metadata:
+                metadata_str = ", ".join([f"{k}={v}" for k, v in chunk.metadata.items() if k not in ("text",)])
+                if metadata_str:
+                    print(f"  Metadata: {metadata_str}")
+            # Print first 200 characters of chunk text
+            chunk_preview = chunk.text
+            print(f"  Text: {chunk_preview}")
         print("-" * 80)
     
     return output

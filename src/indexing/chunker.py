@@ -160,7 +160,7 @@ def validate_chunks(chunks: List[Document], min_words: int, max_words: int) -> d
 
 def chunk_documents(
     docs: List[Document], 
-    min_words: int = 30, 
+    min_words: int = 50, 
     max_words: int = 200, 
     overlap_sentences: int = 2,
     include_surrounding_paragraphs: bool = True,

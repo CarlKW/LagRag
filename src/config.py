@@ -14,7 +14,7 @@ class ModelConfig:
     """Configuration for all models used in the pipeline."""
     
     # Generation model (LLM for answer generation)
-    generation_model: str = "Qwen/Qwen2.5-1.5B-Instruct"
+    generation_model: str = "microsoft/Phi-3.5-mini-instruct"
     
     # Device configuration
     embedding_device: str = "cuda:0"  # Embedding model on GPU 0
@@ -47,7 +47,7 @@ class PipelineConfig:
     
     # Retrieval settings
     k_initial: int = 50
-    k_final: int = 10
+    k_final: int = 3
     max_retrieval_rounds: int = 2
     
     # Thresholds

@@ -1,0 +1,65 @@
+{
+  "query": "När och hur kan en kommun få statsbidrag för brottsförebyggande arbete inom socialtjänsten?",
+  "gold_paragraphs": ["1 §", "2 §", "5 §", "7 §"],
+  "law": "sfs-2025-1255"
+}
+
+{
+  "query": "Polismyndighetens huvudsakliga uppgifter och ansvar framgår av polislagen",
+  "gold_paragraphs": ["1 §", "2 §"],
+  "law": "sfs-2022-1718"
+}
+
+{
+  "query": "I vilka situationer kan svenska myndigheter utbyta information med andra länder om vägtullar?",
+  "gold_paragraphs": ["28 §, 27 §, 32 §"],
+  "law": "sfs-2013-1164"
+}
+
+{
+  "query": "Vilka krav måste vara uppfyllda för att en person ska få framföra järnvägsfordon i Sverige?",
+  "gold_paragraphs": ["1 §, 2 §, 4 §"],
+  "law": "sfs-2011-725"
+}
+
+{
+  "query": "I vilka situationer får svenska myndigheter besluta om provtagning och undersökning av djur utan djurägarens samtycke?",
+  "gold_paragraphs": ["1 §", "3 §", "4 §"],
+  "law": "sfs-2006-806"
+}
+
+{
+  "query": "Under vilka förutsättningar kan en domstol besluta att ett vittne ska höras anonymt i ett brottmål?",
+  "gold_paragraphs": ["1 §"],
+  "law": "sfs-2024-1180"
+}
+
+{
+  "query": "Hur handläggs en ansökan om att höra ett vittne anonymt och vilka skyddsåtgärder kan domstolen besluta?",
+  "gold_paragraphs": ["3 §", "6 §", "7 §", "9 §"],
+  "law": "sfs-2024-1180"
+}
+
+{
+  "query": "När är en hotell- eller pensionatsrörelse anmälningspliktig till Polismyndigheten och vilka uppgifter ska anmälan innehålla?",
+  "gold_paragraphs": ["1 §", "2 §", "3 §"],
+  "law": "sfs-2024-1082"
+}
+
+{
+  "query": "Vilka tillsyns- och ingripandebefogenheter har Polismyndigheten enligt lagen om hotell- och pensionatsrörelser?",
+  "gold_paragraphs": ["5 §", "8 §", "9 §", "10 §"],
+  "law": "sfs-2024-1082"
+}
+
+{
+  "query": "Vilka befogenheter har marknadskontrollmyndigheten vid kontroll av personlig skyddsutrustning enligt svensk lag och EU:s regelverk?",
+  "gold_paragraphs": ["2 §", "2 a §"],
+  "law": "sfs-2018-125"
+}
+
+{
+  "query": "Vilka sanktioner och rättsverkningar kan drabba ekonomiska aktörer som inte uppfyller kraven för personlig skyddsutrustning?",
+  "gold_paragraphs": ["4 §", "5 §", "6 §", "9 §"],
+  "law": "sfs-2018-125"
+}
