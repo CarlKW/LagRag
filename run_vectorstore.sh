@@ -46,7 +46,8 @@ cd $PROJECT_ROOT
 
 # Set Python path
 export PYTHONPATH="${PROJECT_ROOT}:${PYTHONPATH}"
-
+#REMOVE OLD CHROMADB
+rm -rf ./chroma_db_pipeline
 # Run the pipeline
 echo "Starting pipeline..."
 python -u src/indexing/test_pipeline.py

@@ -199,6 +199,20 @@ def run_pipeline_test(
     print(f"Creating vector store in {persist_directory}...")
     print(f"Collection name: {collection_name}")
     print(f"Similarity metric: cosine")
+
+
+        # Delete existing collection if it exists to ensure clean rebuild
+    try:
+        existing_client = Chroma(
+            persist_directory=persist_directory,
+            collection_name=collection_name,
+        )
+        existing_client.delete_collection()
+        print(f"Deleted existing collection '{collection_name}'")
+    except Exception as e:
+        # Collection doesn't exist yet, which is fine
+        print(f"Collection '{collection_name}' doesn't exist yet (or error: {e})")
+
     vectorstore = Chroma.from_documents(
         documents=chunks,
         embedding=embeddings,
@@ -253,7 +267,7 @@ if __name__ == "__main__":
     vectorstore = run_pipeline_test(
         jsonl_path=str(jsonl_file),
         persist_directory="./chroma_db_pipeline",
-        num_docs=2000,  # Change to None to process all documents
+        num_docs=None,  # Change to None to process all documents
         test_queries=custom_queries
     )
     

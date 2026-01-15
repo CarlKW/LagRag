@@ -5,7 +5,7 @@ from datetime import datetime
 
 OUTPUT_FILE = "sfs_lagboken_1990plus.jsonl"
 
-START_YEAR = 1990
+START_YEAR = 1800
 CURRENT_YEAR = datetime.today().year
 
 
