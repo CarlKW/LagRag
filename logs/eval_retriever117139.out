@@ -1,0 +1,226 @@
+==========================================
+Job ID: 117139
+Job Name: retriever_eval
+Node: io
+Start Time: Fri Jan 16 11:14:55 AM CET 2026
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+==========================================
+Resource Information
+==========================================
+Allocated CPUs: 8
+Allocated Memory: 32768 MB
+Allocated GPUs: 
+
+CPU Count: 8
+GPU Info:
+index, name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]
+0, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+1, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+2, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+3, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+4, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+5, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+6, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+7, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+==========================================
+==========================================
+Starting Retriever Evaluation
+==========================================
+Results will be saved to: 
+Report will be saved to: 
+
+tee: '': No such file or directory
+
+Loaded 14 entries
+
+First entry:
+{'query': 'När och hur kan en kommun få statsbidrag för brottsförebyggande arbete inom socialtjänsten?', 'gold_paragraphs': ['1 §', '2 §', '5 §', '7 §'], 'law': 'sfs-2025-1255'}
+
+[Embedder Init] GPU 0 Memory: 22.06 GB free / 22.06 GB total
+
+[Embedder Init] GPU 0 Memory Check:
+  Total: 22.06 GB | Reserved: 0.00 GB | Free: 22.06 GB
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda:0, Dtype: torch.bfloat16
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:00<00:00,  6.85it/s]Downloading shards:  50%|█████     | 2/4 [00:00<00:00,  7.56it/s]Downloading shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.78it/s]Downloading shards: 100%|██████████| 4/4 [00:04<00:00,  1.41s/it]Downloading shards: 100%|██████████| 4/4 [00:04<00:00,  1.01s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.86it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  5.36it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  6.02it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  6.50it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  5.95it/s]
+Some weights of the model checkpoint at AI-Sweden-Models/Llama-3-8B-instruct were not used when initializing LlamaEncoderModel: ['lm_head.weight']
+- This IS expected if you are initializing LlamaEncoderModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing LlamaEncoderModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+
+============================================================
+GPU Memory Status (Device 0):
+  Total: 22.06 GB
+  Reserved: 0.16 GB
+  Allocated: 0.00 GB
+  Free: 21.90 GB
+============================================================
+Moving model to cuda:0...
+✓ Model successfully moved to cuda:0
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+Loaded Chroma collection 'sfs_paragraphs' with 69157 documents
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]The attention layers in this model are transitioning from computing the RoPE embeddings internally through `position_ids` (2D tensor with the indexes of the tokens), to using externally computed `position_embeddings` (Tuple of tensors, containing cos and sin). In v4.45 `position_ids` will be removed and `position_embeddings` will be mandatory.
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.72it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.72it/s]
+Found 3 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: När och hur kan en kommun få statsbidrag för brottsförebyggande arbete inom socialtjänsten?
+Law: sfs-2025-1255
+Gold paragraphs: ['1 §', '2 §', '5 §', '7 §']
+Found: ['1 §', '2 §', '5 §', '7 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.66it/s]
+Found 7 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Polismyndighetens huvudsakliga uppgifter och ansvar framgår av polislagen
+Law: sfs-2022-1718
+Gold paragraphs: ['1 §', '2 §']
+Found: ['1 §', '2 §']
+Missing: []
+Score: 2/2
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.89it/s]
+Found 17 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: I vilka situationer kan svenska myndigheter utbyta information med andra länder om vägtullar?
+Law: sfs-2013-1164
+Gold paragraphs: ['28 §', '27 §', '32 §']
+Found: ['28 §', '27 §']
+Missing: ['32 §']
+Score: 2/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.78it/s]
+Found 18 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Vilka krav måste vara uppfyllda för att en person ska få framföra järnvägsfordon i Sverige?
+Law: sfs-2011-725
+Gold paragraphs: ['1 §', '2 §', '4 §']
+Found: ['1 §', '2 §', '4 §']
+Missing: []
+Score: 3/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.79it/s]
+Found 8 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: I vilka situationer får svenska myndigheter besluta om provtagning och undersökning av djur utan djurägarens samtycke?
+Law: sfs-2006-806
+Gold paragraphs: ['1 §', '3 §', '4 §']
+Found: ['1 §', '3 §', '4 §']
+Missing: []
+Score: 3/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.75it/s]
+Found 11 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Under vilka förutsättningar kan en domstol besluta att ett vittne ska höras anonymt i ett brottmål?
+Law: sfs-2024-1180
+Gold paragraphs: ['1 §']
+Found: ['1 §']
+Missing: []
+Score: 1/1
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.83it/s]
+Found 11 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Hur handläggs en ansökan om att höra ett vittne anonymt och vilka skyddsåtgärder kan domstolen besluta?
+Law: sfs-2024-1180
+Gold paragraphs: ['3 §', '6 §', '7 §', '9 §']
+Found: ['3 §', '6 §', '7 §', '9 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.56it/s]
+Found 11 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: När är en hotell- eller pensionatsrörelse anmälningspliktig till Polismyndigheten och vilka uppgifter ska anmälan innehålla?
+Law: sfs-2024-1082
+Gold paragraphs: ['1 §', '2 §', '3 §']
+Found: ['1 §', '2 §', '3 §']
+Missing: []
+Score: 3/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.84it/s]
+Found 10 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Vilka tillsyns- och ingripandebefogenheter har Polismyndigheten enligt lagen om hotell- och pensionatsrörelser?
+Law: sfs-2024-1082
+Gold paragraphs: ['5 §', '8 §', '9 §', '10 §']
+Found: ['5 §', '8 §', '9 §', '10 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.95it/s]
+Found 9 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Vilka befogenheter har marknadskontrollmyndigheten vid kontroll av personlig skyddsutrustning enligt svensk lag och EU:s regelverk?
+Law: sfs-2018-125
+Gold paragraphs: ['2 §', '2 a §']
+Found: ['2 §', '2 a §']
+Missing: []
+Score: 2/2
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.89it/s]
+Found 6 chunks from correct law out of 50 total
+
+________________________________________________________________________________
+Query: Vilka sanktioner och rättsverkningar kan drabba ekonomiska aktörer som inte uppfyller kraven för personlig skyddsutrustning?
+Law: sfs-2018-125
+Gold paragraphs: ['4 §', '5 §', '6 §', '9 §']
+Found: ['4 §', '5 §', '6 §', '9 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.90it/s]
+Found 0 chunks from correct law out of 50 total
+Did not find the correct law for 'Vilken ränta ska betalas på körkortslån som tas med statligt stöd under 2026?' 
+
+________________________________________________________________________________
+Query: Vilken ränta ska betalas på körkortslån som tas med statligt stöd under 2026?
+Law: sfs-2025-1257}
+Gold paragraphs: ['1', ' ', '§']
+Found: []
+Missing: ['1', ' ', '§']
+Score: 0/3
+Traceback (most recent call last):
+  File "/data/users/spreitz/LagRag/src/retrieval/retriever_eval.py", line 56, in <module>
+    golden_p = entry["gold_paragraphs"]
+               ~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'gold_paragraphs'
+==========================================
+Evaluation completed
+Report saved to: 
+==========================================
+==========================================
+End Time: Fri Jan 16 11:16:45 AM CET 2026
+Job completed
+==========================================

@@ -199,19 +199,8 @@ def run_pipeline_test(
     print(f"Creating vector store in {persist_directory}...")
     print(f"Collection name: {collection_name}")
     print(f"Similarity metric: cosine")
-
-
-        # Delete existing collection if it exists to ensure clean rebuild
-    try:
-        existing_client = Chroma(
-            persist_directory=persist_directory,
-            collection_name=collection_name,
-        )
-        existing_client.delete_collection()
-        print(f"Deleted existing collection '{collection_name}'")
-    except Exception as e:
-        # Collection doesn't exist yet, which is fine
-        print(f"Collection '{collection_name}' doesn't exist yet (or error: {e})")
+    print(f"Embedding {len(chunks)} chunks (this may take 30-60 minutes)...")
+    print("Progress will be shown below:")
 
     vectorstore = Chroma.from_documents(
         documents=chunks,

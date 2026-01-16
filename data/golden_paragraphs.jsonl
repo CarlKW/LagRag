@@ -63,3 +63,18 @@
   "gold_paragraphs": ["4 §", "5 §", "6 §", "9 §"],
   "law": "sfs-2018-125"
 }
+
+{"query": "Vilken ränta ska betalas på körkortslån som tas med statligt stöd under 2026?",
+"gold_paragraphs": "1 §",
+"law": "sfs-2025-1257}"
+}
+
+{"query": "Vilken myndighet ansvarar för att omföra den allmänna pensionsavgiften i statsbudgeten?",
+"golden_paragraphs": "2 § ",
+"law": "sfs-1994-1966"
+}
+
+{"query": "Vilken ränta gäller för lån till hemutrustning för flyktingar och vissa andra utlänningar under 2021?",
+"golden_paragraphs": "1 §",
+"law": "sfs-2020-1093"
+} 

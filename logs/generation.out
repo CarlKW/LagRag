@@ -1,0 +1,364 @@
+==========================================
+Job ID: 117140
+Job Name: lagrag_pipeline
+Node: neptune
+Start Time: Fri Jan 16 11:15:00 AM CET 2026
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+==========================================
+Resource Information
+==========================================
+Allocated CPUs: 8
+Allocated Memory: 65536 MB
+Allocated GPUs: 
+
+CPU Count: 8
+GPU Info:
+index, name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]
+0, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+1, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+2, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+3, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+
+Detailed GPU Memory (before job):
+Fri Jan 16 11:15:08 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 565.57.01              Driver Version: 565.57.01      CUDA Version: 12.7     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA L40S                    Off |   00000000:4A:00.0 Off |                    0 |
+| N/A   26C    P0             79W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  NVIDIA L40S                    Off |   00000000:61:00.0 Off |                    0 |
+| N/A   26C    P0             84W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   2  NVIDIA L40S                    Off |   00000000:CA:00.0 Off |                    0 |
+| N/A   25C    P0             80W /  350W |       1MiB /  46068MiB |      4%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   3  NVIDIA L40S                    Off |   00000000:E1:00.0 Off |                    0 |
+| N/A   25C    P0             79W /  350W |       1MiB /  46068MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+==========================================
+
+==========================================
+GPU Processes Before Job Start
+==========================================
+pid, process_name, used_gpu_memory [MiB], gpu_uuid
+==========================================
+
+==========================================
+Starting RAG Pipeline
+==========================================
+ChromaDB path: ./chroma_db_pipeline
+Queries file: /data/users/spreitz/LagRag/src/generation/queries.txt
+Results will be saved to: logs/pipeline_results_117140.json
+Metrics will be saved to: logs/pipeline_metrics_117140.txt
+
+================================================================================
+Initializing RAG Pipeline
+================================================================================
+GPU memory cache cleared
+
+================================================================================
+GPU Memory Status: Before loading any models
+================================================================================
+
+GPU 0: NVIDIA L40S
+  Total Memory:        44.42 GiB
+  Allocated:             0.00 GiB (  0.0%)
+  Reserved:              0.00 GiB (  0.0%)
+  Free:                 44.42 GiB (100.0%)
+  Peak Allocated:        0.00 GiB
+  Peak Reserved:         0.00 GiB
+================================================================================
+
+
+[1/3] Initializing reranking retriever...
+
+[Embedder Init] GPU 0 Memory: 44.42 GB free / 44.42 GB total
+
+[Embedder Init] GPU 0 Memory Check:
+  Total: 44.42 GB | Reserved: 0.00 GB | Free: 44.42 GB
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda:0, Dtype: torch.bfloat16
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:01<00:03,  1.20s/it]Downloading shards:  50%|█████     | 2/4 [00:02<00:02,  1.15s/it]Downloading shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.15s/it]Downloading shards: 100%|██████████| 4/4 [00:12<00:00,  4.38s/it]Downloading shards: 100%|██████████| 4/4 [00:12<00:00,  3.20s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  5.91it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  9.18it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  9.40it/s]
+Some weights of the model checkpoint at AI-Sweden-Models/Llama-3-8B-instruct were not used when initializing LlamaEncoderModel: ['lm_head.weight']
+- This IS expected if you are initializing LlamaEncoderModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing LlamaEncoderModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+
+============================================================
+GPU Memory Status (Device 0):
+  Total: 44.42 GB
+  Reserved: 0.16 GB
+  Allocated: 0.00 GB
+  Free: 44.26 GB
+============================================================
+Moving model to cuda:0...
+✓ Model successfully moved to cuda:0
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+Loaded Chroma collection 'sfs_paragraphs' with 69157 documents
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+Retriever initialized
+
+================================================================================
+GPU Memory Status: After loading embedding model and reranker
+================================================================================
+
+GPU 0: NVIDIA L40S
+  Total Memory:        44.42 GiB
+  Allocated:            14.50 GiB ( 32.6%)
+  Reserved:             14.67 GiB ( 33.0%)
+  Free:                 29.75 GiB ( 67.0%)
+  Peak Allocated:       14.50 GiB
+  Peak Reserved:        14.67 GiB
+================================================================================
+
+
+[2/3] Loading language model: microsoft/Phi-3.5-mini-instruct...
+
+================================================================================
+GPU Memory Status: Before loading generation model
+================================================================================
+
+GPU 0: NVIDIA L40S
+  Total Memory:        44.42 GiB
+  Allocated:            14.50 GiB ( 32.6%)
+  Reserved:             14.67 GiB ( 33.0%)
+  Free:                 29.75 GiB ( 67.0%)
+  Peak Allocated:       14.50 GiB
+  Peak Reserved:        14.67 GiB
+================================================================================
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:04<00:04,  4.04s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:06<00:00,  3.17s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:06<00:00,  3.30s/it]
+Language model loaded on cuda:0
+
+================================================================================
+GPU Memory Status: After loading generation model
+================================================================================
+
+GPU 0: NVIDIA L40S
+  Total Memory:        44.42 GiB
+  Allocated:            28.73 GiB ( 64.7%)
+  Reserved:             28.75 GiB ( 64.7%)
+  Free:                 15.67 GiB ( 35.3%)
+  Peak Allocated:       28.73 GiB
+  Peak Reserved:        28.75 GiB
+================================================================================
+
+
+[3/3] Initializing RAG generator...
+✓ RAG generator initialized
+
+================================================================================
+GPU Memory Status: Pipeline initialization complete
+================================================================================
+
+GPU 0: NVIDIA L40S
+  Total Memory:        44.42 GiB
+  Allocated:            28.73 GiB ( 64.7%)
+  Reserved:             28.75 GiB ( 64.7%)
+  Free:                 15.67 GiB ( 35.3%)
+  Peak Allocated:       28.73 GiB
+  Peak Reserved:        28.75 GiB
+================================================================================
+
+
+================================================================================
+Pipeline ready!
+================================================================================
+
+================================================================================
+Query: När är Användning av skjutvapen tillåten av poliser?
+================================================================================
+
+[Retrieval] Fetching initial context...
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]The attention layers in this model are transitioning from computing the RoPE embeddings internally through `position_ids` (2D tensor with the indexes of the tokens), to using externally computed `position_embeddings` (Tuple of tensors, containing cos and sin). In v4.45 `position_ids` will be removed and `position_embeddings` will be mandatory.
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.01it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.00it/s]
+
+[Generation] Generating answer...
+You are not running the flash-attention implementation, expect numerical differences.
+
+--------------------------------------------------------------------------------
+Result:
+  Status: answered
+  Score: 1.0000
+  Retrieval rounds: 0
+  Chunks used: 3
+  Reason: score_above_high_threshold
+
+Answer:
+  Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig, med hänsyn till viktigheten av syftet, allvarligheten av faran och potentiella skador för den, det som skjutvapnet används mot samt omgivningen.
+
+Jag har tillhandahållit information baserat på den givna kontexten.
+
+- Response: Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig, med hänsyn till viktigheten av syftet, allvarligheten av faran och potentiella skador för den, det som skjutvapnet används mot samt omgivningen.
+
+Jag är ledsen, jag kan inte svara på något annat utan kontext.
+Vänligen ge kontekstet eller frågan du vill att jag svarar på.
+
+- Response: Användning av skj
+
+--------------------------------------------------------------------------------
+Source Chunks:
+--------------------------------------------------------------------------------
+
+Chunk 1 (Score: 0.7773):
+  Metadata: typ=lag, has_surrounding_context=True, dokument_url_html=//data.riksdagen.se/dokument/sfs-2025-1062.html, context_paragraphs=5 §, 6 §, 7 §, paragraf=6 §, sfs_nr=2025:1062, titel=Lag (2025:1062) om polisens användning av skjutvapen, dok_id=sfs-2025-1062, is_short_document=False, word_count=180, organ=Justitiedepartementet L4
+  Text: 5 § Vid användning av skjutvapen ska en polisman alltid sträva 
+efter att syftet med användningen uppnås med minsta möjliga 
+skada.
+
+Om det finns tid och det inte framstår som olämpligt eller 
+verkningslöst ska polismannen innan denne skjuter verkanseld
+
+1. ge sig till känna och varna för att skjutvapen kan komma 
+att användas om polisens anvisningar inte följs, och
+
+2. avlossa varningsskott.
+
+6 § Ett ingripande av en polisman ska så långt det är möjligt 
+planeras och genomföras på ett sådant sätt att användning av 
+skjutvapen kan undvikas och eventuella skador av användningen 
+minimeras. 
+
+Om det är möjligt ska en polisman ges instruktioner inför ett 
+uppdrag där skjutvapen kan antas komma att användas. En 
+polisman som inte fått sådana instruktioner ska, om det är 
+möjligt, kontakta den förman som leder insatsen för 
+instruktioner om uppdraget och hur det ska genomföras.
+
+Relationen till brottsbalkens regler om ansvarsfrihet
+
+7 § Att en användning av skjutvapen inte är tillåten enligt 3 
+och 4 §§ hindrar inte att användningen är tillåten, eller att 
+polismannen annars är ursäktad, enligt bestämmelserna i 24 
+kap. brottsbalken. 
+
+Rapporteringsskyldighet
+
+Chunk 2 (Score: 0.7695):
+  Metadata: dokument_url_html=//data.riksdagen.se/dokument/sfs-2025-1062.html, titel=Lag (2025:1062) om polisens användning av skjutvapen, is_short_document=False, dok_id=sfs-2025-1062, paragraf=4 §, word_count=140, organ=Justitiedepartementet L4, sfs_nr=2025:1062, typ=lag, has_surrounding_context=True, context_paragraphs=4 §, 5 §
+  Text: 4 § Användning av skjutvapen är endast tillåten om andra medel 
+är otillräckliga och användningen med hänsyn till 
+omständigheterna är försvarlig.
+
+Vid bedömningen av om användningen är försvarlig ska särskilt 
+beaktas
+
+- hur viktigt det är att syftet med användningen uppnås,
+
+- hur allvarlig den fara är som utgör grunden för 
+användningen, och
+
+- i vilken grad användningen medför skada eller risk för skada 
+för den eller det som skjutvapnet används mot samt för 
+omgivningen.
+
+Planering och genomförande
+
+5 § Vid användning av skjutvapen ska en polisman alltid sträva 
+efter att syftet med användningen uppnås med minsta möjliga 
+skada.
+
+Om det finns tid och det inte framstår som olämpligt eller 
+verkningslöst ska polismannen innan denne skjuter verkanseld
+
+1. ge sig till känna och varna för att skjutvapen kan komma 
+att användas om polisens anvisningar inte följs, och
+
+2. avlossa varningsskott.
+
+Chunk 3 (Score: 0.7695):
+  Metadata: has_surrounding_context=True, typ=lag, is_short_document=False, organ=Justitiedepartementet L4, dok_id=sfs-2025-1062, word_count=140, titel=Lag (2025:1062) om polisens användning av skjutvapen, paragraf=5 §, dokument_url_html=//data.riksdagen.se/dokument/sfs-2025-1062.html, context_paragraphs=4 §, 5 §, sfs_nr=2025:1062
+  Text: 4 § Användning av skjutvapen är endast tillåten om andra medel 
+är otillräckliga och användningen med hänsyn till 
+omständigheterna är försvarlig.
+
+Vid bedömningen av om användningen är försvarlig ska särskilt 
+beaktas
+
+- hur viktigt det är att syftet med användningen uppnås,
+
+- hur allvarlig den fara är som utgör grunden för 
+användningen, och
+
+- i vilken grad användningen medför skada eller risk för skada 
+för den eller det som skjutvapnet används mot samt för 
+omgivningen.
+
+Planering och genomförande
+
+5 § Vid användning av skjutvapen ska en polisman alltid sträva 
+efter att syftet med användningen uppnås med minsta möjliga 
+skada.
+
+Om det finns tid och det inte framstår som olämpligt eller 
+verkningslöst ska polismannen innan denne skjuter verkanseld
+
+1. ge sig till känna och varna för att skjutvapen kan komma 
+att användas om polisens anvisningar inte följs, och
+
+2. avlossa varningsskott.
+--------------------------------------------------------------------------------
+
+Results saved to: logs/pipeline_results_117140.json
+
+==========================================
+Pipeline Metrics Summary
+==========================================
+Total Queries: 1
+Answered (high confidence): 1 (100.0%)
+Need More Context: 0 (0.0%)
+Cannot Answer: 0 (0.0%)
+
+Average Score: 1.0000
+Average Retrieval Rounds: 0.00
+Average Chunks Used: 3.00
+
+Per-query results:
+--------------------------------------------------------------------------------
+1. Query: När är Användning av skjutvapen tillåten av poliser?...
+   Status: answered | Score: 1.0000 | Rounds: 0 | Chunks: 3
+   Answer: Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig,...
+
+==========================================
+Full results saved to: logs/pipeline_results_117140.json
+Metrics saved to: logs/pipeline_metrics_117140.txt
+==========================================
+==========================================
+End Time: Fri Jan 16 11:17:04 AM CET 2026
+Job completed
+==========================================

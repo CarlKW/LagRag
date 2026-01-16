@@ -99,16 +99,16 @@ for entry in golden_entries:
     
     # Print top retrieved chunks for inspection
     
-    for i, candidate in enumerate(results["initial_candidates"][:50], 1):  # Top 10
-        print(f"\n--- Chunk {i} ---")
-        print(f"Law (SFS): {candidate.get("sfs_nr")}")
-        print(f"Law/Title: {candidate.get('titel', candidate.get('title', 'N/A'))}")
-        print(f"Paragraph: {candidate.get('paragraf', 'N/A')}")
-        print(f"Retrieval Score: {candidate.get('score_retrieval', 'N/A'):.4f}")
-        print(f"Rerank Score: {candidate.get('score_rerank', 'N/A'):.4f}")
-        print(f"Text preview:")
-        text = candidate.get('text', 'N/A')
-        print(f"  {text[:300]}..." if len(text) > 300 else f"  {text}")
+   # for i, candidate in enumerate(results["initial_candidates"][:50], 1):  # Top 10
+   #     print(f"\n--- Chunk {i} ---")
+   #     print(f"Law (SFS): {candidate.get("sfs_nr")}")
+   #     print(f"Law/Title: {candidate.get('titel', candidate.get('title', 'N/A'))}")
+   ##     print(f"Paragraph: {candidate.get('paragraf', 'N/A')}")
+   #     print(f"Retrieval Score: {candidate.get('score_retrieval', 'N/A'):.4f}")
+   #     print(f"Rerank Score: {candidate.get('score_rerank', 'N/A'):.4f}")
+   #     print(f"Text preview:")
+   #     text = candidate.get('text', 'N/A')
+   #     print(f"  {text[:300]}..." if len(text) > 300 else f"  {text}")
 
     found_paragraphs = []
     for gold_para in golden_p:

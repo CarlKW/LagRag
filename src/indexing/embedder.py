@@ -62,7 +62,36 @@ class TTCEmbeddings(Embeddings):
             except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'embedder.py:53','message':'ERROR before accessing DEFAULT_MODEL_CONFIG','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
             # #endregion
             device = DEFAULT_MODEL_CONFIG.embedding_device
+        
+        self.device = device
+        
+        # Early GPU memory check
+        if torch.cuda.is_available() and "cuda" in str(self.device):
+            device_idx = int(self.device.split(":")[1]) if ":" in str(self.device) else 0
+            allocated = torch.cuda.memory_allocated(device_idx) / (1024**3)  # GB
+            reserved = torch.cuda.memory_reserved(device_idx) / (1024**3)  # GB
+            total = torch.cuda.get_device_properties(device_idx).total_memory / (1024**3)  # GB
+            free = total - reserved
+            
+            print(f"\n[Embedder Init] GPU {device_idx} Memory: {free:.2f} GB free / {total:.2f} GB total")
+            if free < 2.0:  # Less than 2GB free
+                print(f"WARNING: Very little GPU memory free ({free:.2f} GB). Model loading may fail.")
         self.device = torch.device(device)
+        
+        # Early GPU memory check
+        if torch.cuda.is_available() and self.device.type == "cuda":
+            # Get device index from torch.device object
+            device_idx = self.device.index if self.device.index is not None else 0
+            allocated = torch.cuda.memory_allocated(device_idx) / (1024**3)  # GB
+            reserved = torch.cuda.memory_reserved(device_idx) / (1024**3)  # GB
+            total = torch.cuda.get_device_properties(device_idx).total_memory / (1024**3)  # GB
+            free = total - reserved
+            
+            print(f"\n[Embedder Init] GPU {device_idx} Memory Check:")
+            print(f"  Total: {total:.2f} GB | Reserved: {reserved:.2f} GB | Free: {free:.2f} GB")
+            if free < 2.0:  # Less than 2GB free
+                print(f"  ⚠️  WARNING: Very little GPU memory free ({free:.2f} GB). Model loading may fail.")
+                print(f"  💡 Check other processes: nvidia-smi")
 
         # Determine dtype based on device
         self.dtype = torch.bfloat16 if self.device.type == "cuda" else torch.float32
@@ -118,6 +147,32 @@ class TTCEmbeddings(Embeddings):
         model_final = model_with_supervised.merge_and_unload()
         
         # Move model to device
+        # Check GPU memory before moving
+        if torch.cuda.is_available() and self.device.type == "cuda":
+            # Get device index from torch.device object
+            device_idx = self.device.index if self.device.index is not None else 0
+            allocated = torch.cuda.memory_allocated(device_idx) / (1024**3)  # GB
+            reserved = torch.cuda.memory_reserved(device_idx) / (1024**3)  # GB
+            total = torch.cuda.get_device_properties(device_idx).total_memory / (1024**3)  # GB
+            free = total - reserved
+            
+            print(f"\n{'='*60}")
+            print(f"GPU Memory Status (Device {device_idx}):")
+            print(f"  Total: {total:.2f} GB")
+            print(f"  Reserved: {reserved:.2f} GB")
+            print(f"  Allocated: {allocated:.2f} GB")
+            print(f"  Free: {free:.2f} GB")
+            print(f"{'='*60}")
+            
+            # Estimate model size (rough estimate for Llama-3-8B in bfloat16: ~16GB)
+            estimated_model_size_gb = 16.0
+            if free < estimated_model_size_gb:
+                print(f"WARNING: Only {free:.2f} GB free, but model needs ~{estimated_model_size_gb} GB")
+                print(f"This will likely fail. Consider:")
+                print(f"  1. Kill other processes using GPU: nvidia-smi")
+                print(f"  2. Use CPU instead: device='cpu'")
+                print(f"  3. Request exclusive GPU access in SLURM")
+        
         # #region agent log
         import json, time; 
         try:
@@ -128,7 +183,23 @@ class TTCEmbeddings(Embeddings):
             open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps(log_data) + '\n')
         except: pass
         # #endregion
-        model_final = model_final.to(self.device)
+        
+        print(f"Moving model to {self.device}...")
+        try:
+            model_final = model_final.to(self.device)
+            print(f"✓ Model successfully moved to {self.device}")
+        except torch.cuda.OutOfMemoryError as e:
+            print(f"\n{'='*60}")
+            print(f"ERROR: CUDA Out of Memory!")
+            print(f"{'='*60}")
+            print(f"Failed to move model to {self.device}")
+            print(f"Error: {e}")
+            print(f"\nSolutions:")
+            print(f"1. Check what's using GPU: nvidia-smi")
+            print(f"2. Kill other processes: nvidia-smi --query-compute-apps=pid --format=csv,noheader | xargs kill -9")
+            print(f"3. Use CPU instead (slower): Set device='cpu' in config")
+            print(f"4. Request exclusive GPU in SLURM: #SBATCH --gres=gpu:L40s:1")
+            raise
         # #region agent log
         try:
             log_data = {'sessionId':'debug-session','runId':'run1','hypothesisId':'A,B','location':'embedder.py:124','message':'After moving embedding model to device','data':{'target_device':str(self.device),'model_device':str(next(model_final.parameters()).device)},'timestamp':time.time()*1000}
@@ -158,11 +229,14 @@ class TTCEmbeddings(Embeddings):
         Returns:
             List of embedding vectors (each is a list of float32 values)
         """
+        total = len(texts)
+        print(f"Embedding {total} documents in batches of 32...")
+        
         with torch.no_grad():
             embeddings = self.model.encode(
                 texts,
                 batch_size=32,
-                show_progress_bar=False,
+                show_progress_bar=True,  # Enable progress bar
                 convert_to_numpy=True
             )
         

@@ -1,0 +1,567 @@
+==========================================
+Job ID: 117113
+Job Name: lagrag_pipeline
+Node: neptune
+Start Time: Thu Jan 15 08:18:39 PM CET 2026
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+Detecting available GPU...
+Selected GPU 3 with 45485 MB free memory
+GPU Info:
+index, name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]
+0, NVIDIA L40S, 46068 MiB, 42989 MiB, 2497 MiB, 100 %
+1, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+2, NVIDIA L40S, 46068 MiB, 33127 MiB, 12359 MiB, 99 %
+3, NVIDIA L40S, 46068 MiB, 1 MiB, 45485 MiB, 0 %
+GPU Processes Before Job Start:
+pid, process_name, used_gpu_memory [MiB]
+1109370, python, 42980 MiB
+1130534, python3, 33118 MiB
+Starting pipeline...
+================================================================================
+RAG PIPELINE TEST
+================================================================================
+
+[1/4] Loading documents from /data/users/spreitz/LagRag/data/sfs_lagboken_1990plus_filtered.jsonl...
+Loaded 3521 total documents
+Processing 3521 documents for testing
+
+First document:
+  SFS nr: 1991:1881
+  Type: förordning
+  Title: Förordning (1991:1881) om medgivande enligt sjömanslagen (1973:282)...
+  Content length: 1186 characters
+ min words: 30, max words: 200,overlap: 2,surrounding params: True, short doc th 100 
+
+[2/4] Chunking documents...
+Warning: 443 chunks below min_words, 2247 chunks above max_words
+Created 69157 chunks from 3521 documents
+
+================================================================================
+CHUNK SUMMARY
+================================================================================
+Total chunks created: 69157
+
+Chunks per paragraph (top 10):
+  2 §: 6701 chunk(s)
+  3 §: 6184 chunk(s)
+  1 §: 5243 chunk(s)
+  4 §: 3920 chunk(s)
+  5 §: 3633 chunk(s)
+  6 §: 3467 chunk(s)
+  7 §: 3123 chunk(s)
+  9 §: 2825 chunk(s)
+  8 §: 2707 chunk(s)
+  10 §: 2474 chunk(s)
+
+================================================================================
+SAMPLE CHUNKS (first 5 chunks)
+================================================================================
+
+--- Chunk 1 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 1 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §
+Word count: ~70 words
+Content preview:
+  1 § Frågor om medgivande enligt 59 § sjömanslagen (1973:282), 4 §
+mönstringslagen (1983:929) och 7 § förordningen (1989:548) om
+tillstånd för anställning på fartyg prövas av
+Transportstyrelsen. Vid pr...
+  ... (342 more characters)
+
+--- Chunk 2 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 2 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §, 3 §
+Word count: ~108 words
+Content preview:
+  1 § Frågor om medgivande enligt 59 § sjömanslagen (1973:282), 4 §
+mönstringslagen (1983:929) och 7 § förordningen (1989:548) om
+tillstånd för anställning på fartyg prövas av
+Transportstyrelsen. Vid pr...
+  ... (626 more characters)
+
+--- Chunk 3 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 3 §
+Has surrounding context: Yes
+Context paragraphs: 2 §, 3 §, 4 §
+Word count: ~66 words
+Content preview:
+  2 § Innan ärendet avgörs skall Transportstyrelsen samråda med
+berörda svenska organisationer för redare och ombordanställda.
+Förordning (2008:1160).
+
+3 § Transportstyrelsen skall med eget yttrande öve...
+  ... (319 more characters)
+
+--- Chunk 4 ---
+SFS nr: 1991:1881
+Type: förordning
+Paragraph: 4 §
+Has surrounding context: Yes
+Context paragraphs: 3 §, 4 §
+Word count: ~48 words
+Content preview:
+  3 § Transportstyrelsen skall med eget yttrande överlämna ärendet till
+regeringens prövning om
+
+1. någon av de ombordanställdas organisationer har motsatt sig bifall
+till ansökan, eller
+
+2. ärendet bed...
+  ... (169 more characters)
+
+--- Chunk 5 ---
+SFS nr: 1991:1886
+Type: lag
+Paragraph: 1 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §
+Word count: ~113 words
+Content preview:
+  1 § Det avtal för undvikande av dubbelbeskattning och förhindrande av
+skatteflykt beträffande skatter på inkomst och förmögenhet som Sverige
+och Singapore undertecknade den 17 juni 1968, i den lydelse...
+  ... (532 more characters)
+
+[3/4] Creating embeddings and vector store...
+Loading embedding model (this may take a moment on first run)...
+
+[Embedder Init] GPU 0 Memory: 44.42 GB free / 44.42 GB total
+
+[Embedder Init] GPU 0 Memory Check:
+  Total: 44.42 GB | Reserved: 0.00 GB | Free: 44.42 GB
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda:0, Dtype: torch.bfloat16
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+
+============================================================
+GPU Memory Status (Device 0):
+  Total: 44.42 GB
+  Reserved: 0.16 GB
+  Allocated: 0.00 GB
+  Free: 44.26 GB
+============================================================
+Moving model to cuda:0...
+✓ Model successfully moved to cuda:0
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+Embedding model loaded.
+Creating vector store in ./chroma_db_pipeline...
+Collection name: sfs_paragraphs
+Similarity metric: cosine
+Embedding 69157 chunks (this may take 30-60 minutes)...
+Progress will be shown below:
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 5461 documents in batches of 32...
+Embedding 3625 documents in batches of 32...
+Vector store created successfully!
+Collection contains 69157 documents
+
+[4/4] Testing queries...
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "Narkotika får föras in till eller ut från landet"
+Retrieving top 3 results...
+
+Embedding 1 documents in batches of 32...
+================================================================================
+Result 1 (Score: 0.1790)
+================================================================================
+SFS nr: 1992:860
+Type: lag
+Title: Lag (1992:860) om kontroll av narkotika...
+Paragraph: 12 §
+Has surrounding context: Yes
+Context paragraphs: 2 §, 12 §, 3 §
+Organ: Socialdepartementet
+
+Content:
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+3 § Narkotika får föras in till eller ut ur landet endast av
+den som har tillstånd till det.
+
+Om inte regeringen eller den myndighet som regeringen bestämmer
+föreskriver något annat, får dock resande utan tillstånd föra
+in narkotiska läkemedel i Sverige och föra ut sådana läkemedel
+från landet, om de är avsedda för medicinskt ändamål och den
+resandes personliga bruk.
+
+Narkotika får inte utan tillstånd sändas genom landet eller, i
+annat fall än som avses i andra stycket, föras ut ur landet. I
+övrigt gäller lagen (1973:980) om transport, förvaring och
+förstöring av införselreglerade varor, m.m. Lag (2011:114).
+
+================================================================================
+Result 2 (Score: 0.1809)
+================================================================================
+SFS nr: 1992:860
+Type: lag
+Title: Lag (1992:860) om kontroll av narkotika...
+Paragraph: 4 §
+Has surrounding context: Yes
+Context paragraphs: 3 a §, 4 §, 5 §
+Organ: Socialdepartementet
+
+Content:
+3 a § Den som har tillstånd att bedriva detaljhandel med
+läkemedel enligt 2 kap. 1 § lagen (2009:366) om handel med
+läkemedel får utfärda sådana intyg som avses i artikel 75 i
+konventionen om tillämpning av Schengenavtalet av den 14 juni
+1985. Ett intyg får utfärdas att gälla för en period om högst
+30 dagar. Lag (2009:369).
+
+Tillverkning
+
+4 § Med tillverkning avses i denna lag 
+framställning, omvandling, bearbetning, avvägning, 
+uppräkning, förpackning eller ompackning av narkotika.
+
+Tillverkning av narkotika får bedrivas endast av den som har 
+tillstånd till det. Tillstånd behövs dock inte för att i 
+vetenskapligt syfte framställa narkotika vid en vetenskaplig 
+institution, som ägs eller stöds av staten. Lag (2016:532).
+
+Handel
+
+5 § Handel med narkotika får bedrivas endast av
+
+1. den som med tillstånd antingen har fört in varan till 
+Sverige eller har vidtagit sådan åtgärd med varan som innebär 
+tillverkning, eller
+
+2. den som har tillstånd att handla med varan.
+
+Handel med narkotiska läkemedel får bedrivas utan sådant 
+tillstånd som anges i första stycket av den som enligt 2 kap.
+
+================================================================================
+Result 3 (Score: 0.1833)
+================================================================================
+SFS nr: 1992:860
+Type: lag
+Title: Lag (1992:860) om kontroll av narkotika...
+Paragraph: 2 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §, 12 §
+Organ: Socialdepartementet
+
+Content:
+1 § Med narkotika avses i denna lag detsamma som i 8 §
+narkotikastrafflagen (1968:64).
+
+Regeringen eller, efter regeringens bemyndigande, Läkemedelsverket skall
+upprätta och kungöra förteckningar över narkotika.
+
+2 § Narkotika får föras in till eller ut från landet,
+tillverkas, bjudas ut till försäljning, överlåtas eller innehas
+endast för
+
+1. medicinskt ändamål
+
+2. vetenskapligt ändamål
+
+3. annat samhällsnyttigt ändamål som är särskilt angeläget,
+eller
+
+4. industriellt ändamål
+
+a) i de fall regeringen särskilt föreskriver det, eller
+
+b) om undantag från kravet på tillstånd har meddelats enligt
+
+12 § fjärde stycket.
+
+Vid tillämpning av denna lag ska en vara anses ha förts in till
+eller ut från landet när den har förts över gränsen för svenskt
+territorium. Lag (2011:114).
+
+Införsel och utförsel
+
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "Ett villkor för att introduktionsersättning"
+Retrieving top 3 results...
+
+Embedding 1 documents in batches of 32...
+================================================================================
+Result 1 (Score: 0.2043)
+================================================================================
+SFS nr: 2022:807
+Type: förordning
+Title: Förordning (2022:807) om statlig ersättning för arbete i etableringsjobb...
+Paragraph: 9 §
+Has surrounding context: Yes
+Context paragraphs: 8 a §, 9 §, 10 §
+Organ: Arbetsmarknadsdepartementet AA
+
+Content:
+8 a § Om arbetstagaren utnyttjar en rätt till ledighet enligt 
+lag eller kollektivavtal krävs för rätt till ersättning att 
+lönen minskas proportionellt mot minskningen av arbetstiden.
+Förordning (2023:600).
+
+9 § Anställningen får inte ha påbörjats före beslutet om rätt 
+till ersättning.
+
+10 § Statlig ersättning för arbete i etableringsjobb får bara 
+beviljas för arbete hos en arbetsgivare som är registrerad som 
+arbetsgivare hos Skatteverket.
+
+När ersättning inte får beviljas
+
+================================================================================
+Result 2 (Score: 0.2058)
+================================================================================
+SFS nr: 2003:623
+Type: förordning
+Title: Förordning (2003:623) om arbetsplatsintroduktion...
+Paragraph: 3 §
+Has surrounding context: Yes
+Context paragraphs: 2 §, 3 §, 4 §
+Organ: Arbetsmarknadsdepartementet AA
+
+Content:
+2 § Med arbetsplatsintroduktion avses att en specialutbildad
+arbetsförmedlare fungerar som stödperson åt en arbetssökande
+utan erfarenhet av svenskt arbetsliv eller med begränsad sådan
+erfarenhet inför anställning, i inledningsskedet av en
+anställning eller under arbetspraktik som föregår en
+anställning.
+
+Arbetsförmedlingen utser den specialutbildade
+arbetsförmedlaren. Förordning (2007:927).
+
+3 § Arbetsplatsintroduktion får erbjudas en arbetssökande utan
+erfarenhet av svenskt arbetsliv eller med begränsad sådan
+erfarenhet och som är minst 20 år och
+
+- deltar eller har deltagit i av kommunen anordnat
+introduktionsprogram som avses i 11 § förordningen (1990:927)
+om statlig ersättning för flyktingmottagande m.m., eller
+
+- är eller riskerar att bli långtidsinskriven som arbetssökande
+vid den offentliga arbetsförmedlingen. Förordning (2007:179).
+
+4 § Arbetsplatsintroduktion skall vara arbetsmarknadspolitiskt
+motiverad. Det betyder att insatsen skall lämnas endast om det
+är lämpligt både för den enskilde och ur ett övergripande
+arbetsmarknadspolitiskt perspektiv. Förordning (2007:179).
+
+================================================================================
+Result 3 (Score: 0.2075)
+================================================================================
+SFS nr: 1998:345
+Type: förordning
+Title: Förordning (1998:345) om aktivare användning av arbetslöshetsersättningen...
+Paragraph: 7 §
+Has surrounding context: Yes
+Context paragraphs: 6 §, 7 §, 8 §
+Organ: Arbetsmarknadsdepartementet AA
+
+Content:
+6 § Projektet får endast omfatta personer som är berättigade
+till ersättning enligt lagen (1997:238) om
+arbetslöshetsförsäkring och som redan uppbär sådan ersättning.
+
+7 § Projektet skall vara av sådan art att det inte går att
+bedriva med stöd av andra bestämmelser om arbetsmarknads-
+politiska åtgärder, om inte Arbetsmarknadsstyrelsen med hänsyn
+till samordningsvinster eller administrativa förenklingar annat
+särskilt föreskriver.
+
+8 § Projektet får inte medföra konkurrenssnedvridningar eller
+leda till att reguljära arbetstillfällen trängs undan. Projekt
+får inte heller medföra att anställda blir lediga och helt
+eller delvis ersätts av arbetslösa.
+
+Beslut om fortsatt ersättning
+
+
+================================================================================
+QUERY TEST
+================================================================================
+Query: "begäran om att skicka ett viktigt meddelande till allmänheten"
+Retrieving top 3 results...
+
+Embedding 1 documents in batches of 32...
+================================================================================
+Result 1 (Score: 0.2086)
+================================================================================
+SFS nr: 2023:407
+Type: lag
+Title: Lag (2023:407) om viktigt meddelande till allmänheten...
+Paragraph: 5 §
+Has surrounding context: Yes
+Context paragraphs: 4 §, 5 §, 6 §
+Organ: Försvarsdepartementet
+
+Content:
+4 § Sändning av ett viktigt meddelande till allmänheten om 
+varning och information får begäras när det finns fara för liv 
+eller hälsa eller för omfattande skada på egendom eller miljö, 
+om meddelandet omedelbart behöver nå allmänheten för att 
+förhindra eller begränsa faran eller skadan.
+
+Flyglarm
+
+5 § Sändning av ett viktigt meddelande till allmänheten om 
+flyglarm får begäras vid fara för luftanfall.
+
+Faran över
+
+6 § Sändning av ett viktigt meddelande till allmänheten om att 
+faran är över ska begäras när den händelse som gett upphov 
+till ett tidigare meddelande är över och det inte längre finns 
+någon fara. En sådan begäran får underlåtas om det finns 
+särskilda skäl med hänsyn till händelseutvecklingen eller 
+omständigheterna i övrigt.
+
+Vilka kanaler som ska användas vid sändning
+
+================================================================================
+Result 2 (Score: 0.2433)
+================================================================================
+SFS nr: 2023:579
+Type: förordning
+Title: Förordning (2023:579) om viktigt meddelande till allmänheten...
+Paragraph: 3 §
+Has surrounding context: Yes
+Context paragraphs: 2 §, 3 §
+Organ: Försvarsdepartementet
+
+Content:
+2 § Denna förordning är meddelad med stöd av
+
+- 2 § andra stycket lagen (2023:407) om viktigt meddelande 
+till allmänheten i fråga om 3-5 §§, 
+
+- 9 § andra stycket samma lag i fråga om 6 §,
+
+- 10 § samma lag i fråga om 7 §, 
+
+- 8 kap. 7 § regeringsformen i fråga om övriga bestämmelser.
+
+Vilka som får begära sändning 
+
+Viktigt meddelande
+
+3 § /Upphör att gälla U:2026-01-01/
+Följande myndigheter får begära sändning av ett viktigt 
+meddelande till allmänheten om varning och information:
+
+- kommuner,
+
+- regioner,
+
+- beredskapsmyndigheter enligt förordningen (2022:524) om 
+statliga myndigheters beredskap,
+
+- Försvarsmakten, och
+
+- Regeringskansliet.
+
+Myndigheten för samhällsskydd och beredskap får meddela 
+ytterligare föreskrifter eller i enskilda fall besluta om 
+vilka som därutöver får begära sändning av viktiga meddelanden 
+till allmänheten om varning och information.
+
+================================================================================
+Result 3 (Score: 0.2459)
+================================================================================
+SFS nr: 2023:407
+Type: lag
+Title: Lag (2023:407) om viktigt meddelande till allmänheten...
+Paragraph: 1 §
+Has surrounding context: Yes
+Context paragraphs: 1 §, 2 §
+Organ: Försvarsdepartementet
+
+Content:
+1 § I denna lag finns bestämmelser om varnings- och 
+informationssystemet Viktigt meddelande till allmänheten. 
+Lagen innehåller bestämmelser om
+
+- vilka som får begära sändning av viktiga meddelanden till 
+allmänheten,
+
+- hur sändning av sådana meddelanden begärs,
+
+- under vilka förutsättningar sändning får begäras,
+
+- vilka kanaler som ska användas vid sändning, och
+
+- vem som ansvarar för sändning.
+
+Lagen innehåller även bestämmelser om kommunernas uppgifter i 
+förhållande till anläggningar för utomhusvarning som ligger 
+inom kommunen.
+
+Vilka som får begära sändning
+
+2 § Regeringen får begära sändning av viktiga meddelanden till 
+allmänheten enligt denna lag.
+
+Regeringen eller den myndighet som regeringen bestämmer får 
+meddela ytterligare föreskrifter eller i enskilda fall besluta 
+om vilka som därutöver får begära sändning av viktiga 
+meddelanden till allmänheten.
+
+Hur sändning begärs
+
+
+================================================================================
+Pipeline test completed successfully!
+Vector store saved to: ./chroma_db_test
+================================================================================
+==========================================
+End Time: Thu Jan 15 08:59:04 PM CET 2026
+Job completed
+==========================================

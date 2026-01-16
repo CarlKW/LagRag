@@ -279,29 +279,29 @@ def process_query(
     retriever_results = retriever_results_dict["reranked_results"]  # Extract reranked results
     initial_context = retriever_results_to_context_chunks(retriever_results)
     
-    if verbose:
-        print(f"Retrieved {len(initial_candidates)} initial candidates (before reranking)")
-        print(f"After reranking: {len(initial_context)} chunks")
-        if initial_context:
-            print(f"Top reranked chunk score: {initial_context[0].score:.4f}")
+    #if verbose:
+     #   print(f"Retrieved {len(initial_candidates)} initial candidates (before reranking)")
+     #   print(f"After reranking: {len(initial_context)} chunks")
+     #   if initial_context:
+      #      print(f"Top reranked chunk score: {initial_context[0].score:.4f}")
         
         # Print initial candidates for debugging
-        print("\n" + "=" * 80)
-        print("Initial Candidates (before reranking):")
-        print("=" * 80)
-        for i, candidate in enumerate(initial_candidates[:49], 1):  # Show top 10
-            score_str = f"{candidate.get('score_retrieval', 'N/A'):.4f}" if candidate.get('score_retrieval') is not None else "N/A"
-            title = candidate.get("titel") or candidate.get("title") or "N/A"
-            paragraf = candidate.get("paragraf", "N/A")
-            print(f"\nInitial Candidate {i}:")
-            print(f"  Title: {title}")
-            print(f"  Paragraph: {paragraf}")
-            print(f"  Retrieval Score: {score_str}")
-            text_preview = candidate.get("text", "")[:200] + "..." if len(candidate.get("text", "")) > 200 else candidate.get("text", "")
-            print(f"  Text: {text_preview}")
-        if len(initial_candidates) > 10:
-            print(f"\n... and {len(initial_candidates) - 10} more initial candidates")
-        print("=" * 80)
+        #print("\n" + "=" * 80)
+        #print("Initial Candidates (before reranking):")
+        #print("=" * 80)
+        #for i, candidate in enumerate(initial_candidates[:49], 1):  # Show top 10
+        #    score_str = f"{candidate.get('score_retrieval', 'N/A'):.4f}" if candidate.get('score_retrieval') is not None else "N/A"
+        #    title = candidate.get("titel") or candidate.get("title") or "N/A"
+         #   paragraf = candidate.get("paragraf", "N/A")
+        #    print(f"\nInitial Candidate {i}:")
+        #    print(f"  Title: {title}")
+        #    print(f"  Paragraph: {paragraf}")
+        #    print(f"  Retrieval Score: {score_str}")
+        #    text_preview = candidate.get("text", "")[:200] + "..." if len(candidate.get("text", "")) > 200 else candidate.get("text", "")
+        #    print(f"  Text: {text_preview}")
+        #if len(initial_candidates) > 10:
+        #    print(f"\n... and {len(initial_candidates) - 10} more initial candidates")
+        #print("=" * 80)
     
     # Generate answer
     if verbose:
