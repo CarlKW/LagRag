@@ -1,17 +1,8 @@
-"""
-Embedder for creating embeddings using the TTC-L2V-supervised-2 model.
-
-This uses LLM2Vec with a base model and PEFT adapters:
-- Base model: jealk/llm2vec-scandi-mntp-v2
-- Adapter: jealk/TTC-L2V-supervised-2
-"""
-
 from typing import List, Optional
 import numpy as np
 import torch
 from langchain_core.embeddings import Embeddings
 from transformers import AutoConfig, AutoModel, AutoTokenizer
-# from src.config import DEFAULT_MODEL_CONFIG  potentisl circular import
 try:
     from llm2vec import LLM2Vec
     from peft import PeftModel
@@ -19,8 +10,6 @@ except ImportError:
     raise ImportError(
         "Required packages not installed. Please run: pip install llm2vec peft accelerate"
     )
-
-
 
 
 class TTCEmbeddings(Embeddings):
@@ -37,50 +26,20 @@ class TTCEmbeddings(Embeddings):
                  device: Optional[str] = None):
         """
         Initialize the embedding model.
-        
-        Args:
-            base_model_name: Name of the base model (default: jealk/llm2vec-scandi-mntp-v2)
-            adapter_name: Name of the adapter (default: jealk/TTC-L2V-supervised-2)
         """
-        # #region agent log
-        import json, sys; open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'embedder.py:45','message':'TTCEmbeddings.__init__ entry, about to import DEFAULT_MODEL_CONFIG','data':{'config_in_sys_modules':'src.config' in sys.modules},'timestamp':__import__('time').time()*1000})+'\n')
-        # #endregion
         from src.config import DEFAULT_MODEL_CONFIG
-        # #region agent log
-        try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'embedder.py:46','message':'DEFAULT_MODEL_CONFIG imported in __init__','data':{'type':type(DEFAULT_MODEL_CONFIG).__name__ if 'DEFAULT_MODEL_CONFIG' in locals() else 'NOT_IN_LOCALS','in_locals':'DEFAULT_MODEL_CONFIG' in locals()},'timestamp':__import__('time').time()*1000})+'\n')
-        except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'B','location':'embedder.py:46','message':'ERROR after import DEFAULT_MODEL_CONFIG','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
-        # #endregion
 
         self.base_model_name = base_model_name
         self.adapter_name = adapter_name
-        
 
         # Use specified device
         if device is None:
-            # #region agent log
-            try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'embedder.py:53','message':'About to access DEFAULT_MODEL_CONFIG.embedding_device','data':{'in_locals':'DEFAULT_MODEL_CONFIG' in locals(),'in_globals':'DEFAULT_MODEL_CONFIG' in globals()},'timestamp':__import__('time').time()*1000})+'\n')
-            except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'A','location':'embedder.py:53','message':'ERROR before accessing DEFAULT_MODEL_CONFIG','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
-            # #endregion
             device = DEFAULT_MODEL_CONFIG.embedding_device
         
-        self.device = device
-        
-        # Early GPU memory check
-        if torch.cuda.is_available() and "cuda" in str(self.device):
-            device_idx = int(self.device.split(":")[1]) if ":" in str(self.device) else 0
-            allocated = torch.cuda.memory_allocated(device_idx) / (1024**3)  # GB
-            reserved = torch.cuda.memory_reserved(device_idx) / (1024**3)  # GB
-            total = torch.cuda.get_device_properties(device_idx).total_memory / (1024**3)  # GB
-            free = total - reserved
-            
-            print(f"\n[Embedder Init] GPU {device_idx} Memory: {free:.2f} GB free / {total:.2f} GB total")
-            if free < 2.0:  # Less than 2GB free
-                print(f"WARNING: Very little GPU memory free ({free:.2f} GB). Model loading may fail.")
         self.device = torch.device(device)
         
-        # Early GPU memory check
+        # GPU memory check
         if torch.cuda.is_available() and self.device.type == "cuda":
-            # Get device index from torch.device object
             device_idx = self.device.index if self.device.index is not None else 0
             allocated = torch.cuda.memory_allocated(device_idx) / (1024**3)  # GB
             reserved = torch.cuda.memory_reserved(device_idx) / (1024**3)  # GB
@@ -101,14 +60,7 @@ class TTCEmbeddings(Embeddings):
         
         # Load base model with tokenizer and config
         self.tokenizer = AutoTokenizer.from_pretrained(base_model_name)
-        # Load config first and modify it
         config = AutoConfig.from_pretrained(base_model_name)
-
-
-        # # Remove adapter configs to prevent auto-loading
-        # if hasattr(config, 'adapter_config') or hasattr(config, 'peft_config'):
-        #     # Clear any adapter-related configs
-        #     pass
 
         # Load base model (MNTP is already merged into jealk/llm2vec-scandi-mntp-v2)
         base_model = AutoModel.from_pretrained(
@@ -149,7 +101,6 @@ class TTCEmbeddings(Embeddings):
         # Move model to device
         # Check GPU memory before moving
         if torch.cuda.is_available() and self.device.type == "cuda":
-            # Get device index from torch.device object
             device_idx = self.device.index if self.device.index is not None else 0
             allocated = torch.cuda.memory_allocated(device_idx) / (1024**3)  # GB
             reserved = torch.cuda.memory_reserved(device_idx) / (1024**3)  # GB
@@ -173,17 +124,6 @@ class TTCEmbeddings(Embeddings):
                 print(f"  2. Use CPU instead: device='cpu'")
                 print(f"  3. Request exclusive GPU access in SLURM")
         
-        # #region agent log
-        import json, time; 
-        try:
-            log_data = {'sessionId':'debug-session','runId':'run1','hypothesisId':'A,B','location':'embedder.py:121','message':'About to move embedding model to device','data':{'target_device':str(self.device),'gpu_count':torch.cuda.device_count() if torch.cuda.is_available() else 0},'timestamp':time.time()*1000}
-            if torch.cuda.is_available():
-                for i in range(torch.cuda.device_count()):
-                    log_data['data'][f'gpu_{i}_before_mb'] = round(torch.cuda.memory_allocated(i) / (1024**2), 2)
-            open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps(log_data) + '\n')
-        except: pass
-        # #endregion
-        
         print(f"Moving model to {self.device}...")
         try:
             model_final = model_final.to(self.device)
@@ -200,15 +140,6 @@ class TTCEmbeddings(Embeddings):
             print(f"3. Use CPU instead (slower): Set device='cpu' in config")
             print(f"4. Request exclusive GPU in SLURM: #SBATCH --gres=gpu:L40s:1")
             raise
-        # #region agent log
-        try:
-            log_data = {'sessionId':'debug-session','runId':'run1','hypothesisId':'A,B','location':'embedder.py:124','message':'After moving embedding model to device','data':{'target_device':str(self.device),'model_device':str(next(model_final.parameters()).device)},'timestamp':time.time()*1000}
-            if torch.cuda.is_available():
-                for i in range(torch.cuda.device_count()):
-                    log_data['data'][f'gpu_{i}_after_mb'] = round(torch.cuda.memory_allocated(i) / (1024**2), 2)
-            open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps(log_data) + '\n')
-        except: pass
-        # #endregion
         
         # Wrap with LLM2Vec
         print("Wrapping model with LLM2Vec...")
@@ -236,7 +167,7 @@ class TTCEmbeddings(Embeddings):
             embeddings = self.model.encode(
                 texts,
                 batch_size=32,
-                show_progress_bar=True,  # Enable progress bar
+                show_progress_bar=True,
                 convert_to_numpy=True
             )
         
@@ -295,14 +226,7 @@ def get_embedding_function(
     device: Optional[str] = None
 ) -> Embeddings:
     """Get a LangChain-compatible embedding function."""
-    # #region agent log
-    import json, sys; open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'embedder.py:194','message':'get_embedding_function entry, about to import DEFAULT_MODEL_CONFIG','data':{'config_in_sys_modules':'src.config' in sys.modules},'timestamp':__import__('time').time()*1000})+'\n')
-    # #endregion
     from src.config import DEFAULT_MODEL_CONFIG
-    # #region agent log
-    try: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'embedder.py:195','message':'DEFAULT_MODEL_CONFIG imported in get_embedding_function','data':{'in_locals':'DEFAULT_MODEL_CONFIG' in locals()},'timestamp':__import__('time').time()*1000})+'\n')
-    except Exception as e: open('/data/users/spreitz/LagRag/.cursor/debug.log', 'a').write(json.dumps({'sessionId':'debug-session','runId':'run1','hypothesisId':'D','location':'embedder.py:195','message':'ERROR after import in get_embedding_function','data':{'error':str(e)},'timestamp':__import__('time').time()*1000})+'\n')
-    # #endregion
     
     if base_model_name is None:
         base_model_name = DEFAULT_MODEL_CONFIG.embedding_base_model

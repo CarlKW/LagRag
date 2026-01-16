@@ -8,26 +8,10 @@ from langchain_core.documents import Document
 def find_paragraph_starts(text: str) -> List[tuple[int, str]]:
     """
     Find all paragraph start positions in the text.
-    
-    Paragraphs start either:
-    1. At the beginning of the document, or
-    2. After two newline characters "\n\n",
-    followed by:
-       - a number (one or more digits), optionally followed by a single lowercase letter (e.g. "31 a"),
-       - a space,
-       - and a SINGLE "§" character.
-    
-    Args:
-        text: The full text to search
-        
-    Returns:
-        List of tuples: (start_position, paragraph_label)
-        e.g., [(0, "1 §"), (150, "31 a §")]
     """
     # Normalize newlines
     text = text.replace("\r\n", "\n")
     
-    # Pattern: (start of string OR \n\n) + number + optional letter + space + single §
     # We use negative lookahead to ensure we don't match "§§"
     # Match at start of string or after \n\n, then capture the paragraph number
     pattern = r'(?:^|\n\n)(\d+(?:\s+[a-z])?)\s+§(?!§)'
@@ -38,7 +22,6 @@ def find_paragraph_starts(text: str) -> List[tuple[int, str]]:
         paragraph_label = match.group(1) + " §"
         
         # If match starts with \n\n, adjust position to after the newlines
-        # The match.start() gives us the position of the \n\n or start
         if start_pos > 0 and text[start_pos:start_pos+2] == "\n\n":
             start_pos += 2
         
@@ -50,7 +33,6 @@ def find_paragraph_starts(text: str) -> List[tuple[int, str]]:
 def split_into_sentences(text: str) -> List[str]:
     """
     Split text into sentences for chunking long paragraphs.
-    Improved version that handles Swedish abbreviations and edge cases.
     """
     # Common Swedish abbreviations that shouldn't end sentences
     swedish_abbreviations = {
@@ -61,7 +43,6 @@ def split_into_sentences(text: str) -> List[str]:
     }
     
     # Pattern: sentence ending (. ! ?) followed by space or newline
-    # But we need to check if it's actually an abbreviation
     sentences = []
     last_end = 0
     
@@ -70,8 +51,7 @@ def split_into_sentences(text: str) -> List[str]:
         end_pos = match.end()
         punct = match.group(1)
         
-        # Check if this is likely an abbreviation
-        # Look back up to 10 characters to find word boundaries
+        # Check if this is likely an abbreviatio
         lookback_start = max(0, match.start() - 15)
         lookback_text = text[lookback_start:match.start() + 1].lower()
         
@@ -82,7 +62,7 @@ def split_into_sentences(text: str) -> List[str]:
                 is_abbreviation = True
                 break
         
-        # Also check for decimal numbers (e.g., "3.5", "12.3")
+        # Check for decimal numberers
         if punct == '.':
             # Check if there's a digit before and after
             before_char = text[match.start() - 1] if match.start() > 0 else ''
@@ -97,13 +77,13 @@ def split_into_sentences(text: str) -> List[str]:
                 sentences.append(sentence)
             last_end = end_pos
     
-    # Add remaining text
+    # Remaining text
     if last_end < len(text):
         remaining = text[last_end:].strip()
         if remaining:
             sentences.append(remaining)
     
-    # If no sentences were found (e.g., no punctuation), return whole text as one sentence
+    # If no sentences were found, return whole text as one sentence
     if not sentences:
         return [text.strip()] if text.strip() else []
     
@@ -117,14 +97,7 @@ def count_words(text: str) -> int:
 def validate_chunks(chunks: List[Document], min_words: int, max_words: int) -> dict:
     """
     Validate chunk quality and return statistics.
-    
-    Args:
-        chunks: List of chunk Documents
-        min_words: Expected minimum words per chunk
-        max_words: Expected maximum words per chunk
-        
-    Returns:
-        Dictionary with validation statistics
+    Return a dictionary with validation statistics
     """
     stats = {
         'total_chunks': len(chunks),
@@ -168,17 +141,7 @@ def chunk_documents(
 ) -> List[Document]:
     """
     Split documents into paragraph-level chunks with optimized settings for legal documents.
-    
-    Args:
-        docs: List of raw Documents (full law/regulation text)
-        min_words: Minimum words per chunk (merge with next if shorter)
-        max_words: Maximum words per chunk (split if longer)
-        overlap_sentences: Number of sentences to overlap when splitting long paragraphs
-        include_surrounding_paragraphs: Whether to include previous/next paragraphs for context
-        short_document_threshold: Documents with fewer words than this are kept as single chunks
-        
-    Returns:
-        List of Documents, each representing a paragraph chunk
+    Returns list of Documents, each representing a paragraph chunk
     """
     all_chunks = []
     
@@ -224,14 +187,12 @@ def chunk_documents(
             all_chunks.append(chunk)
             continue
         
-        # Process each paragraph
-        # Note: We never skip paragraphs due to surrounding context; only due to explicit merge.
         # Every paragraph is indexed as its own chunk, even if included as context in another chunk.
         i = 0
         while i < len(para_starts):
             start_pos, para_label = para_starts[i]
             
-            # Determine end position (start of next paragraph or end of text)
+            
             if i + 1 < len(para_starts):
                 end_pos = para_starts[i + 1][0]
             else:
@@ -274,7 +235,7 @@ def chunk_documents(
                         context_paragraphs.append(next_label)
                         has_surrounding_context = True
             
-            # Check if paragraph needs to be split (too long)
+            # Check if paragraph needs to be split if its too long
             word_count = count_words(chunk_text)
             
             if word_count > max_words:
@@ -282,7 +243,7 @@ def chunk_documents(
                 sentences = split_into_sentences(chunk_text)
                 
                 if not sentences:
-                    # Fallback: if sentence splitting failed, split by words
+                    # If sentence splitting failed, split by words
                     words = chunk_text.split()
                     sentences = []
                     for j in range(0, len(words), 50):  # Roughly 50 words per sentence chunk
@@ -325,14 +286,12 @@ def chunk_documents(
                             'index': chunk_index
                         })
                 
-                # Merge chunks that are too short (below min_words)
                 # Merge forward: if a chunk is too short, merge with next
                 merged_split_chunks = []
                 j = 0
                 while j < len(split_chunks):
                     chunk_data = split_chunks[j]
                     
-                    # If chunk is too short and not the last one, try to merge with next
                     if chunk_data['words'] < min_words and j + 1 < len(split_chunks):
                         next_chunk = split_chunks[j + 1]
                         merged_words = chunk_data['words'] + next_chunk['words']
@@ -345,7 +304,7 @@ def chunk_documents(
                                 'words': merged_words,
                                 'index': chunk_data['index']
                             })
-                            j += 2  # Skip next chunk since we merged it
+                            j += 2  # Skip next chunk
                             continue
                     
                     # Keep chunk as-is
@@ -368,19 +327,17 @@ def chunk_documents(
                     )
                     all_chunks.append(chunk)
                 
-                # Move to next paragraph (never skip due to surrounding context)
+                # Move to next paragraph
                 i += 1
             else:
                 # Paragraph is within acceptable size range
-                # Check if paragraph is too short (merge with next)
                 if word_count < min_words and i + 1 < len(para_starts):
-                    # Explicit merge: combine short paragraph with next paragraph
-                    # This is the ONLY case where we skip indexing the next paragraph
+                    # Combine short paragraph with next paragraph
+
                     next_start, next_label = para_starts[i + 1]
                     next_end = para_starts[i + 2][0] if i + 2 < len(para_starts) else len(text)
                     next_para_text = text[next_start:next_end].strip()
                     
-                    # Use the current chunk_text (which may already include surrounding context)
                     # but append the next paragraph for explicit merge
                     merged_text = chunk_text + "\n\n" + next_para_text
                     merged_label = para_label  # Use first paragraph's label
@@ -402,7 +359,7 @@ def chunk_documents(
                     # Skip next paragraph since we explicitly merged it
                     i += 2
                 else:
-                    # Normal-sized paragraph (within min_words and max_words)
+                    # Normal-sized paragraph
                     chunk = Document(
                         page_content=chunk_text.strip(),
                         metadata={
@@ -415,10 +372,10 @@ def chunk_documents(
                         }
                     )
                     all_chunks.append(chunk)
-                    # Move to next paragraph (never skip due to surrounding context)
+
                     i += 1
     
-    # Validate chunks (optional - can be removed in production)
+    # Validate chunks
     validation_stats = validate_chunks(all_chunks, min_words, max_words)
     if validation_stats['too_short'] > 0 or validation_stats['too_long'] > 0:
         print(f"Warning: {validation_stats['too_short']} chunks below min_words, "
@@ -428,7 +385,7 @@ def chunk_documents(
 
 
 if __name__ == "__main__":
-    # Example usage
+
     import sys
     from pathlib import Path
     
@@ -439,30 +396,23 @@ if __name__ == "__main__":
     from src.ingestion.loader import load_sfs_documents
     jsonl_file = project_root / "data" / "sfs_lagboken_1990plus_filtered.jsonl"
     
-    print("Loading documents...")
-    documents = load_sfs_documents(str(jsonl_file))
-    print(f"Loaded {len(documents)} documents")
-    
-    print("\nChunking documents...")
+
+    documents = load_sfs_documents(str(jsonl_file))    
     chunks = chunk_documents(documents[:40])  # Test 
-    print(f"Created {len(chunks)} chunks")
+
     
     if chunks:
-        # Write chunks to a readable text file
+        # Write chunks to text file
         output_file = project_root / "data" / "chunks_output.txt"
-        print(f"\nWriting chunks to {output_file}...")
         
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write("=" * 80 + "\n")
-            f.write(f"CHUNKER TEST OUTPUT\n")
+            f.write(f"CHUNKER TEST\n")
             f.write(f"Total chunks: {len(chunks)}\n")
             f.write(f"Source documents: {len(documents[:40])}\n")
-            f.write("=" * 80 + "\n\n")
+
             
             for i, chunk in enumerate(chunks, 1):
-                f.write("-" * 80 + "\n")
                 f.write(f"CHUNK {i} / {len(chunks)}\n")
-                f.write("-" * 80 + "\n")
                 f.write(f"Paragraph: {chunk.metadata.get('paragraf', 'N/A')}\n")
                 f.write(f"SFS nr: {chunk.metadata.get('sfs_nr', 'N/A')}\n")
                 f.write(f"Title: {chunk.metadata.get('titel', 'N/A')}\n")
@@ -476,16 +426,12 @@ if __name__ == "__main__":
                 # Write word count
                 word_count = count_words(chunk.page_content)
                 f.write(f"Word count: {word_count}\n")
-                
-                f.write("\n" + "-" * 80 + "\n")
-                f.write("CONTENT:\n")
-                f.write("-" * 80 + "\n")
                 f.write(chunk.page_content)
                 f.write("\n\n")
         
-        print(f"✓ Chunks written to {output_file}")
+        print(f" Chunks written to {output_file}")
         
-        # Also print first chunk example to console
+        # Print first chunk example to console
         print("\nFirst chunk example:")
         print(f"  Paragraph: {chunks[0].metadata.get('paragraf', 'N/A')}")
         print(f"  SFS nr: {chunks[0].metadata.get('sfs_nr', 'N/A')}")
