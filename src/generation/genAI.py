@@ -1,45 +1,3 @@
-"""
-Generation module for the RAG pipeline with active retrieval.
-
-This module provides:
-
-- `ContextChunk`: small container for retrieved text snippets.
-- `GenerationResult`: structured output for the generation step.
-- `LocalHFModel`: thin wrapper around a local HuggingFace causal LM.
-- Scoring utilities that use the same LM as a judge.
-- `RAGGenerator`: orchestration class that performs:
-    1) answer generation from query + context,
-    2) answer scoring,
-    3) optional active retrieval if the answer is not good enough,
-    4) a safe fallback when the question cannot be answered.
-
-Typical usage (pseudocode):
-
-    from src.generation.genAI import (
-        ContextChunk,
-        RAGGenerator,
-    )
-    from src.generation.lm_wrapper import get_local_lm
-    from src.generator.retriever import RerankingRetriever
-
-    # Models use defaults from src.config.DEFAULT_MODEL_CONFIG
-    lm = get_local_lm()  # Uses DEFAULT_MODEL_CONFIG.generation_model
-    retriever = RerankingRetriever(persist_directory="./chroma_db_pipeline")
-    generator = RAGGenerator(lm=lm, retriever=retriever)
-
-    chunks = retriever.retrieve("What is RAG?")["reranked_results"]
-    result = generator.generate_answer(query="What is RAG?", initial_context=chunks)
-
-    print(result.status)
-    print(result.answer)
-
-The behaviour is controlled by thresholds:
-- If the LM judge score is high, the answer is returned to the user.
-- If the score is medium or low, the generator can perform active retrieval
-  (if a retriever is supplied) up to a configurable number of rounds.
-- If, after several attempts, scores remain low, a fixed "cannot answer"
-  message is returned instead of hallucinating.
-"""
 
 from __future__ import annotations
 
@@ -55,31 +13,12 @@ from src.generation.adapters import retriever_results_to_context_chunks
 
 logger = logging.getLogger(__name__)
 
-# Skip self-evaluation: if True, score_answer() returns 1.0 without calling the LM
+# skip self eval: if True, score_answer() returns 1.0 without calling the LM
 SKIP_SELF_EVALUATION = True
-
-
-# ---------------------------------------------------------------------------
-# Data structures and interfaces
-# ---------------------------------------------------------------------------
 
 
 @dataclass
 class ContextChunk:
-    """
-    Small container for a retrieved context snippet.
-
-    Attributes
-    ----------
-    id:
-        Identifier for the chunk (e.g. document ID + offset).
-    text:
-        Plain-text content for this chunk.
-    score:
-        Optional relevance score from the retriever (higher is better).
-    metadata:
-        Optional metadata associated with the chunk (e.g. source file, page).
-    """
 
     id: Any
     text: str
@@ -88,22 +27,6 @@ class ContextChunk:
 
 
 class AnswerStatus(str, Enum):
-    """
-    High-level status of the generation outcome.
-
-    Values
-    ------
-    ANSWERED:
-        A high-confidence answer that can be shown to the user.
-    NEED_MORE_CONTEXT:
-        The answer is mediocre; more retrieval may improve it.
-    CANNOT_ANSWER:
-        The model estimates that the question cannot be answered
-        from the available knowledge.
-    CANNOT_ANSWER_CANDIDATE:
-        Internal label during evaluation before we exhaust retrieval.
-    """
-
     ANSWERED = "answered"
     NEED_MORE_CONTEXT = "need_more_context"
     CANNOT_ANSWER = "cannot_answer"
@@ -112,10 +35,6 @@ class AnswerStatus(str, Enum):
 
 @dataclass
 class GenerationResult:
-    """
-    Structured result of the RAG generation step.
-    """
-
     answer: str
     score: float
     status: AnswerStatus
@@ -124,22 +43,8 @@ class GenerationResult:
     reason: str = ""
 
 
-
-# ---------------------------------------------------------------------------
-# Local HuggingFace model wrapper
-# ---------------------------------------------------------------------------
-
-
-# ---------------------------------------------------------------------------
-# Prompt construction helpers
-# ---------------------------------------------------------------------------
-
-
+# Format context chunks as a numbered list of snippets
 def _format_context_chunks(context_chunks: Iterable[ContextChunk]) -> str:
-    """
-    Format context chunks as a numbered list of snippets.
-    """
-
     lines: List[str] = []
     for i, chunk in enumerate(context_chunks):
         lines.append(f"[{i}] {chunk.text.strip()}")
@@ -150,10 +55,6 @@ def build_answer_prompt(
     query: str,
     context_chunks: List[ContextChunk],
 ) -> str:
-    """
-    Build a prompt instructing the LM to answer using only the context.
-    """
-
     context_text = _format_context_chunks(context_chunks)
 
     prompt = (
@@ -169,15 +70,12 @@ def build_answer_prompt(
     return prompt
 
 
+# prompt for using the LM as a judge of answer quality
 def build_scoring_prompt(
     query: str,
     context_chunks: List[ContextChunk],
     answer: str,
 ) -> str:
-    """
-    Build a prompt for using the LM as a judge of answer quality.
-    """
-
     context_text = _format_context_chunks(context_chunks)
     prompt = (
         "Du utvärderar ett svar givet någon kontext och en fråga.\n\n"
@@ -196,11 +94,8 @@ def build_scoring_prompt(
     return prompt
 
 
-# ---------------------------------------------------------------------------
-# Scoring and evaluation
-# ---------------------------------------------------------------------------
 
-
+# make a candidate answer for the query using the provided context
 def generate_raw_answer(
     query: str,
     context_chunks: List[ContextChunk],
@@ -208,10 +103,6 @@ def generate_raw_answer(
     max_new_tokens: int = 256,
     temperature: float = 0.1,
 ) -> str:
-    """
-    Generate a candidate answer for the query using the provided context.
-    """
-
     prompt = build_answer_prompt(query=query, context_chunks=context_chunks)
     answer = lm.generate(
         prompt,
@@ -224,11 +115,8 @@ def generate_raw_answer(
 _FLOAT_REGEX = re.compile(r"[-+]?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?")   ## !!!Look this up 
 
 
+# parse first floatingpoint number from the model output and clamp it to [0, 1]
 def _parse_score(text: str, default: float = 0.0) -> float:
-    """
-    Parse the first floating-point number from the model output and clamp it to [0, 1].
-    """
-
     match = _FLOAT_REGEX.search(text)
     if not match:
         logger.warning("Could not parse score from LM output: %r", text)
@@ -243,6 +131,7 @@ def _parse_score(text: str, default: float = 0.0) -> float:
     return max(0.0, min(1.0, value))
 
 
+# Score a candidate answer using the LM as a judge, returns float in [0.0, 1.0]
 def score_answer(
     query: str,
     context_chunks: List[ContextChunk],
@@ -250,12 +139,6 @@ def score_answer(
     lm: LocalHFModel,
     max_new_tokens: int = 16,
 ) -> float:
-    """
-    Score a candidate answer using the LM as a judge.
-
-    Returns a float in [0.0, 1.0].
-    """
-
     if SKIP_SELF_EVALUATION:
         return 1.0
 
@@ -277,18 +160,6 @@ def evaluate_answer(
     high_threshold: float = 0.75,
     low_threshold: float = 0.40,
 ) -> tuple[AnswerStatus, float]:
-    """
-    Evaluate the answer and map the score to a status.
-
-    Returns
-    -------
-    status:
-        One of AnswerStatus.ANSWERED, AnswerStatus.NEED_MORE_CONTEXT,
-        AnswerStatus.CANNOT_ANSWER_CANDIDATE.
-    score:
-        The underlying numeric score in [0.0, 1.0].
-    """
-
     score = score_answer(
         query=query,
         context_chunks=context_chunks,
@@ -306,18 +177,7 @@ def evaluate_answer(
     return status, score
 
 
-# ---------------------------------------------------------------------------
-# RAG generator with active retrieval
-# ---------------------------------------------------------------------------
-
-
 class RAGGenerator:
-    """
-    Orchestrates RAG generation with optional active retrieval.
-
-    The main entry point is :meth:`generate_answer`.
-    """
-
     def __init__(
         self,
         lm: LocalHFModel,   ### Our downloaded model
@@ -330,27 +190,6 @@ class RAGGenerator:
             "Jag är ledsen, jag har ingen information om det."
         ),
     ) -> None:
-        """
-        Parameters
-        ----------
-        lm:
-            Local language model used for both answering and scoring.
-        retriever:
-            Optional retrieval callback used for active retrieval.
-        k:
-            Number of chunks to request per retrieval call.
-        max_retrieval_rounds:
-            Maximum number of additional retrieval rounds.
-        high_threshold:
-            Score threshold above which answers are accepted as final.
-        low_threshold:
-            Score below which answers are considered bad and will either
-            trigger retrieval (if possible) or produce a cannot-answer result.
-        canonical_cannot_answer_text:
-            Message returned to the user when the system determines that the
-            question cannot be answered from its knowledge base.
-        """
-
         self.lm = lm
         self.retriever = retriever
         self.k = k
@@ -364,10 +203,6 @@ class RAGGenerator:
         query: str,
         initial_context: List[ContextChunk],
     ) -> GenerationResult:
-        """
-        Generate an answer for the query, performing active retrieval as needed.
-        """
-
         context = initial_context
         rounds = 0
         best_candidate: Optional[GenerationResult] = None
@@ -410,7 +245,8 @@ class RAGGenerator:
             can_retrieve_more = self.retriever is not None and rounds < self.max_retrieval_rounds
 
             if can_retrieve_more:
-                # Perform another retrieval round to try to improve the context.
+                # another retrieval round to try to improve the context.
+                # PART OF SELF EVAL, SKIPPED IN FINAL VERSION
                 rounds += 1
                 logger.info(
                     "Active retrieval round %d for query %r (status=%s, score=%.3f)",
@@ -419,20 +255,17 @@ class RAGGenerator:
                     status.value,
                     score,
                 )
-                # Retrieve results (retriever.retrieve() only takes query, k is set in constructor)
                 retriever_results = self.retriever.retrieve(query)
-                # Convert dict results to ContextChunk format
                 context = retriever_results_to_context_chunks(retriever_results)
                 continue
 
             # No more retrieval possible; decide final outcome.
             if best_candidate and best_candidate.score >= self.low_threshold:
-                # Use the best medium-quality answer we have.
                 best_candidate.status = AnswerStatus.ANSWERED
                 best_candidate.reason = "medium_score_no_more_retrieval"
                 return best_candidate
 
-            # All candidates are poor and we cannot retrieve more: fallback.
+            # All candidates are shit and we cannot retrieve more: fallback.
             return GenerationResult(
                 answer=self.canonical_cannot_answer_text,
                 score=best_candidate.score if best_candidate else 0.0,
