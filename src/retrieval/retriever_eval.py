@@ -120,6 +120,56 @@ for entry in golden_entries:
         if gold_para not in retrieved_paragraphs:
             missing_paragraphs.append(gold_para)
     
+    # Evaluate top 5 reranked chunks
+    print(f"\n{'='*80}")
+    print(f"TOP 5 RERANKED CHUNKS EVALUATION")
+    print(f"{'='*80}")
+    
+    reranked_results = results.get("reranked_results", [])
+    top_5_reranked = reranked_results[:5]  # Get top 5
+    
+    if not top_5_reranked:
+        print("No reranked results available.")
+    else:
+        correct_law_count = 0
+        correct_paragraph_count = 0
+        
+        for i, chunk in enumerate(top_5_reranked, 1):
+            chunk_law = chunk.get("sfs_nr", "")
+            chunk_paragraph = chunk.get("paragraf", "N/A")
+            rerank_score = chunk.get("score_rerank", None)
+            retrieval_score = chunk.get("score_retrieval", None)
+            
+            # Normalize for comparison
+            normalized_chunk_law = normalize_law(chunk_law)
+            is_correct_law = normalized_chunk_law == normalized_golden_law
+            is_correct_paragraph = chunk_paragraph in golden_p
+            
+            if is_correct_law:
+                correct_law_count += 1
+            if is_correct_paragraph:
+                correct_paragraph_count += 1
+            
+            # Status indicators
+            law_status = "✓" if is_correct_law else "✗"
+            para_status = "✓" if is_correct_paragraph else "✗"
+            
+            print(f"\n--- Reranked Chunk {i} ---")
+            print(f"Law (SFS): {chunk_law} {law_status} {'(CORRECT)' if is_correct_law else '(WRONG)'}")
+            print(f"Paragraph: {chunk_paragraph} {para_status} {'(CORRECT)' if is_correct_paragraph else '(WRONG)'}")
+            if rerank_score is not None:
+                print(f"Rerank Score: {rerank_score:.4f}")
+            if retrieval_score is not None:
+                print(f"Retrieval Score: {retrieval_score:.4f}")
+            print(f"Title: {chunk.get('titel', chunk.get('title', 'N/A'))[:80]}...")
+            text_preview = chunk.get('text', 'N/A')
+            print(f"Text preview: {text_preview[:200]}..." if len(text_preview) > 200 else f"Text preview: {text_preview}")
+        
+        print(f"\n{'='*80}")
+        print(f"SUMMARY FOR TOP 5 RERANKED:")
+        print(f"  Correct Law: {correct_law_count}/5")
+        print(f"  Correct Paragraphs: {correct_paragraph_count}/5")
+        print(f"{'='*80}")
 
         
     # Print results for this query
