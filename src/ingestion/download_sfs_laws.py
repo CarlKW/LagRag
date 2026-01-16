@@ -5,7 +5,7 @@ from datetime import datetime
 
 OUTPUT_FILE = "sfs_lagboken_1990plus.jsonl"
 
-START_YEAR = 1800
+START_YEAR = 1990
 CURRENT_YEAR = datetime.today().year
 
 
@@ -41,25 +41,21 @@ def fetch_fulltext(url: str) -> str:
     resp.raise_for_status()
     return resp.text
 
-
 def fetch_doclist_page(url: str, label: str, max_retries: int = 3):
-    """
-    Hämtar en dokumentlista-sida med retries.
-    `label` används bara för loggen (t.ex. '1993 s.2').
-    """
+
     url = normalize_url(url)
     for attempt in range(1, max_retries + 1):
         try:
-            print(f"Hämtar {label}, försök {attempt}: {url}")
+            print(f"Gettig {label}, try {attempt}: {url}")
             resp = requests.get(url, timeout=60)
             resp.raise_for_status()
             return resp.json()
         except Exception as e:
-            print(f"⚠️ Fel vid hämtning av {label}: {e}")
+            print(f"ERROR retrieveing {label}: {e}")
             if attempt < max_retries:
                 time.sleep(5)
             else:
-                print(f"❌ Ger upp {label} efter {max_retries} försök.")
+                print(f"GIVE UP LABEL {label} after {max_retries} tries.")
                 return None
 
 
@@ -115,19 +111,19 @@ def main():
 
                     text_url = get_text_url(d)
                     if not text_url:
-                        print(f"Ingen text-URL för {dok_id} ({titel}), hoppar över.")
+                        print(f"no text url {dok_id} ({titel}), SKIP.")
                         continue
 
                     try:
                         fulltext = fetch_fulltext(text_url)
                     except requests.HTTPError as e:
                         if e.response is not None and e.response.status_code == 404:
-                            print(f" 404 för {dok_id} ({titel}), hoppar över.")
+                            print(f" 404  {dok_id} ({titel}), SIKIP.")
                             continue
-                        print(f" HTTP-fel för {dok_id} ({titel}): {e}")
+                        print(f" HTTP-ERROR {dok_id} ({titel}): {e}")
                         continue
                     except Exception as e:
-                        print(f"Kunde inte hämta text för {dok_id} ({titel}): {e}")
+                        print(f"COULD NOT GET {dok_id} ({titel}): {e}")
                         continue
 
                     record = {
@@ -145,7 +141,7 @@ def main():
                     total_count += 1
                     year_count += 1
 
-                    # Var snäll mot servern
+                    # Var snäll mot servern - annars bannad
                     time.sleep(0.05)
 
                 print(f"År {year}, sida {page_no} klar, {year_count} dokument för året, {total_count} totalt.")
@@ -154,16 +150,16 @@ def main():
                 if next_url:
                     current_url = next_url
                     page_no += 1
-                    if page_no > 10000:  # skydd mot ev. buggar
-                        print(f"För många sidor för år {year} – bryter.")
+                    if page_no > 10000:  
+                        print(f"too mangy pages {year} abort.")
                         break
                 else:
-                    print(f"Ingen @nasta_sida för år {year} — klart för året.")
+                    print(f"no  @nasta_sida for {year} , done.")
                     break
 
             time.sleep(2)
 
-    print(f"\nKlar! Sparade totalt {total_count} SFS-dokument (från {START_YEAR}) i {OUTPUT_FILE}")
+    print(f"\nDONE, saved {total_count} SFS (from {START_YEAR}) in {OUTPUT_FILE}")
 
 
 if __name__ == "__main__":

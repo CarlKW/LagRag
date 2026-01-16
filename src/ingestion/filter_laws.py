@@ -27,7 +27,6 @@ def clean_text(text: str) -> str:
     # Collapse multiple consecutive underscores (3+ to single)
     text = re.sub(r'_{3,}', '_', text)
     
-    # Trim whitespace from start and end
     text = text.strip()
     
     return text
@@ -44,7 +43,7 @@ def filter_and_clean_jsonl(input_file: str, output_file: str = None):
     output_path = Path(output_file)
     
     if not input_path.exists():
-        raise FileNotFoundError(f"Input file not found: {input_file}")
+        raise FileNotFoundError(f"inp file not found!!!!! {input_file}")
     
     total_rows = 0
     filtered_rows = 0
@@ -94,15 +93,14 @@ def filter_and_clean_jsonl(input_file: str, output_file: str = None):
                     continue
     
     print(f"Processing complete:")
-    print(f"  Total rows processed: {total_rows}")
-    print(f"  Rows kept (with 'Lag' or 'Förordning'): {filtered_rows}")
-    print(f"  Rows removed (revoked/upphävd): {revoked_rows}")
-    print(f"  Rows removed (other): {total_rows - filtered_rows - revoked_rows}")
-    print(f"  Output file: {output_path}")
+    print(f"Total rows {total_rows}")
+    print(f"Rows kept : {filtered_rows}")
+    print(f" Rows removed (revoked): {revoked_rows}")
+    print(f" Rows removed (other): {total_rows - filtered_rows - revoked_rows}")
+    print(f"Output file: {output_path}")
 
 
 def main():
-    """Main entry point."""
     project_root = Path(__file__).parent.parent.parent
     input_file = project_root / "data" / "sfs_lagboken_1990plus.jsonl"
     output_file = project_root / "data" / "sfs_lagboken_1990plus_filtered.jsonl"
