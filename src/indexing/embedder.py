@@ -49,8 +49,8 @@ class TTCEmbeddings(Embeddings):
             print(f"\n[Embedder Init] GPU {device_idx} Memory Check:")
             print(f"  Total: {total:.2f} GB | Reserved: {reserved:.2f} GB | Free: {free:.2f} GB")
             if free < 2.0:  # Less than 2GB free
-                print(f"  ⚠️  WARNING: Very little GPU memory free ({free:.2f} GB). Model loading may fail.")
-                print(f"  💡 Check other processes: nvidia-smi")
+                print(f"WARNING!! Very little GPU memory free ({free:.2f} GB). Model loading may fail.")
+                print(f"Check other processes: nvidia-smi")
 
         # Determine dtype based on device
         self.dtype = torch.bfloat16 if self.device.type == "cuda" else torch.float32
@@ -79,8 +79,8 @@ class TTCEmbeddings(Embeddings):
                 print(f"WARNING: could not delete peft_config: {e}")
         
         # Load the supervised adapter on top of the base model
-        # Note: We skip trying to load MNTP separately to avoid double-PEFT issues.
-        # The base model jealk/llm2vec-scandi-mntp-v2 already has MNTP merged.
+        #we skip trying to load MNTP separately to avoid double-PEFT issues
+        # The base model jealk/llm2vec-scandi-mntp-v2 already has MNTP merged
         print(f"Loading supervised adapter: {adapter_name}")
         try:
             model_with_supervised = PeftModel.from_pretrained(
@@ -171,39 +171,32 @@ class TTCEmbeddings(Embeddings):
                 convert_to_numpy=True
             )
         
-        # Convert to numpy array if not already
+
         if isinstance(embeddings, torch.Tensor):
             embeddings = embeddings.cpu().numpy()
         
-        # Ensure float32 dtype
         embeddings = embeddings.astype(np.float32)
         
-        # Clean any NaN or Inf values BEFORE normalization (replace with zeros)
-        # This prevents NaN/Inf from propagating through normalization
+        # Clean any NaN or Inf values BEFORE normalization
         embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=0.0, neginf=0.0)
         
         # Safe L2 normalization: divide by (norm + epsilon) to avoid division by zero
         # For cosine similarity, embeddings must be L2-normalized
-        # Expected norm after normalization: ≈ 1.0 (within numerical precision)
         norms = np.linalg.norm(embeddings, axis=1, keepdims=True)
         epsilon = 1e-12
         embeddings = embeddings / (norms + epsilon)
         
-        # Clean NaN/Inf values AGAIN after normalization (defensive programming)
-        # This guarantees no NaN/Inf can ever reach Chroma
+        # Clean NaN/Inf values AGAIN after normalization
         embeddings = np.nan_to_num(embeddings, nan=0.0, posinf=0.0, neginf=0.0)
         
         # Sanity check: verify all norms are finite after normalization
         final_norms = np.linalg.norm(embeddings, axis=1)
         assert np.all(np.isfinite(final_norms)), "Embeddings contain non-finite values after normalization"
-        # Expected norm ≈ 1.0 (within numerical precision due to epsilon)
-        # In practice, norms will be slightly less than 1.0 due to epsilon in denominator
-        
+
         # Ensure still float32 after normalization and cleaning
         embeddings = embeddings.astype(np.float32)
         
-        # Convert to plain Python list of floats (float32)
-        # This ensures Chroma receives clean, normalized, float32 embeddings
+        #convert to plain Python list of floats
         return embeddings.tolist()
     
     def embed_query(self, text: str) -> List[float]:
@@ -216,7 +209,6 @@ class TTCEmbeddings(Embeddings):
         Returns:
             Embedding vector as a list of floats
         """
-        # Use embed_documents for single text (handles batching)
         return self.embed_documents([text])[0]
 
 
