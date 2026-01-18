@@ -5,7 +5,7 @@
 }
 
 {
-  "query": "Polismyndighetens huvudsakliga uppgifter och ansvar framgår av polislagen",
+  "query": "Vilka är polisens huvudsakliga uppgifter och ansvar?",
   "gold_paragraphs": ["1 §", "2 §"],
   "law": "sfs-2022-1718"
 }

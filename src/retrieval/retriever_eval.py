@@ -5,12 +5,25 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 def normalize_law(law_str):
-    #Normalize law format for comparison
+    # Normalize law format for comparison
     if not law_str:
         return ""
     normalized = law_str.lower().replace("sfs-", "").replace("sfs ", "")
     normalized = normalized.replace(":", "-")
     return normalized
+
+def normalize_paragraph(golden_paras):
+    # Normalize a list of paras for comparison
+    normalized_golden_paragraphs = []
+    for para in golden_paras:
+        if "," in para:  
+            split_paras = [p.strip() for p in para.split(",")]
+            normalized_golden_paragraphs.extend(split_paras)
+        else:
+            normalized_golden_paragraphs.append(para)
+    
+    return normalized_golden_paragraphs
+
 
 golden_file = Path("data/golden_paragraphs.jsonl")
 golden_entries = []
@@ -25,7 +38,7 @@ with open(golden_file,"r", encoding = "utf-8") as f:
                     entry = json.loads(current_json)
                     golden_entries.append(entry)
                 except json.JSONDecodeError as e:
-                    print(f"Error on line {e}")
+                    print(f"Error on line {line_num}: {e}")
                     print(f"Current json{current_json[:200]}")
                 current_json = ""
             continue 
@@ -48,27 +61,15 @@ if golden_entries:
 from src.retrieval.retriever import RerankingRetriever
 retriever = RerankingRetriever()
 
-stored_chunks = []
 for entry in golden_entries:
     query = entry["query"]
     golden_p = entry["gold_paragraphs"]
     law = entry["law"]
-
-    # normalize the law
-    normalized_gold = []
-    for para in golden_p:
-        if "," in para:  
-            split_paras = [p.strip() for p in para.split(",")]
-            normalized_gold.extend(split_paras)
-        else:
-            normalized_gold.append(para)  # aldready a single paragraph
-    
-    golden_p = normalized_gold 
     results = retriever.retrieve(query)
 
     correct_law_chunks = []
-    # Normalize the golden law ONCE (outside the loop)
     normalized_golden_law = normalize_law(law)
+    normalized_golden_para = normalize_paragraph(golden_p) 
     
     for candidate in results["initial_candidates"]:
         candidate_law = candidate.get("sfs_nr", "")
@@ -76,15 +77,16 @@ for entry in golden_entries:
         
         if normalized_golden_law == normalized_candidate_law:
             correct_law_chunks.append(candidate)
-    
-    print(f"Found {len(correct_law_chunks)} chunks from correct law out of {len(results['initial_candidates'])} total")
-    if len(correct_law_chunks) == 0:
-        print(f"Did not find the correct law for '{query}' ")
+
+
+    print(f"\n{'='*80}")
+    print(f"Number of chunks with correct law in inital search: {len(correct_law_chunks)}/{len(results['initial_candidates'])}")
+    print(f"\n{'='*80}")
         
-    retrieved_paragraphs = []
-    for candidate in results["initial_candidates"]:
-        if "paragraf" in candidate: 
-            retrieved_paragraphs.append(candidate["paragraf"])
+   # retrieved_paragraphs = []                              We dont check the paragraphs for the intial 50 candidates, onlu the laws 
+    #for candidate in results["initial_candidates"]:
+    #    if "paragraf" in candidate: 
+     #       retrieved_paragraphs.append(candidate["paragraf"])
     
     # prnt top retrieved chunks for inspection
     
@@ -99,74 +101,69 @@ for entry in golden_entries:
    #     text = candidate.get('text', 'N/A')
    #     print(f"  {text[:300]}..." if len(text) > 300 else f"  {text}")
 
-    found_paragraphs = []
-    for gold_para in golden_p:
-        if gold_para in retrieved_paragraphs:
-            found_paragraphs.append(gold_para)
+   # found_paragraphs = []
+   # for gold_para in normalized_golden_para:
+    #    if gold_para in retrieved_paragraphs:
+     #       found_paragraphs.append(gold_para)
 
-    missing_paragraphs = []
-    for gold_para in golden_p:
-        if gold_para not in retrieved_paragraphs:
-            missing_paragraphs.append(gold_para)
+   # missing_paragraphs = []
+   # for gold_para in normalized_golden_para:
+   #     if gold_para not in retrieved_paragraphs:
+   #         missing_paragraphs.append(gold_para)
     
     # Evaluate top 5 reranked chunks
     print(f"\n{'='*80}")
-    print(f"TOP 5 RERANKED CHUNKS EVALUATION")
-    print(f"{'='*80}")
+    print(f"TOP 10 RERANKED CHUNKS EVALUATION")
     
     reranked_results = results.get("reranked_results", [])
-    top_5_reranked = reranked_results[:5]  # Get top 5
+    top_reranked = reranked_results[:10]  # Get top reranked results
     
-    if not top_5_reranked:
+    if not top_reranked:
         print("No reranked results available.")
     else:
         correct_law_count = 0
         correct_paragraph_count = 0
         
-        for i, chunk in enumerate(top_5_reranked, 1):
+        for i, chunk in enumerate(top_reranked, 1):
+            rerank_score = chunk.get("score_rerank")
+            retrieval_score = chunk.get("score_retrieval")
             chunk_law = chunk.get("sfs_nr", "")
+            chunk_paragraphs = []
             chunk_paragraph = chunk.get("paragraf", "N/A")
-            rerank_score = chunk.get("score_rerank", None)
-            retrieval_score = chunk.get("score_retrieval", None)
+
+            # Add the main chunk paragraph if it exists
+            if chunk_paragraph != "N/A":
+                chunk_paragraphs.append(chunk_paragraph)
+
+            # Check if the retrieved chunk has surrounding context paragraphs and add those do the list
+            if chunk.get("has_surrounding_context"):
+                context_paragraphs = chunk.get("context_paragraphs")
+                if context_paragraphs:
+                    context_list = [p.strip() for p in context_paragraphs.split(",")]
+                    chunk_paragraphs.extend(context_list)
+
             
             # Normalize for comparison
+            normalized_chunk_para = normalize_paragraph(chunk_paragraphs)
             normalized_chunk_law = normalize_law(chunk_law)
+
+
             is_correct_law = normalized_chunk_law == normalized_golden_law
-            is_correct_paragraph = chunk_paragraph in golden_p
+            nr_correct_paragraphs = sum(para in normalized_golden_para for para in normalized_chunk_para)
             
             if is_correct_law:
                 correct_law_count += 1
-            if is_correct_paragraph:
-                correct_paragraph_count += 1
             
-            # Status indicators
-            law_status = "✓" if is_correct_law else "✗"
-            para_status = "✓" if is_correct_paragraph else "✗"
+
             
             print(f"\n--- Reranked Chunk {i} ---")
-            print(f"Law (SFS): {chunk_law} {law_status} {'(CORRECT)' if is_correct_law else '(WRONG)'}")
-            print(f"Paragraph: {chunk_paragraph} {para_status} {'(CORRECT)' if is_correct_paragraph else '(WRONG)'}")
+            print(f"Law (SFS): {chunk_law} {'(CORRECT)' if is_correct_law else '(WRONG)'}")
+            print(f"Fraction of correct paragraphs in chunk {nr_correct_paragraphs}/{len(normalized_golden_para)}")
             if rerank_score is not None:
                 print(f"Rerank Score: {rerank_score:.4f}")
             if retrieval_score is not None:
                 print(f"Retrieval Score: {retrieval_score:.4f}")
             print(f"Title: {chunk.get('titel', chunk.get('title', 'N/A'))[:80]}...")
             text_preview = chunk.get('text', 'N/A')
-            print(f"Text preview: {text_preview[:200]}..." if len(text_preview) > 200 else f"Text preview: {text_preview}")
+            print(f"Text preview: {text_preview[:200]}..." if len(text_preview) > 100 else f"Text preview: {text_preview}")
         
-        print(f"\n{'='*80}")
-        print(f"SUMMARY FOR TOP 5 RERANKED:")
-        print(f"  Correct Law: {correct_law_count}/5")
-        print(f"  Correct Paragraphs: {correct_paragraph_count}/5")
-        print(f"{'='*80}")
-
-        
-    # Print results for this query
-    print(f"\n{'_'*80}")
-    print(f"Query: {query}")
-    print(f"Law: {law}")
-    print(f"Gold paragraphs: {golden_p}")
-    print(f"Found: {found_paragraphs}")
-    print(f"Missing: {missing_paragraphs}")
-    print(f"Score: {len(found_paragraphs)}/{len(golden_p)}")
-

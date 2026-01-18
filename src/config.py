@@ -29,7 +29,7 @@ class PipelineConfig:
     collection_name: str = "sfs_paragraphs"
     
     k_initial: int = 50
-    k_final: int = 3
+    k_final: int = 10
     max_retrieval_rounds: int = 2
     
     high_threshold: float = 0.75

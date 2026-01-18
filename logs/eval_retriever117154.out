@@ -1,0 +1,856 @@
+==========================================
+Job ID: 117154
+Job Name: retriever_eval
+Node: io
+Start Time: Fri Jan 16 12:18:44 PM CET 2026
+Working Directory: /data/users/spreitz/LagRag
+==========================================
+==========================================
+Resource Information
+==========================================
+Allocated CPUs: 8
+Allocated Memory: 32768 MB
+Allocated GPUs: 
+
+CPU Count: 8
+GPU Info:
+index, name, memory.total [MiB], memory.used [MiB], memory.free [MiB], utilization.gpu [%]
+0, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+1, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+2, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+3, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+4, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 5 %
+5, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+6, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+7, NVIDIA L4, 23034 MiB, 1 MiB, 22590 MiB, 0 %
+==========================================
+==========================================
+Starting Retriever Evaluation
+==========================================
+Results will be saved to: 
+Report will be saved to: 
+
+tee: '': No such file or directory
+
+Loaded 14 entries
+
+First entry:
+{'query': 'När och hur kan en kommun få statsbidrag för brottsförebyggande arbete inom socialtjänsten?', 'gold_paragraphs': ['1 §', '2 §', '5 §', '7 §'], 'law': 'sfs-2025-1255'}
+
+[Embedder Init] GPU 0 Memory Check:
+  Total: 22.06 GB | Reserved: 0.00 GB | Free: 22.06 GB
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda:0, Dtype: torch.bfloat16
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:00<00:01,  1.83it/s]Downloading shards:  50%|█████     | 2/4 [00:01<00:01,  1.25it/s]'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: 12e3bb29-55a2-409f-ac58-c21ed55d878f)')' thrown while requesting HEAD https://huggingface.co/AI-Sweden-Models/Llama-3-8B-instruct/resolve/main/model-00003-of-00004.safetensors
+Retrying in 1s [Retry 1/5].
+Downloading shards:  75%|███████▌  | 3/4 [00:13<00:05,  5.90s/it]Downloading shards: 100%|██████████| 4/4 [00:14<00:00,  3.88s/it]Downloading shards: 100%|██████████| 4/4 [00:14<00:00,  3.57s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  4.42it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  5.82it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  6.57it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  7.18it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  6.57it/s]
+Some weights of the model checkpoint at AI-Sweden-Models/Llama-3-8B-instruct were not used when initializing LlamaEncoderModel: ['lm_head.weight']
+- This IS expected if you are initializing LlamaEncoderModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing LlamaEncoderModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+
+============================================================
+GPU Memory Status (Device 0):
+  Total: 22.06 GB
+  Reserved: 0.16 GB
+  Allocated: 0.00 GB
+  Free: 21.90 GB
+============================================================
+Moving model to cuda:0...
+✓ Model successfully moved to cuda:0
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+loaded Chroma  'sfs_paragraphs' with 69157 documents
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]The attention layers in this model are transitioning from computing the RoPE embeddings internally through `position_ids` (2D tensor with the indexes of the tokens), to using externally computed `position_embeddings` (Tuple of tensors, containing cos and sin). In v4.45 `position_ids` will be removed and `position_embeddings` will be mandatory.
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.42it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.42it/s]
+Found 3 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2025:1255 Right (CORRECT)
+Paragraph: 2 § Right (CORRECT)
+Rerank Score: 0.7891
+Retrieval Score: 0.1577
+Title: Förordning (2025:1255) om statsbidrag till kommuner för att utveckla socialtjäns...
+Text preview: 1 § Denna förordning innehåller bestämmelser om statsbidrag 
+till kommuner i syfte att stärka och utveckla socialtjänstens 
+arbete med att förebygga och motverka brottslighet enligt 
+6 kap. 8 § och 18...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2025:1255 Right (CORRECT)
+Paragraph: 1 § Right (CORRECT)
+Rerank Score: 0.7695
+Retrieval Score: 0.1651
+Title: Förordning (2025:1255) om statsbidrag till kommuner för att utveckla socialtjäns...
+Text preview: 1 § Denna förordning innehåller bestämmelser om statsbidrag 
+till kommuner i syfte att stärka och utveckla socialtjänstens 
+arbete med att förebygga och motverka brottslighet enligt 
+6 kap. 8 § och 18...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2025:1255 Right (CORRECT)
+Paragraph: 3 § Wrong (WRONG)
+Rerank Score: 0.7266
+Retrieval Score: 0.1625
+Title: Förordning (2025:1255) om statsbidrag till kommuner för att utveckla socialtjäns...
+Text preview: 2 § Bidrag får, i mån av tillgång på medel, lämnas till en 
+kommun för åtgärder för att stärka och utveckla 
+socialtjänstens brottsförebyggande arbete. Bidrag får lämnas 
+för både brottsförebyggande o...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 2/5
+================================================================================
+
+________________________________________________________________________________
+Query: När och hur kan en kommun få statsbidrag för brottsförebyggande arbete inom socialtjänsten?
+Law: sfs-2025-1255
+Gold paragraphs: ['1 §', '2 §', '5 §', '7 §']
+Found: ['1 §', '2 §', '5 §', '7 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.71it/s]
+Found 7 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2022:1718 Right (CORRECT)
+Paragraph: 2 § Right (CORRECT)
+Rerank Score: 0.8594
+Retrieval Score: 0.1762
+Title: Förordning (2022:1718) med instruktion för Polismyndigheten...
+Text preview: 1 § Polismyndighetens huvudsakliga uppgifter och ansvar 
+framgår av polislagen (1984:387). Myndighetens uppgifter och 
+ansvar framgår också av polisförordningen (2014:1104) och av 
+andra författningar...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2022:1719 Wrong (WRONG)
+Paragraph: 1 § Right (CORRECT)
+Rerank Score: 0.8242
+Retrieval Score: 0.1703
+Title: Förordning (2022:1719) med instruktion för Säkerhetspolisen...
+Text preview: 1 § Säkerhetspolisen bedriver i egenskap av säkerhetstjänst 
+underrättelse- och säkerhetsarbete. Myndighetens huvudsakliga 
+uppgifter och ansvar framgår av 3 § polislagen (1984:387). 
+
+Myndighetens öv...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2022:1719 Wrong (WRONG)
+Paragraph: 2 § Right (CORRECT)
+Rerank Score: 0.8242
+Retrieval Score: 0.1703
+Title: Förordning (2022:1719) med instruktion för Säkerhetspolisen...
+Text preview: 1 § Säkerhetspolisen bedriver i egenskap av säkerhetstjänst 
+underrättelse- och säkerhetsarbete. Myndighetens huvudsakliga 
+uppgifter och ansvar framgår av 3 § polislagen (1984:387). 
+
+Myndighetens öv...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 1/5
+  Correct Paragraphs: 3/5
+================================================================================
+
+________________________________________________________________________________
+Query: Polismyndighetens huvudsakliga uppgifter och ansvar framgår av polislagen
+Law: sfs-2022-1718
+Gold paragraphs: ['1 §', '2 §']
+Found: ['1 §', '2 §']
+Missing: []
+Score: 2/2
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.93it/s]
+Found 17 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2013:1164 Right (CORRECT)
+Paragraph: 28 § Right (CORRECT)
+Rerank Score: 0.7734
+Retrieval Score: 0.2236
+Title: Lag (2013:1164) om elektroniska vägtullssystem...
+Text preview: 28 § För betalning av en vägtull för ett fordon som är 
+registrerat i ett land inom Europeiska ekonomiska 
+samarbetsområdet (EES) får den svenska kontaktpunkten 
+elektroniskt utbyta uppgifter med utlä...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2013:1164 Right (CORRECT)
+Paragraph: 27 § Right (CORRECT)
+Rerank Score: 0.7461
+Retrieval Score: 0.2357
+Title: Lag (2013:1164) om elektroniska vägtullssystem...
+Text preview: 26 § Den myndighet som regeringen bestämmer är 
+förlikningsorgan. Förlikningsorganet ska, på begäran av en 
+EETS-betalningsförmedlare eller en avgiftsupptagare, medla 
+mellan parterna 
+
+1. om en övere...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2002:1054 Wrong (WRONG)
+Paragraph: 6 § Wrong (WRONG)
+Rerank Score: 0.6602
+Retrieval Score: 0.2290
+Title: Förordning (2002:1054) om gränstullsamarbete med Norge...
+Text preview: 5 § Tullverket får i samråd med behörig norsk tullmyndighet
+fördela tullförvaltningarnas uppgifter i fråga om
+gränstullsamarbetet.
+
+I sådant hänseende får beslutas
+
+1. att svensk tullpersonal skall ut...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 2/5
+  Correct Paragraphs: 2/5
+================================================================================
+
+________________________________________________________________________________
+Query: I vilka situationer kan svenska myndigheter utbyta information med andra länder om vägtullar?
+Law: sfs-2013-1164
+Gold paragraphs: ['28 §', '27 §', '32 §']
+Found: ['28 §', '27 §']
+Missing: ['32 §']
+Score: 2/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.94it/s]
+Found 18 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2011:725 Right (CORRECT)
+Paragraph: 2 § Right (CORRECT)
+Rerank Score: 0.8086
+Retrieval Score: 0.1643
+Title: Lag (2011:725) om behörighet för lokförare...
+Text preview: 1 § Järnvägsfordon får framföras av den som har giltigt
+förarbevis och giltigt kompletterande intyg enligt denna lag.
+
+Förarbevis
+
+Grundläggande krav
+
+2 § Ett förarbevis ska efter ansökan utfärdas för...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2011:725 Right (CORRECT)
+Paragraph: 1 § Right (CORRECT)
+Rerank Score: 0.7969
+Retrieval Score: 0.1913
+Title: Lag (2011:725) om behörighet för lokförare...
+Text preview: 1 § Denna lag innehåller bestämmelser om behörighetskrav för
+att få framföra järnvägsfordon.
+
+Lagen innehåller även bestämmelser om
+
+1. tillstånd för läkare och psykologer, utbildningsanordnare
+och ex...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2011:725 Right (CORRECT)
+Paragraph: 2 § Right (CORRECT)
+Rerank Score: 0.7969
+Retrieval Score: 0.1913
+Title: Lag (2011:725) om behörighet för lokförare...
+Text preview: 1 § Denna lag innehåller bestämmelser om behörighetskrav för
+att få framföra järnvägsfordon.
+
+Lagen innehåller även bestämmelser om
+
+1. tillstånd för läkare och psykologer, utbildningsanordnare
+och ex...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 3/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilka krav måste vara uppfyllda för att en person ska få framföra järnvägsfordon i Sverige?
+Law: sfs-2011-725
+Gold paragraphs: ['1 §', '2 §', '4 §']
+Found: ['1 §', '2 §', '4 §']
+Missing: []
+Score: 3/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.90it/s]
+Found 8 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2006:806 Right (CORRECT)
+Paragraph: 4 § Right (CORRECT)
+Rerank Score: 0.7969
+Retrieval Score: 0.1769
+Title: Lag (2006:806) om provtagning på djur, m.m....
+Text preview: 3 § För att kartlägga förekomst av, fastställa frihet från
+eller kontrollera smittsamma djursjukdomar får regeringen eller
+den myndighet som regeringen bestämmer meddela föreskrifter
+eller i det särsk...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2006:806 Right (CORRECT)
+Paragraph: 5 § Wrong (WRONG)
+Rerank Score: 0.7734
+Retrieval Score: 0.1686
+Title: Lag (2006:806) om provtagning på djur, m.m....
+Text preview: 4 § Provtagning eller undersökning enligt 3 § skall utföras av
+veterinär eller annan person som utses av regeringen eller den
+myndighet som regeringen bestämmer.
+
+Provtagningen eller undersökningen få...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2006:806 Right (CORRECT)
+Paragraph: 3 § Right (CORRECT)
+Rerank Score: 0.7188
+Retrieval Score: 0.1548
+Title: Lag (2006:806) om provtagning på djur, m.m....
+Text preview: 2 b § Förordning (EU) 2017/625 ska tillämpas även i fråga om 
+offentlig kontroll och annan offentlig verksamhet som faller 
+utanför förordningens tillämpningsområde. Lag (2021:171).
+
+Provtagning och u...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 2/5
+================================================================================
+
+________________________________________________________________________________
+Query: I vilka situationer får svenska myndigheter besluta om provtagning och undersökning av djur utan djurägarens samtycke?
+Law: sfs-2006-806
+Gold paragraphs: ['1 §', '3 §', '4 §']
+Found: ['1 §', '3 §', '4 §']
+Missing: []
+Score: 3/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.99it/s]
+Found 11 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2024:1180 Right (CORRECT)
+Paragraph: 1 § Right (CORRECT)
+Rerank Score: 0.8242
+Retrieval Score: 0.1443
+Title: Lag (2024:1180) om anonyma vittnen i brottmål...
+Text preview: 1 § En domstol får enligt bestämmelserna i denna lag besluta 
+om tillstånd att under förundersökning och rättegång i 
+brottmål höra ett vittne på ett sådant sätt att hans eller 
+hennes identitet eller...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2024:1180 Right (CORRECT)
+Paragraph: 2 § Wrong (WRONG)
+Rerank Score: 0.8242
+Retrieval Score: 0.1443
+Title: Lag (2024:1180) om anonyma vittnen i brottmål...
+Text preview: 1 § En domstol får enligt bestämmelserna i denna lag besluta 
+om tillstånd att under förundersökning och rättegång i 
+brottmål höra ett vittne på ett sådant sätt att hans eller 
+hennes identitet eller...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2024:1180 Right (CORRECT)
+Paragraph: 8 § Wrong (WRONG)
+Rerank Score: 0.7266
+Retrieval Score: 0.1063
+Title: Lag (2024:1180) om anonyma vittnen i brottmål...
+Text preview: 7 § Den som ansöker om att ett vittne ska höras anonymt ska 
+vid sammanträdet redogöra för
+
+1. vittnets identitet,
+
+2. om och i så fall hur vittnet är närstående till en 
+misstänkt eller tilltalad,
+
+3...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 1/5
+================================================================================
+
+________________________________________________________________________________
+Query: Under vilka förutsättningar kan en domstol besluta att ett vittne ska höras anonymt i ett brottmål?
+Law: sfs-2024-1180
+Gold paragraphs: ['1 §']
+Found: ['1 §']
+Missing: []
+Score: 1/1
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.84it/s]
+Found 11 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2024:1180 Right (CORRECT)
+Paragraph: 8 § Wrong (WRONG)
+Rerank Score: 0.8125
+Retrieval Score: 0.1252
+Title: Lag (2024:1180) om anonyma vittnen i brottmål...
+Text preview: 7 § Den som ansöker om att ett vittne ska höras anonymt ska 
+vid sammanträdet redogöra för
+
+1. vittnets identitet,
+
+2. om och i så fall hur vittnet är närstående till en 
+misstänkt eller tilltalad,
+
+3...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2024:1180 Right (CORRECT)
+Paragraph: 7 § Right (CORRECT)
+Rerank Score: 0.8047
+Retrieval Score: 0.1498
+Title: Lag (2024:1180) om anonyma vittnen i brottmål...
+Text preview: 7 § Den som ansöker om att ett vittne ska höras anonymt ska 
+vid sammanträdet redogöra för
+
+1. vittnets identitet,
+
+2. om och i så fall hur vittnet är närstående till en 
+misstänkt eller tilltalad,
+
+3...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2024:1180 Right (CORRECT)
+Paragraph: 1 § Wrong (WRONG)
+Rerank Score: 0.7500
+Retrieval Score: 0.1708
+Title: Lag (2024:1180) om anonyma vittnen i brottmål...
+Text preview: 1 § En domstol får enligt bestämmelserna i denna lag besluta 
+om tillstånd att under förundersökning och rättegång i 
+brottmål höra ett vittne på ett sådant sätt att hans eller 
+hennes identitet eller...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 1/5
+================================================================================
+
+________________________________________________________________________________
+Query: Hur handläggs en ansökan om att höra ett vittne anonymt och vilka skyddsåtgärder kan domstolen besluta?
+Law: sfs-2024-1180
+Gold paragraphs: ['3 §', '6 §', '7 §', '9 §']
+Found: ['3 §', '6 §', '7 §', '9 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.87it/s]
+Found 11 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2024:1082 Right (CORRECT)
+Paragraph: 3 § Right (CORRECT)
+Rerank Score: 0.9102
+Retrieval Score: 0.1201
+Title: Lag (2024:1082) om hotell- och pensionatsrörelser...
+Text preview: 2 § Den som avser att driva en hotell- eller pensionatsrörelse 
+som är avsedd att ta emot minst nio gäster samtidigt eller som 
+omfattar minst fem gästrum ska anmäla detta till 
+Polismyndigheten.
+
+3 §...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2024:1082 Right (CORRECT)
+Paragraph: 4 § Wrong (WRONG)
+Rerank Score: 0.8711
+Retrieval Score: 0.1221
+Title: Lag (2024:1082) om hotell- och pensionatsrörelser...
+Text preview: 3 § En anmälan enligt 2 § ska vara skriftlig och innehålla 
+uppgifter om 
+
+1. anmälarens företagsnamn,
+
+2. anmälarens organisationsnummer eller personnummer,
+
+3. anmälarens postadress,
+
+4. behörig för...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2024:1082 Right (CORRECT)
+Paragraph: 5 § Wrong (WRONG)
+Rerank Score: 0.8281
+Retrieval Score: 0.1335
+Title: Lag (2024:1082) om hotell- och pensionatsrörelser...
+Text preview: 4 § Den som driver en anmälningspliktig hotell- eller 
+pensionatsrörelse ska utan onödigt dröjsmål skriftligen anmäla 
+till Polismyndigheten om 
+
+1. ett förhållande som avses i 3 § ändras,
+
+2. rörelse...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 1/5
+================================================================================
+
+________________________________________________________________________________
+Query: När är en hotell- eller pensionatsrörelse anmälningspliktig till Polismyndigheten och vilka uppgifter ska anmälan innehålla?
+Law: sfs-2024-1082
+Gold paragraphs: ['1 §', '2 §', '3 §']
+Found: ['1 §', '2 §', '3 §']
+Missing: []
+Score: 3/3
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.93it/s]
+Found 10 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2024:1082 Right (CORRECT)
+Paragraph: 10 § Right (CORRECT)
+Rerank Score: 0.8906
+Retrieval Score: 0.1655
+Title: Lag (2024:1082) om hotell- och pensionatsrörelser...
+Text preview: 9 § Polismyndigheten har rätt att få tillträde till hotell och 
+pensionat för att utöva tillsyn över att denna lag följs.
+
+10 § Polismyndigheten ska föra register över de uppgifter som 
+har anmälts en...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2024:1082 Right (CORRECT)
+Paragraph: 9 § Right (CORRECT)
+Rerank Score: 0.8086
+Retrieval Score: 0.1463
+Title: Lag (2024:1082) om hotell- och pensionatsrörelser...
+Text preview: 8 § Polismyndigheten får besluta att förbjuda en hotell- eller 
+pensionats-rörelse, helt eller delvis, om det är nödvändigt 
+för att upprätthålla allmän ordning och säkerhet. Beslutet får 
+förenas med...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2024:1082 Right (CORRECT)
+Paragraph: 8 § Right (CORRECT)
+Rerank Score: 0.7461
+Retrieval Score: 0.1584
+Title: Lag (2024:1082) om hotell- och pensionatsrörelser...
+Text preview: 7 § I hotell och pensionat som omfattas av anmälningsplikt ska 
+utrymningsvägar anges genom tydliga markeringar. En markering 
+ska vara lätt synlig från dörren till varje gästrum.
+
+8 § Polismyndighete...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 3/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilka tillsyns- och ingripandebefogenheter har Polismyndigheten enligt lagen om hotell- och pensionatsrörelser?
+Law: sfs-2024-1082
+Gold paragraphs: ['5 §', '8 §', '9 §', '10 §']
+Found: ['5 §', '8 §', '9 §', '10 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.93it/s]
+Found 9 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2018:127 Wrong (WRONG)
+Paragraph: 4 § Wrong (WRONG)
+Rerank Score: 0.7461
+Retrieval Score: 0.1764
+Title: Förordning (2018:127) med kompletterande bestämmelser till EU:s förordning om pe...
+Text preview: 3 a § Bestämmelser om en marknadskontrollmyndighets befogenhet 
+att besluta om åtgärder enligt förordning (EU) 2019/1020 finns 
+i lagen (2018:125) med kompletterande bestämmelser till EU:s 
+förordning...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2018:127 Wrong (WRONG)
+Paragraph: 3 § Wrong (WRONG)
+Rerank Score: 0.7344
+Retrieval Score: 0.1460
+Title: Förordning (2018:127) med kompletterande bestämmelser till EU:s förordning om pe...
+Text preview: 2 § Konsumentverket är marknadskontrollmyndighet och utövar 
+marknadskontroll enligt Europaparlamentets och rådets 
+förordning (EU) 2019/1020 av den 20 juni 2019 om 
+marknadskontroll och överensstämme...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2018:125 Right (CORRECT)
+Paragraph: 6 § Wrong (WRONG)
+Rerank Score: 0.7344
+Retrieval Score: 0.1847
+Title: Lag (2018:125) med kompletterande bestämmelser till EU:s förordning om personlig...
+Text preview: 5 § Ett beslut enligt 2 a eller 4 § ska förenas med vite, om 
+det inte av särskilda skäl är obehövligt. Lag (2021:681).
+
+6 § Marknadskontrollmyndigheten får, när den fattar beslut 
+enligt 2 a eller 4 ...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 1/5
+  Correct Paragraphs: 0/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilka befogenheter har marknadskontrollmyndigheten vid kontroll av personlig skyddsutrustning enligt svensk lag och EU:s regelverk?
+Law: sfs-2018-125
+Gold paragraphs: ['2 §', '2 a §']
+Found: ['2 §', '2 a §']
+Missing: []
+Score: 2/2
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.57it/s]
+Found 6 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2018:125 Right (CORRECT)
+Paragraph: 8 § Wrong (WRONG)
+Rerank Score: 0.7969
+Retrieval Score: 0.1715
+Title: Lag (2018:125) med kompletterande bestämmelser till EU:s förordning om personlig...
+Text preview: 7 § En tillverkare, tillverkares representant, importör eller 
+distributör (ekonomisk aktör) ska ersätta 
+marknadskontrollmyndigheten för provtagning och undersökning 
+av prov, om det vid kontroll vis...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2018:125 Right (CORRECT)
+Paragraph: 10 § Wrong (WRONG)
+Rerank Score: 0.7617
+Retrieval Score: 0.2067
+Title: Lag (2018:125) med kompletterande bestämmelser till EU:s förordning om personlig...
+Text preview: 9 § En ekonomisk aktör ska åläggas att betala en 
+sanktionsavgift, om den ekonomiska aktören eller någon som 
+handlar på den ekonomiska aktörens vägnar uppsåtligen eller av 
+oaktsamhet har brutit mot ...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2018:125 Right (CORRECT)
+Paragraph: 9 § Right (CORRECT)
+Rerank Score: 0.7383
+Retrieval Score: 0.2057
+Title: Lag (2018:125) med kompletterande bestämmelser till EU:s förordning om personlig...
+Text preview: 8 § Den som har befattat sig med ett ärende som gäller 
+marknadskontroll enligt EU:s förordning om personlig 
+skyddsutrustning och denna lag får inte obehörigen röja eller 
+utnyttja det som han eller ...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 1/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilka sanktioner och rättsverkningar kan drabba ekonomiska aktörer som inte uppfyller kraven för personlig skyddsutrustning?
+Law: sfs-2018-125
+Gold paragraphs: ['4 §', '5 §', '6 §', '9 §']
+Found: ['4 §', '5 §', '6 §', '9 §']
+Missing: []
+Score: 4/4
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.89it/s]
+Found 0 chunks from correct law out of 50 total
+Did not find the correct law for 'Vilken ränta ska betalas på körkortslån som tas med statligt stöd under 2026?' 
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 1993:1138 Wrong (WRONG)
+Paragraph: 7 § Wrong (WRONG)
+Rerank Score: 0.3594
+Retrieval Score: 0.1816
+Title: Förordning (1993:1138) om hantering av statliga fordringar...
+Text preview: 6 § När en myndighet ger kredit eller anstånd med betalning,
+skall ränta tas ut enligt den räntesats som för varje budgetår
+fastställs av Riksgäldskontoret (statens utlåningsränta) med
+ett tillägg av ...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2011:211 Wrong (WRONG)
+Paragraph: 14 § Wrong (WRONG)
+Rerank Score: 0.1934
+Retrieval Score: 0.1919
+Title: Förordning (2011:211) om utlåning och garantier...
+Text preview: 13 § För varje lån eller särskilt avgränsad grupp av lån ska
+ränta tas ut av låntagaren som motsvarar statens
+finansieringskostnad för upplåning med motsvarande löptid, med
+ett räntepåslag motsvarande...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2011:211 Wrong (WRONG)
+Paragraph: 15 § Wrong (WRONG)
+Rerank Score: 0.1641
+Retrieval Score: 0.1866
+Title: Förordning (2011:211) om utlåning och garantier...
+Text preview: 14 § För varje garanti eller särskilt avgränsad grupp av
+garantier ska en garantiavgift tas ut som motsvarar statens
+förväntade förlust. Avgiften ska tas ut av garantigäldenären
+eller garantitagaren.
+...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 0/5
+  Correct Paragraphs: 0/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilken ränta ska betalas på körkortslån som tas med statligt stöd under 2026?
+Law: sfs-2025-1257}
+Gold paragraphs: ['1 §']
+Found: ['1 §']
+Missing: []
+Score: 1/1
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.89it/s]
+Found 5 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 1994:1966 Right (CORRECT)
+Paragraph: 1 § Wrong (WRONG)
+Rerank Score: 0.7773
+Retrieval Score: 0.1573
+Title: Förordning (1994:1966) om omföring av allmän pensionsavgift...
+Text preview: 1 § I denna förordning regleras omföring mellan vissa 
+inkomsttitlar på statsbudgeten beträffande allmän 
+pensionsavgift enligt lagen (1994:1744) om allmän 
+pensionsavgift samt överföring av sådana av...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 1994:1966 Right (CORRECT)
+Paragraph: 2 § Right (CORRECT)
+Rerank Score: 0.7695
+Retrieval Score: 0.1603
+Title: Förordning (1994:1966) om omföring av allmän pensionsavgift...
+Text preview: 1 § I denna förordning regleras omföring mellan vissa 
+inkomsttitlar på statsbudgeten beträffande allmän 
+pensionsavgift enligt lagen (1994:1744) om allmän 
+pensionsavgift samt överföring av sådana av...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 1994:1966 Right (CORRECT)
+Paragraph: 3 § Wrong (WRONG)
+Rerank Score: 0.6953
+Retrieval Score: 0.1499
+Title: Förordning (1994:1966) om omföring av allmän pensionsavgift...
+Text preview: 2 § Pensionsmyndigheten ska omföra den allmänna
+pensionsavgiften. Förordning (2009:1183).
+
+3 § Omföring av pensionsavgiften skall ske från inkomsttiteln
+fysiska personers inkomstskatt till inkomsttite...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 3/5
+  Correct Paragraphs: 1/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilken myndighet ansvarar för att omföra den allmänna pensionsavgiften i statsbudgeten?
+Law: sfs-1994-1966
+Gold paragraphs: ['2 §']
+Found: ['2 §']
+Missing: []
+Score: 1/1
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 10.19it/s]
+Found 1 chunks from correct law out of 50 total
+TOP 5 RERANKED CHUNKS EVALUATION
+
+--- Reranked Chunk 1 ---
+Law (SFS): 2020:1093 Right (CORRECT)
+Paragraph: complete_document Wrong (WRONG)
+Rerank Score: 0.9102
+Retrieval Score: 0.1569
+Title: Förordning (2020:1093) om ränta på lån till hemutrustning för flyktingar och vis...
+Text preview: Förordning (2020:1093) om ränta på lån till hemutrustning för flyktingar och vissa andra utlänningar för 2021
+
+SFS nr: 2020:1093
+Departement/myndighet: Arbetsmarknadsdepartementet IU 
+Utfärdad: 2020-1...
+
+--- Reranked Chunk 2 ---
+Law (SFS): 2021:1201 Wrong (WRONG)
+Paragraph: complete_document Wrong (WRONG)
+Rerank Score: 0.9062
+Retrieval Score: 0.1612
+Title: Förordning (2021:1201) om ränta på lån till hemutrustning för flyktingar och vis...
+Text preview: Förordning (2021:1201) om ränta på lån till hemutrustning för flyktingar och vissa andra utlänningar för 2022
+
+SFS nr: 2021:1201
+Departement/myndighet: Arbetsmarknadsdepartementet IU 
+Utfärdad: 2021-1...
+
+--- Reranked Chunk 3 ---
+Law (SFS): 2025:1249 Wrong (WRONG)
+Paragraph: complete_document Wrong (WRONG)
+Rerank Score: 0.8125
+Retrieval Score: 0.1516
+Title: Förordning (2025:1249) om ränta på lån till hemutrustning för flyktingar och vis...
+Text preview: Förordning (2025:1249) om ränta på lån till hemutrustning för flyktingar och vissa andra utlänningar för 2026
+
+SFS nr: 2025:1249
+Departement/myndighet: Arbetsmarknadsdepartementet 
+Utfärdad: 2025-11-2...
+
+================================================================================
+SUMMARY FOR TOP 5 RERANKED:
+  Correct Law: 1/5
+  Correct Paragraphs: 0/5
+================================================================================
+
+________________________________________________________________________________
+Query: Vilken ränta gäller för lån till hemutrustning för flyktingar och vissa andra utlänningar under 2021?
+Law: sfs-2020-1093
+Gold paragraphs: ['1 §']
+Found: ['1 §']
+Missing: []
+Score: 1/1
+==========================================
+Evaluation completed
+Report saved to: 
+==========================================
+==========================================
+End Time: Fri Jan 16 12:20:51 PM CET 2026
+Job completed
+==========================================

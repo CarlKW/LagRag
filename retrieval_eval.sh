@@ -23,6 +23,11 @@ echo "=========================================="
 echo "Allocated CPUs: $SLURM_CPUS_PER_TASK"
 echo "Allocated Memory: $SLURM_MEM_PER_NODE MB"
 echo "Allocated GPUs: $SLURM_GPUS"
+# After line 25, add:
+echo "GPU Allocation Check:"
+echo "  SLURM_GPUS: '${SLURM_GPUS:-NOT SET}'"
+echo "  CUDA_VISIBLE_DEVICES: '${CUDA_VISIBLE_DEVICES:-NOT SET}'"
+
 echo ""
 echo "CPU Count: $(nproc)"
 echo "GPU Info:"
@@ -58,9 +63,6 @@ export PYTHONPATH="${PROJECT_ROOT}:${PYTHONPATH}"
 echo "=========================================="
 echo "Starting Retriever Evaluation"
 echo "=========================================="
-
-echo "Results will be saved to: $RESULTS_FILE"
-echo "Report will be saved to: $REPORT_FILE"
 echo ""
 
 # Run the evaluation script

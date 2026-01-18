@@ -78,7 +78,7 @@ def build_scoring_prompt(
 ) -> str:
     context_text = _format_context_chunks(context_chunks)
     prompt = (
-        "Du utvärderar ett svar givet någon kontext och en fråga.\n\n"
+        "Du utvärderar ett svar givet kontext och en fråga. Utgå ifrån från den givna kontexten för att svara på frågan \n\n"
         "Kontext:\n"
         f"{context_text}\n\n"
         "Fråga:\n"
@@ -183,7 +183,7 @@ class RAGGenerator:
         lm: LocalHFModel,   ### Our downloaded model
         retriever: Optional[RerankingRetriever] = None,   # The reetriever from our pipeline
         k: int = 10,  # tune
-        max_retrieval_rounds: int = 2,  # tune
+        max_retrieval_rounds: int = 0,  # tune
         high_threshold: float = 0.75,  # tune
         low_threshold: float = 0.40,  # tune 
         canonical_cannot_answer_text: str = (

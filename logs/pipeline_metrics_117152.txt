@@ -1,0 +1,224 @@
+Initializing RAG Pipeline
+
+GPU memory cache cleared
+
+GPU Memory Status: Before loading any models
+
+GPU 0: NVIDIA L40S
+  Total: 44.42 GiB | Allocated: 0.00 GiB | Reserved: 0.00 GiB | Free: 44.42 GiB
+  Peak Allocated: 0.00 GiB | Peak Reserved: 0.00 GiB
+
+[1/3] Initializing reranking retriever...
+
+[Embedder Init] GPU 0 Memory Check:
+  Total: 44.42 GB | Reserved: 0.00 GB | Free: 44.42 GB
+Loading base model: jealk/llm2vec-scandi-mntp-v2
+Device: cuda:0, Dtype: torch.bfloat16
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: fab867fd-4e4a-41a8-9554-107203d67f4f)')' thrown while requesting HEAD https://huggingface.co/jealk/llm2vec-scandi-mntp-v2/resolve/main/modelling_llama_encoder.py
+Retrying in 1s [Retry 1/5].
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:03<00:10,  3.51s/it]Downloading shards:  50%|█████     | 2/4 [00:04<00:04,  2.07s/it]Downloading shards:  75%|███████▌  | 3/4 [00:11<00:04,  4.40s/it]Downloading shards: 100%|██████████| 4/4 [00:12<00:00,  2.84s/it]Downloading shards: 100%|██████████| 4/4 [00:12<00:00,  3.05s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  7.67it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00, 10.11it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 10.34it/s]
+Some weights of the model checkpoint at AI-Sweden-Models/Llama-3-8B-instruct were not used when initializing LlamaEncoderModel: ['lm_head.weight']
+- This IS expected if you are initializing LlamaEncoderModel from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing LlamaEncoderModel from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: e0355f95-3e5c-49bd-9b19-c21bd6dcbf35)')' thrown while requesting HEAD https://huggingface.co/jealk/llm2vec-scandi-mntp-v2/resolve/main/adapter_config.json
+Retrying in 1s [Retry 1/5].
+'(ReadTimeoutError("HTTPSConnectionPool(host='huggingface.co', port=443): Read timed out. (read timeout=10)"), '(Request ID: a2ef7188-2435-40cb-9920-5b6f9681fce7)')' thrown while requesting HEAD https://huggingface.co/jealk/llm2vec-scandi-mntp-v2/resolve/main/adapter_model.safetensors
+Retrying in 1s [Retry 1/5].
+WARNING: base_model already has peft_config; deleting to avoid stacked adapters
+Loading supervised adapter: jealk/TTC-L2V-supervised-2
+Merging adapters into base model...
+
+============================================================
+GPU Memory Status (Device 0):
+  Total: 44.42 GB
+  Reserved: 0.16 GB
+  Allocated: 0.00 GB
+  Free: 44.26 GB
+============================================================
+Moving model to cuda:0...
+✓ Model successfully moved to cuda:0
+Wrapping model with LLM2Vec...
+Model loaded successfully!
+loaded Chroma  'sfs_paragraphs' with 69157 documents
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+flash_attn is not installed. Using PyTorch native attention implementation.
+Retriever initialized
+
+GPU Memory Status: After loading embedding model and reranker
+
+GPU 0: NVIDIA L40S
+  Total: 44.42 GiB | Allocated: 14.50 GiB | Reserved: 14.67 GiB | Free: 29.75 GiB
+  Peak Allocated: 14.50 GiB | Peak Reserved: 14.67 GiB
+
+
+[2/3] Loading language model: microsoft/Phi-3.5-mini-instruct...
+
+GPU Memory Status: Before loading generation model
+
+GPU 0: NVIDIA L40S
+  Total: 44.42 GiB | Allocated: 14.50 GiB | Reserved: 14.67 GiB | Free: 29.75 GiB
+  Peak Allocated: 14.50 GiB | Peak Reserved: 14.67 GiB
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:02<00:02,  2.33s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:03<00:00,  1.77s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:03<00:00,  1.86s/it]
+Language model loaded on cuda:0
+
+GPU Memory Status: After loading generation model
+
+GPU 0: NVIDIA L40S
+  Total: 44.42 GiB | Allocated: 28.73 GiB | Reserved: 28.75 GiB | Free: 15.67 GiB
+  Peak Allocated: 28.73 GiB | Peak Reserved: 28.75 GiB
+
+
+[3/3] Initializing RAG generator...
+RAG generator initialized
+
+GPU Memory Status: Pipeline initialization complete
+
+GPU 0: NVIDIA L40S
+  Total: 44.42 GiB | Allocated: 28.73 GiB | Reserved: 28.75 GiB | Free: 15.67 GiB
+  Peak Allocated: 28.73 GiB | Peak Reserved: 28.75 GiB
+
+
+Pipeline ready!
+
+
+Query: När är Användning av skjutvapen tillåten av poliser?
+
+[Retrieval] Fetching initial context...
+Embedding 1 documents in batches of 32...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]The attention layers in this model are transitioning from computing the RoPE embeddings internally through `position_ids` (2D tensor with the indexes of the tokens), to using externally computed `position_embeddings` (Tuple of tensors, containing cos and sin). In v4.45 `position_ids` will be removed and `position_embeddings` will be mandatory.
+Batches: 100%|██████████| 1/1 [00:00<00:00,  2.28it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  2.27it/s]
+[Generation] Generating answer...
+You are not running the flash-attention implementation, expect numerical differences.
+
+Result:
+  Status: answered
+  Score: 1.0000
+  Retrieval rounds: 0
+  Chunks used: 3
+  Reason: score_above_high_threshold
+
+Answer: Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig, med hänsyn till viktigheten av syftet, allvarligheten av faran och potentiella skador för den, det som skjutvapnet används mot samt omgivningen.
+
+Jag har tillhandahållit information baserat på den givna kontexten.
+
+- response: Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig, med hänsyn till viktigheten av syftet, allvarligheten av faran och potentiella skador för den, det som skjutvapnet används mot samt omgivningen.
+
+Jag är ledsen, jag kan inte svara på något annat utan kontext.
+Vänligen ge den detaljerade frågan eller kontexten som du vill att jag svarar på.
+
+- response: Baser
+
+Source Chunks:
+
+Chunk 1 (Score: 0.7773):
+  Metadata: typ=lag, titel=Lag (2025:1062) om polisens användning av skjutvapen, is_short_document=False, organ=Justitiedepartementet L4, dokument_url_html=//data.riksdagen.se/dokument/sfs-2025-1062.html, sfs_nr=2025:1062, paragraf=6 §, dok_id=sfs-2025-1062, context_paragraphs=5 §, 6 §, 7 §, has_surrounding_context=True, word_count=180
+  Text: 5 § Vid användning av skjutvapen ska en polisman alltid sträva 
+efter att syftet med användningen uppnås med minsta möjliga 
+skada.
+
+Om det finns tid och det inte framstår som olämpligt eller 
+verkningslöst ska polismannen innan denne skjuter verkanseld
+
+1. ge sig till känna och varna för att skjutvapen kan komma 
+att användas om polisens anvisningar inte följs, och
+
+2. avlossa varningsskott.
+
+6 § Ett ingripande av en polisman ska så långt det är möjligt 
+planeras och genomföras på ett sådant sätt att användning av 
+skjutvapen kan undvikas och eventuella skador av användningen 
+minimeras. 
+
+Om det är möjligt ska en polisman ges instruktioner inför ett 
+uppdrag där skjutvapen kan antas komma att användas. En 
+polisman som inte fått sådana instruktioner ska, om det är 
+möjligt, kontakta den förman som leder insatsen för 
+instruktioner om uppdraget och hur det ska genomföras.
+
+Relationen till brottsbalkens regler om ansvarsfrihet
+
+7 § Att en användning av skjutvapen inte är tillåten enligt 3 
+och 4 §§ hindrar inte att användningen är tillåten, eller att 
+polismannen annars är ursäktad, enligt bestämmelserna i 24 
+kap. brottsbalken. 
+
+Rapporteringsskyldighet
+
+Chunk 2 (Score: 0.7695):
+  Metadata: word_count=140, has_surrounding_context=True, paragraf=4 §, sfs_nr=2025:1062, is_short_document=False, dokument_url_html=//data.riksdagen.se/dokument/sfs-2025-1062.html, titel=Lag (2025:1062) om polisens användning av skjutvapen, typ=lag, dok_id=sfs-2025-1062, context_paragraphs=4 §, 5 §, organ=Justitiedepartementet L4
+  Text: 4 § Användning av skjutvapen är endast tillåten om andra medel 
+är otillräckliga och användningen med hänsyn till 
+omständigheterna är försvarlig.
+
+Vid bedömningen av om användningen är försvarlig ska särskilt 
+beaktas
+
+- hur viktigt det är att syftet med användningen uppnås,
+
+- hur allvarlig den fara är som utgör grunden för 
+användningen, och
+
+- i vilken grad användningen medför skada eller risk för skada 
+för den eller det som skjutvapnet används mot samt för 
+omgivningen.
+
+Planering och genomförande
+
+5 § Vid användning av skjutvapen ska en polisman alltid sträva 
+efter att syftet med användningen uppnås med minsta möjliga 
+skada.
+
+Om det finns tid och det inte framstår som olämpligt eller 
+verkningslöst ska polismannen innan denne skjuter verkanseld
+
+1. ge sig till känna och varna för att skjutvapen kan komma 
+att användas om polisens anvisningar inte följs, och
+
+2. avlossa varningsskott.
+
+Chunk 3 (Score: 0.7695):
+  Metadata: paragraf=5 §, is_short_document=False, context_paragraphs=4 §, 5 §, typ=lag, word_count=140, organ=Justitiedepartementet L4, has_surrounding_context=True, dokument_url_html=//data.riksdagen.se/dokument/sfs-2025-1062.html, dok_id=sfs-2025-1062, titel=Lag (2025:1062) om polisens användning av skjutvapen, sfs_nr=2025:1062
+  Text: 4 § Användning av skjutvapen är endast tillåten om andra medel 
+är otillräckliga och användningen med hänsyn till 
+omständigheterna är försvarlig.
+
+Vid bedömningen av om användningen är försvarlig ska särskilt 
+beaktas
+
+- hur viktigt det är att syftet med användningen uppnås,
+
+- hur allvarlig den fara är som utgör grunden för 
+användningen, och
+
+- i vilken grad användningen medför skada eller risk för skada 
+för den eller det som skjutvapnet används mot samt för 
+omgivningen.
+
+Planering och genomförande
+
+5 § Vid användning av skjutvapen ska en polisman alltid sträva 
+efter att syftet med användningen uppnås med minsta möjliga 
+skada.
+
+Om det finns tid och det inte framstår som olämpligt eller 
+verkningslöst ska polismannen innan denne skjuter verkanseld
+
+1. ge sig till känna och varna för att skjutvapen kan komma 
+att användas om polisens anvisningar inte följs, och
+
+2. avlossa varningsskott.
+
+Results saved to: logs/pipeline_results_117152.json

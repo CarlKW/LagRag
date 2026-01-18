@@ -1,0 +1,968 @@
+[
+  {
+    "query": "När är Användning av skjutvapen tillåten av poliser?",
+    "answer": "Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig, med hänsyn till viktigheten av syftet, allvarligheten av faran och potentiella skador för den, det som skjutvapnet används mot samt omgivningen.\n\nJag har tillhandahållit information baserat på den givna kontexten.\n\n- response: Användning av skjutvapen är tillåten om andra medel är otillräckliga och användningen är försvarlig, med hänsyn till viktigheten av syftet, allvarligheten av faran och potentiella skador för den, det som skjutvapnet används mot samt omgivningen.\n\nJag är ledsen, jag kan inte svara på något annat utan kontext.\nVänligen ge den detaljerade frågan eller kontexten som du vill att jag svarar på.\n\n- response: Baser",
+    "score": 1.0,
+    "status": "answered",
+    "num_retrieval_rounds": 0,
+    "num_chunks_used": 3,
+    "reason": "score_above_high_threshold",
+    "chunks": [
+      {
+        "id": "2025:1062_6 §",
+        "text": "5 § Vid användning av skjutvapen ska en polisman alltid sträva \nefter att syftet med användningen uppnås med minsta möjliga \nskada.\n\nOm det finns tid och det inte framstår som olämpligt eller \nverkningslöst ska polismannen innan denne skjuter verkanseld\n\n1. ge sig till känna och varna för att skjutvapen kan komma \natt användas om polisens anvisningar inte följs, och\n\n2. avlossa varningsskott.\n\n6 § Ett ingripande av en polisman ska så långt det är möjligt \nplaneras och genomföras på ett sådant sätt att användning av \nskjutvapen kan undvikas och eventuella skador av användningen \nminimeras. \n\nOm det är möjligt ska en polisman ges instruktioner inför ett \nuppdrag där skjutvapen kan antas komma att användas. En \npolisman som inte fått sådana instruktioner ska, om det är \nmöjligt, kontakta den förman som leder insatsen för \ninstruktioner om uppdraget och hur det ska genomföras.\n\nRelationen till brottsbalkens regler om ansvarsfrihet\n\n7 § Att en användning av skjutvapen inte är tillåten enligt 3 \noch 4 §§ hindrar inte att användningen är tillåten, eller att \npolismannen annars är ursäktad, enligt bestämmelserna i 24 \nkap. brottsbalken. \n\nRapporteringsskyldighet",
+        "score": 0.77734375,
+        "metadata": {
+          "typ": "lag",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "is_short_document": false,
+          "organ": "Justitiedepartementet L4",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "sfs_nr": "2025:1062",
+          "paragraf": "6 §",
+          "dok_id": "sfs-2025-1062",
+          "context_paragraphs": "5 §, 6 §, 7 §",
+          "has_surrounding_context": true,
+          "word_count": 180
+        }
+      },
+      {
+        "id": "2025:1062_4 §",
+        "text": "4 § Användning av skjutvapen är endast tillåten om andra medel \när otillräckliga och användningen med hänsyn till \nomständigheterna är försvarlig.\n\nVid bedömningen av om användningen är försvarlig ska särskilt \nbeaktas\n\n- hur viktigt det är att syftet med användningen uppnås,\n\n- hur allvarlig den fara är som utgör grunden för \nanvändningen, och\n\n- i vilken grad användningen medför skada eller risk för skada \nför den eller det som skjutvapnet används mot samt för \nomgivningen.\n\nPlanering och genomförande\n\n5 § Vid användning av skjutvapen ska en polisman alltid sträva \nefter att syftet med användningen uppnås med minsta möjliga \nskada.\n\nOm det finns tid och det inte framstår som olämpligt eller \nverkningslöst ska polismannen innan denne skjuter verkanseld\n\n1. ge sig till känna och varna för att skjutvapen kan komma \natt användas om polisens anvisningar inte följs, och\n\n2. avlossa varningsskott.",
+        "score": 0.76953125,
+        "metadata": {
+          "word_count": 140,
+          "has_surrounding_context": true,
+          "paragraf": "4 §",
+          "sfs_nr": "2025:1062",
+          "is_short_document": false,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "typ": "lag",
+          "dok_id": "sfs-2025-1062",
+          "context_paragraphs": "4 §, 5 §",
+          "organ": "Justitiedepartementet L4"
+        }
+      },
+      {
+        "id": "2025:1062_5 §",
+        "text": "4 § Användning av skjutvapen är endast tillåten om andra medel \när otillräckliga och användningen med hänsyn till \nomständigheterna är försvarlig.\n\nVid bedömningen av om användningen är försvarlig ska särskilt \nbeaktas\n\n- hur viktigt det är att syftet med användningen uppnås,\n\n- hur allvarlig den fara är som utgör grunden för \nanvändningen, och\n\n- i vilken grad användningen medför skada eller risk för skada \nför den eller det som skjutvapnet används mot samt för \nomgivningen.\n\nPlanering och genomförande\n\n5 § Vid användning av skjutvapen ska en polisman alltid sträva \nefter att syftet med användningen uppnås med minsta möjliga \nskada.\n\nOm det finns tid och det inte framstår som olämpligt eller \nverkningslöst ska polismannen innan denne skjuter verkanseld\n\n1. ge sig till känna och varna för att skjutvapen kan komma \natt användas om polisens anvisningar inte följs, och\n\n2. avlossa varningsskott.",
+        "score": 0.76953125,
+        "metadata": {
+          "paragraf": "5 §",
+          "is_short_document": false,
+          "context_paragraphs": "4 §, 5 §",
+          "typ": "lag",
+          "word_count": 140,
+          "organ": "Justitiedepartementet L4",
+          "has_surrounding_context": true,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "dok_id": "sfs-2025-1062",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "sfs_nr": "2025:1062"
+        }
+      }
+    ],
+    "initial_candidates": [
+      {
+        "text": "1 § Bestämmelserna i denna förordning gäller för\nFörsvarsmaktens personal när den tjänstgör för bevakning. I\nfråga om militär personal gäller bestämmelserna även när den\ntjänstgör för att upprätthålla ordning. Bestämmelserna gäller\ndock inte Försvarsmaktens användande av våld i enlighet med\ninternationell rätt och sedvänja. Förordning (2006:153).\n\nAnvändande av skjutvapen\n\n2 § Den som handlar i nödvärn enligt 24 kap. 1 § brottsbalken får\nanvända skjutvapen för att avvärja svårare våld mot sig själv eller\nnågon annan eller hot som innebär trängande fara för sådant våld.\n\n3 § Den som enligt 24 kap. 2 § brottsbalken, 10 och 29 §§ \npolislagen (1984:387) eller 11 § andra stycket skyddslagen \n(2010:305) får använda våld för att genomföra en tjänsteåtgärd \nfår då använda skjutvapen, om det är absolut nödvändigt med \nhänsyn till åtgärdens vikt. Förordning (2019:775).",
+        "score_retrieval": 0.12842440605163574,
+        "score_rerank": 0.42578125,
+        "metadata": {
+          "is_short_document": false,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "paragraf": "2 §",
+          "organ": "Försvarsdepartementet",
+          "sfs_nr": "1992:98",
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "word_count": 133,
+          "has_surrounding_context": true,
+          "typ": "förordning",
+          "context_paragraphs": "1 §, 2 §, 3 §",
+          "dok_id": "sfs-1992-98"
+        }
+      },
+      {
+        "text": "2 § Den som handlar i nödvärn enligt 24 kap. 1 § brottsbalken får\nanvända skjutvapen för att avvärja svårare våld mot sig själv eller\nnågon annan eller hot som innebär trängande fara för sådant våld.\n\n3 § Den som enligt 24 kap. 2 § brottsbalken, 10 och 29 §§ \npolislagen (1984:387) eller 11 § andra stycket skyddslagen \n(2010:305) får använda våld för att genomföra en tjänsteåtgärd \nfår då använda skjutvapen, om det är absolut nödvändigt med \nhänsyn till åtgärdens vikt. Förordning (2019:775).\n\n4 § Innan skjutvapen används, skall risken för att utomstående skadas\nsärskilt beaktas. Skottlossning inom ett område där många människor bor\neller vistas skall undvikas i det längsta.",
+        "score_retrieval": 0.14543461799621582,
+        "score_rerank": 0.5234375,
+        "metadata": {
+          "sfs_nr": "1992:98",
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "is_short_document": false,
+          "word_count": 111,
+          "typ": "förordning",
+          "paragraf": "3 §",
+          "dok_id": "sfs-1992-98",
+          "has_surrounding_context": true,
+          "organ": "Försvarsdepartementet",
+          "context_paragraphs": "2 §, 3 §, 4 §"
+        }
+      },
+      {
+        "text": "3 § Den som enligt 24 kap. 2 § brottsbalken, 10 och 29 §§ \npolislagen (1984:387) eller 11 § andra stycket skyddslagen \n(2010:305) får använda våld för att genomföra en tjänsteåtgärd \nfår då använda skjutvapen, om det är absolut nödvändigt med \nhänsyn till åtgärdens vikt. Förordning (2019:775).\n\n4 § Innan skjutvapen används, skall risken för att utomstående skadas\nsärskilt beaktas. Skottlossning inom ett område där många människor bor\neller vistas skall undvikas i det längsta.\n\n5 § Innan skott avlossas, skall tydlig varning ges genom tillrop, om det\ninte är uppenbart att en sådan varning skulle vara utan verkan. Om\nomständigheterna tillåter det, skall varningsskott först avlossas.",
+        "score_retrieval": 0.1464661955833435,
+        "score_rerank": 0.5546875,
+        "metadata": {
+          "has_surrounding_context": true,
+          "typ": "förordning",
+          "organ": "Försvarsdepartementet",
+          "sfs_nr": "1992:98",
+          "context_paragraphs": "3 §, 4 §, 5 §",
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "dok_id": "sfs-1992-98",
+          "is_short_document": false,
+          "paragraf": "4 §",
+          "word_count": 107
+        }
+      },
+      {
+        "text": "1 § Bestämmelserna i denna förordning gäller för\nFörsvarsmaktens personal när den tjänstgör för bevakning. I\nfråga om militär personal gäller bestämmelserna även när den\ntjänstgör för att upprätthålla ordning. Bestämmelserna gäller\ndock inte Försvarsmaktens användande av våld i enlighet med\ninternationell rätt och sedvänja. Förordning (2006:153).\n\nAnvändande av skjutvapen\n\n2 § Den som handlar i nödvärn enligt 24 kap. 1 § brottsbalken får\nanvända skjutvapen för att avvärja svårare våld mot sig själv eller\nnågon annan eller hot som innebär trängande fara för sådant våld.",
+        "score_retrieval": 0.14671587944030762,
+        "score_rerank": 0.314453125,
+        "metadata": {
+          "organ": "Försvarsdepartementet",
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "sfs_nr": "1992:98",
+          "context_paragraphs": "1 §, 2 §",
+          "dok_id": "sfs-1992-98",
+          "typ": "förordning",
+          "word_count": 86,
+          "paragraf": "1 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "has_surrounding_context": true,
+          "is_short_document": false
+        }
+      },
+      {
+        "text": "4 § Användning av skjutvapen är endast tillåten om andra medel \när otillräckliga och användningen med hänsyn till \nomständigheterna är försvarlig.\n\nVid bedömningen av om användningen är försvarlig ska särskilt \nbeaktas\n\n- hur viktigt det är att syftet med användningen uppnås,\n\n- hur allvarlig den fara är som utgör grunden för \nanvändningen, och\n\n- i vilken grad användningen medför skada eller risk för skada \nför den eller det som skjutvapnet används mot samt för \nomgivningen.\n\nPlanering och genomförande\n\n5 § Vid användning av skjutvapen ska en polisman alltid sträva \nefter att syftet med användningen uppnås med minsta möjliga \nskada.\n\nOm det finns tid och det inte framstår som olämpligt eller \nverkningslöst ska polismannen innan denne skjuter verkanseld\n\n1. ge sig till känna och varna för att skjutvapen kan komma \natt användas om polisens anvisningar inte följs, och\n\n2. avlossa varningsskott.",
+        "score_retrieval": 0.14719903469085693,
+        "score_rerank": 0.76953125,
+        "metadata": {
+          "word_count": 140,
+          "has_surrounding_context": true,
+          "paragraf": "4 §",
+          "sfs_nr": "2025:1062",
+          "is_short_document": false,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "typ": "lag",
+          "dok_id": "sfs-2025-1062",
+          "context_paragraphs": "4 §, 5 §",
+          "organ": "Justitiedepartementet L4"
+        }
+      },
+      {
+        "text": "4 § Användning av skjutvapen är endast tillåten om andra medel \när otillräckliga och användningen med hänsyn till \nomständigheterna är försvarlig.\n\nVid bedömningen av om användningen är försvarlig ska särskilt \nbeaktas\n\n- hur viktigt det är att syftet med användningen uppnås,\n\n- hur allvarlig den fara är som utgör grunden för \nanvändningen, och\n\n- i vilken grad användningen medför skada eller risk för skada \nför den eller det som skjutvapnet används mot samt för \nomgivningen.\n\nPlanering och genomförande\n\n5 § Vid användning av skjutvapen ska en polisman alltid sträva \nefter att syftet med användningen uppnås med minsta möjliga \nskada.\n\nOm det finns tid och det inte framstår som olämpligt eller \nverkningslöst ska polismannen innan denne skjuter verkanseld\n\n1. ge sig till känna och varna för att skjutvapen kan komma \natt användas om polisens anvisningar inte följs, och\n\n2. avlossa varningsskott.",
+        "score_retrieval": 0.14719903469085693,
+        "score_rerank": 0.76953125,
+        "metadata": {
+          "paragraf": "5 §",
+          "is_short_document": false,
+          "context_paragraphs": "4 §, 5 §",
+          "typ": "lag",
+          "word_count": 140,
+          "organ": "Justitiedepartementet L4",
+          "has_surrounding_context": true,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "dok_id": "sfs-2025-1062",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "sfs_nr": "2025:1062"
+        }
+      },
+      {
+        "text": "3 § En polisman får, under de förutsättningar som anges i 4 §, \nanvända skjutvapen vid utförandet av en tjänsteåtgärd om det \nbehövs för att \n\n1. avvärja pågående eller överhängande våld av svårare slag \nmot polismannen själv eller någon annan person,\n\n2. gripa en person eller hindra att någon som är \nfrihetsberövad på grund av brott rymmer, om personen kan antas \nutgöra en allvarlig fara för andra människor eller vapen \nanvänds vid rymningen, eller \n\n3. annars förhindra att en påbörjad eller överhängande \nsärskilt allvarlig straffbelagd gärning begås eller avvärja en \nallvarlig och överhängande fara för liv eller hälsa. \n\nEn polisman får också rikta ett skjutvapen mot någon, om det \när nödvändigt för att ha tillräcklig beredskap för att kunna \navvärja ett sådant allvarligt angrepp som avses i första \nstycket 1 från den person som skjutvapnet riktas mot.",
+        "score_retrieval": 0.16126149892807007,
+        "score_rerank": 0.66796875,
+        "metadata": {
+          "is_short_document": false,
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "has_surrounding_context": false,
+          "organ": "Justitiedepartementet L4",
+          "sfs_nr": "2025:1062",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "word_count": 137,
+          "typ": "lag",
+          "dok_id": "sfs-2025-1062",
+          "paragraf": "3 §"
+        }
+      },
+      {
+        "text": "4 § Innan skjutvapen används, skall risken för att utomstående skadas\nsärskilt beaktas. Skottlossning inom ett område där många människor bor\neller vistas skall undvikas i det längsta.\n\n5 § Innan skott avlossas, skall tydlig varning ges genom tillrop, om det\ninte är uppenbart att en sådan varning skulle vara utan verkan. Om\nomständigheterna tillåter det, skall varningsskott först avlossas.\n\n6 § Vid skottlossning mot en person skall eftersträvas att denne\noskadliggörs endast för tillfället.\n\nVerkställighetsföreskrifter",
+        "score_retrieval": 0.16720163822174072,
+        "score_rerank": 0.3203125,
+        "metadata": {
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "context_paragraphs": "4 §, 5 §, 6 §",
+          "sfs_nr": "1992:98",
+          "word_count": 76,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "paragraf": "5 §",
+          "has_surrounding_context": true,
+          "is_short_document": false,
+          "dok_id": "sfs-1992-98",
+          "typ": "förordning",
+          "organ": "Försvarsdepartementet"
+        }
+      },
+      {
+        "text": "9 a § rättegångsbalken,\n\n5. gripa någon enligt 24 kap. 7 § rättegångsbalken,\n\n6. ta föremål i beslag enligt 27 kap. 4 § rättegångsbalken,\n\n7. förbjuda tillträde till ett visst område eller vidta andra \nåtgärder enligt 27 kap. 15 § rättegångsbalken,\n\n8. göra en husrannsakan enligt 28 kap. 5 § rättegångsbalken,\n\n9. göra en undersökning enligt 28 kap. 10 § rättegångsbalken,\n\n10. besluta om kroppsvisitation samt hålla kvar eller ta med \nden som ska kroppsvisiteras enligt 28 kap. 13 och 13 a §§ \nrättegångsbalken, och\n\n11. omhänderta en person enligt lagen (1976:511) om \nomhändertagande av berusade personer m.m. Lag (2024:1259).\n\nAnvändning av tjänstevapen och andra särskilda hjälpmedel vid \nvåldsanvändning\n\n7 § En finsk polisman som utför uppgifter i Sverige i enlighet \nmed bestämmelserna i detta kapitel har samma rätt att använda \ntjänstevapen och andra särskilda hjälpmedel vid \nvåldsanvändning som en svensk polisman har att använda \nmotsvarande utrustning. Lag (2024:1259).\n\nRapportering och omedelbar prövning",
+        "score_retrieval": 0.16843479871749878,
+        "score_rerank": 0.306640625,
+        "metadata": {
+          "paragraf": "9 a §",
+          "organ": "Justitiedepartementet L4",
+          "context_paragraphs": "9 a §, 7 §",
+          "has_surrounding_context": true,
+          "typ": "lag",
+          "sfs_nr": "2017:496",
+          "titel": "Lag (2017:496) om internationellt polisiärt samarbete",
+          "word_count": 153,
+          "is_short_document": false,
+          "dok_id": "sfs-2017-496",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-496.html"
+        }
+      },
+      {
+        "text": "9 a § rättegångsbalken,\n\n5. gripa någon enligt 24 kap. 7 § rättegångsbalken,\n\n6. ta föremål i beslag enligt 27 kap. 4 § rättegångsbalken,\n\n7. förbjuda tillträde till ett visst område eller vidta andra \nåtgärder enligt 27 kap. 15 § rättegångsbalken,\n\n8. göra en husrannsakan enligt 28 kap. 5 § rättegångsbalken,\n\n9. göra en undersökning enligt 28 kap. 10 § rättegångsbalken,\n\n10. besluta om kroppsvisitation samt hålla kvar eller ta med \nden som ska kroppsvisiteras enligt 28 kap. 13 och 13 a §§ \nrättegångsbalken, och\n\n11. omhänderta en person enligt lagen (1976:511) om \nomhändertagande av berusade personer m.m. Lag (2024:1259).\n\nAnvändning av tjänstevapen och andra särskilda hjälpmedel vid \nvåldsanvändning\n\n7 § En finsk polisman som utför uppgifter i Sverige i enlighet \nmed bestämmelserna i detta kapitel har samma rätt att använda \ntjänstevapen och andra särskilda hjälpmedel vid \nvåldsanvändning som en svensk polisman har att använda \nmotsvarande utrustning. Lag (2024:1259).\n\nRapportering och omedelbar prövning",
+        "score_retrieval": 0.16843479871749878,
+        "score_rerank": 0.306640625,
+        "metadata": {
+          "paragraf": "7 §",
+          "dok_id": "sfs-2017-496",
+          "sfs_nr": "2017:496",
+          "organ": "Justitiedepartementet L4",
+          "context_paragraphs": "9 a §, 7 §",
+          "is_short_document": false,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-496.html",
+          "word_count": 153,
+          "has_surrounding_context": true,
+          "titel": "Lag (2017:496) om internationellt polisiärt samarbete",
+          "typ": "lag"
+        }
+      },
+      {
+        "text": "1 § Denna lag innehåller regler om polismäns användning av \nskjutvapen i tjänsten.\n\nLagens tillämpningsområde\n\n2 § Lagen gäller för användning av skjutvapen med ammunition \nsom är konstruerad för att tränga in i en kropp och orsaka \ninvärtes skador. \n\nMed användning av skjutvapen avses att en polisman\n\n1. riktar ett skjutvapen mot någon, eller\n\n2. avlossar skott med ett skjutvapen. \n\nMed användning av skjutvapen avses dock inte övningsskjutning \neller att skott kontrollerat avlossas endast för att avliva \nett djur eller för att öppna, stänga av eller på något annat \nliknande sätt verka mot ett föremål.\n\nLaga befogenhet att använda skjutvapen",
+        "score_retrieval": 0.16910016536712646,
+        "score_rerank": 0.6015625,
+        "metadata": {
+          "typ": "lag",
+          "has_surrounding_context": true,
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "context_paragraphs": "1 §, 2 §",
+          "paragraf": "1 §",
+          "sfs_nr": "2025:1062",
+          "organ": "Justitiedepartementet L4",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "is_short_document": false,
+          "dok_id": "sfs-2025-1062",
+          "word_count": 100
+        }
+      },
+      {
+        "text": "1 § Denna lag innehåller regler om polismäns användning av \nskjutvapen i tjänsten.\n\nLagens tillämpningsområde\n\n2 § Lagen gäller för användning av skjutvapen med ammunition \nsom är konstruerad för att tränga in i en kropp och orsaka \ninvärtes skador. \n\nMed användning av skjutvapen avses att en polisman\n\n1. riktar ett skjutvapen mot någon, eller\n\n2. avlossar skott med ett skjutvapen. \n\nMed användning av skjutvapen avses dock inte övningsskjutning \neller att skott kontrollerat avlossas endast för att avliva \nett djur eller för att öppna, stänga av eller på något annat \nliknande sätt verka mot ett föremål.\n\nLaga befogenhet att använda skjutvapen",
+        "score_retrieval": 0.16910016536712646,
+        "score_rerank": 0.6015625,
+        "metadata": {
+          "word_count": 100,
+          "organ": "Justitiedepartementet L4",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "is_short_document": false,
+          "dok_id": "sfs-2025-1062",
+          "has_surrounding_context": true,
+          "typ": "lag",
+          "context_paragraphs": "1 §, 2 §",
+          "paragraf": "2 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "sfs_nr": "2025:1062"
+        }
+      },
+      {
+        "text": "5 § Vid användning av skjutvapen ska en polisman alltid sträva \nefter att syftet med användningen uppnås med minsta möjliga \nskada.\n\nOm det finns tid och det inte framstår som olämpligt eller \nverkningslöst ska polismannen innan denne skjuter verkanseld\n\n1. ge sig till känna och varna för att skjutvapen kan komma \natt användas om polisens anvisningar inte följs, och\n\n2. avlossa varningsskott.\n\n6 § Ett ingripande av en polisman ska så långt det är möjligt \nplaneras och genomföras på ett sådant sätt att användning av \nskjutvapen kan undvikas och eventuella skador av användningen \nminimeras. \n\nOm det är möjligt ska en polisman ges instruktioner inför ett \nuppdrag där skjutvapen kan antas komma att användas. En \npolisman som inte fått sådana instruktioner ska, om det är \nmöjligt, kontakta den förman som leder insatsen för \ninstruktioner om uppdraget och hur det ska genomföras.\n\nRelationen till brottsbalkens regler om ansvarsfrihet\n\n7 § Att en användning av skjutvapen inte är tillåten enligt 3 \noch 4 §§ hindrar inte att användningen är tillåten, eller att \npolismannen annars är ursäktad, enligt bestämmelserna i 24 \nkap. brottsbalken. \n\nRapporteringsskyldighet",
+        "score_retrieval": 0.1703338623046875,
+        "score_rerank": 0.77734375,
+        "metadata": {
+          "typ": "lag",
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "is_short_document": false,
+          "organ": "Justitiedepartementet L4",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "sfs_nr": "2025:1062",
+          "paragraf": "6 §",
+          "dok_id": "sfs-2025-1062",
+          "context_paragraphs": "5 §, 6 §, 7 §",
+          "has_surrounding_context": true,
+          "word_count": 180
+        }
+      },
+      {
+        "text": "5 § /Träder i kraft I:2026-07-01/\nDen som tillhör Försvarsmaktens personal och som uppfyller \nde krav som föreskrivs av regeringen eller den myndighet \nregeringen bestämmer i fråga om tjänsteställning och \nkvalifikationer i övrigt har de befogenheter som en polisman \nhar enligt polislagen (1984:387) och lagen (2025:1062) om \npolisens användning av skjutvapen när han eller hon deltar i \nen stödinsats som sker med stöd av denna lag. Han eller hon \nhar också vid en stödinsats samma befogenhet som en polisman \natt gripa personer enligt 24 kap. 7 § första stycket \nrättegångsbalken. Vid utövandet av dessa befogenheter gäller \nvad som föreskrivs i 8 § polislagen om behov och \nproportionalitet. Lag (2025:1066).\n\n6 § Den som fullgör grundutbildning eller repetitionsutbildning\nmed totalförsvarsplikt är skyldig att delta i verksamhet enligt\ndenna lag endast om förutsättningarna i 5 kap. 3 § lagen\n(1994:1809) om totalförsvarsplikt är uppfyllda. Han eller hon\nfår inte användas för uppgifter som kan medföra en inte\nobetydlig risk för att han eller hon kommer att skadas.\n\n7 § Regeringen eller den myndighet som regeringen bestämmer\nmeddelar närmare föreskrifter om verkställigheten av denna lag.",
+        "score_retrieval": 0.17716050148010254,
+        "score_rerank": 0.59375,
+        "metadata": {
+          "is_short_document": false,
+          "titel": "Lag (2006:343) om Försvarsmaktens stöd till polisen vid terrorismbekämpning",
+          "context_paragraphs": "5 §, 6 §, 7 §",
+          "dok_id": "sfs-2006-343",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2006-343.html",
+          "paragraf": "6 §",
+          "sfs_nr": "2006:343",
+          "has_surrounding_context": true,
+          "word_count": 182,
+          "typ": "lag",
+          "organ": "Justitiedepartementet L4"
+        }
+      },
+      {
+        "text": "4 § Utländska tjänstemän ska ges tillstånd att utöva de \nbefogenheter som omfattas av 3 § första och andra stycket och \nsom bedöms nödvändiga för att tjänstemännen ska kunna utföra \nuppgifterna.\n\nAnvändning av vapen och annan särskild utrustning\n\n5 § Utländska tjänstemän som har getts tillstånd att utöva \nbefogenheter enligt 4 § har vid tjänstgöringen i Sverige rätt \natt använda skjutvapen endast i den utsträckning som reglerna \nom nödvärn medger. I övrigt har de samma rätt som motsvarande \nsvenska tjänstemän har enligt lag eller annan författning. \n\nFör att särskild utrustning ska få användas vid \nvåldsanvändning ska dock utrustningen motsvara den som svenska \npolismän, kustbevakningstjänstemän, tulltjänstemän eller \nkriminalvårdstjänstemän använder i motsvarande verksamhet. \n\nStraffrättsligt skydd och ansvar",
+        "score_retrieval": 0.17846477031707764,
+        "score_rerank": 0.54296875,
+        "metadata": {
+          "is_short_document": false,
+          "organ": "Justitiedepartementet L4",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2022-1057.html",
+          "typ": "förordning",
+          "context_paragraphs": "4 §, 5 §",
+          "titel": "Lag (2022:1057) med kompletterande bestämmelser till EU:s gräns- och kustbevakningsförordning",
+          "paragraf": "4 §",
+          "word_count": 115,
+          "has_surrounding_context": true,
+          "sfs_nr": "2022:1057",
+          "dok_id": "sfs-2022-1057"
+        }
+      },
+      {
+        "text": "7 § Att en användning av skjutvapen inte är tillåten enligt 3 \noch 4 §§ hindrar inte att användningen är tillåten, eller att \npolismannen annars är ursäktad, enligt bestämmelserna i 24 \nkap. brottsbalken. \n\nRapporteringsskyldighet\n\n8 § En polisman som har använt skjutvapen ska skyndsamt lämna \nen skriftlig rapport om användningen.",
+        "score_retrieval": 0.17987346649169922,
+        "score_rerank": 0.65234375,
+        "metadata": {
+          "paragraf": "8 §",
+          "typ": "lag",
+          "context_paragraphs": "7 §, 8 §",
+          "sfs_nr": "2025:1062",
+          "word_count": 50,
+          "has_surrounding_context": true,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "is_short_document": false,
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "dok_id": "sfs-2025-1062",
+          "organ": "Justitiedepartementet L4"
+        }
+      },
+      {
+        "text": "6 § Ett ingripande av en polisman ska så långt det är möjligt \nplaneras och genomföras på ett sådant sätt att användning av \nskjutvapen kan undvikas och eventuella skador av användningen \nminimeras. \n\nOm det är möjligt ska en polisman ges instruktioner inför ett \nuppdrag där skjutvapen kan antas komma att användas. En \npolisman som inte fått sådana instruktioner ska, om det är \nmöjligt, kontakta den förman som leder insatsen för \ninstruktioner om uppdraget och hur det ska genomföras.\n\nRelationen till brottsbalkens regler om ansvarsfrihet\n\n7 § Att en användning av skjutvapen inte är tillåten enligt 3 \noch 4 §§ hindrar inte att användningen är tillåten, eller att \npolismannen annars är ursäktad, enligt bestämmelserna i 24 \nkap. brottsbalken. \n\nRapporteringsskyldighet\n\n8 § En polisman som har använt skjutvapen ska skyndsamt lämna \nen skriftlig rapport om användningen.",
+        "score_retrieval": 0.1807897686958313,
+        "score_rerank": 0.68359375,
+        "metadata": {
+          "typ": "lag",
+          "sfs_nr": "2025:1062",
+          "organ": "Justitiedepartementet L4",
+          "has_surrounding_context": true,
+          "word_count": 134,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2025-1062.html",
+          "dok_id": "sfs-2025-1062",
+          "context_paragraphs": "6 §, 7 §, 8 §",
+          "is_short_document": false,
+          "titel": "Lag (2025:1062) om polisens användning av skjutvapen",
+          "paragraf": "7 §"
+        }
+      },
+      {
+        "text": "6 § En säkerhetskontroll får utföras av en anställd inom \nKriminalvården som har förordnats för uppgiften. \n\nEn säkerhetskontroll får också utföras av en polisman eller av \nen ordningsvakt som står under ledning av en polisman. \nSäkerhetskontrollen ska i sådana fall utföras efter närmare \nanvisningar av Polismyndigheten.\n\nHur kontrollen går till\n\n7 § En säkerhetskontroll ska inriktas på att upptäcka vapen \noch andra föremål som är ägnade att komma till användning vid \nbrott som avses i 1 §. \n\nFör detta ändamål får kroppsvisitation utföras. Väskor och \nandra föremål som påträffas i de lokaler som kontrollen \nomfattar får undersökas.",
+        "score_retrieval": 0.18335884809494019,
+        "score_rerank": 0.1533203125,
+        "metadata": {
+          "typ": "lag",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2021-77.html",
+          "dok_id": "sfs-2021-77",
+          "titel": "Lag (2021:77) om säkerhetskontroll på frivårdskontor",
+          "organ": "Justitiedepartementet L5",
+          "is_short_document": false,
+          "has_surrounding_context": true,
+          "paragraf": "7 §",
+          "word_count": 97,
+          "context_paragraphs": "6 §, 7 §",
+          "sfs_nr": "2021:77"
+        }
+      },
+      {
+        "text": "10 § Utländska tjänstemän får ges polisiära befogenheter vid \ngemensamma insatser enligt artikel 17 i Prümrådsbeslutet och \nvid operationer enligt artikel 3 i Atlasrådsbeslutet. För att \nfå ges sådana befogenheter ska tjänstemännen vara polismän \nrespektive ha polisiära befogenheter i sina hemstater.\n\nTjänstemännen får ges de befogenheter som en svensk polisman \nhar enligt polislagen (1984:387) och de befogenheter som en \nsvensk polisman har att\n\n1. gripa någon enligt 24 kap. 7 § första stycket \nrättegångsbalken, \n\n2. ta föremål i beslag enligt 27 kap. 4 § rättegångsbalken,\n\n3. förbjuda tillträde till ett visst område eller vidta andra \nåtgärder enligt 27 kap. 15 § rättegångsbalken, och\n\n4. besluta om kroppsvisitation enligt 28 kap. 13 § \nrättegångsbalken.\n\nVid gemensamma insatser enligt artikel 17 i Prümrådsbeslutet \nska befogenheterna i regel utövas i närvaro av svenska \npolismän.\n\nAnvändning av vapen\n\n11 § Utländska tjänstemän som getts befogenheter enligt 10 § \nhar samma rätt att använda tjänstevapen och annan liknande \nutrustning som en svensk polisman har enligt lag eller annan \nförfattning. Andra utländska tjänstemän får bara använda \ntjänstevapen och annan liknande utrustning i \nnödvärnssituationer. \n\nFör att få användas ska utrustningen motsvara den utrustning \nsvenska polismän använder.\n\nFöreskrifter",
+        "score_retrieval": 0.1834862232208252,
+        "score_rerank": 0.28515625,
+        "metadata": {
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-496.html",
+          "has_surrounding_context": true,
+          "dok_id": "sfs-2017-496",
+          "paragraf": "11 §",
+          "word_count": 190,
+          "sfs_nr": "2017:496",
+          "titel": "Lag (2017:496) om internationellt polisiärt samarbete",
+          "organ": "Justitiedepartementet L4",
+          "typ": "lag",
+          "context_paragraphs": "10 §, 11 §",
+          "is_short_document": false
+        }
+      },
+      {
+        "text": "3 § När stöd lämnas enligt denna förordning får \nFörsvarsmaktens personal inte användas i situationer där det \nfinns risk för att den kan komma att bruka våld eller tvång \nmot enskilda.\n\n4 § En enhet inom Försvarsmakten som lämnar stöd enligt denna \nförordning ska stå under befäl av en militär chef. När stödet \nlämnas ska enheten och dess chef stå under direkt ledning av \nden myndighet som begärt stödet.\n\n5 § En begäran om stöd enligt denna förordning görs hos \nHögkvarteret av Polismyndigheten eller Säkerhetspolisen. \nBeslut om att lämna stöd ska fattas av överbefälhavaren eller \nav den inom Högkvarteret som överbefälhavaren bestämmer.",
+        "score_retrieval": 0.1889176368713379,
+        "score_rerank": 0.1630859375,
+        "metadata": {
+          "context_paragraphs": "3 §, 4 §, 5 §",
+          "typ": "förordning",
+          "word_count": 102,
+          "is_short_document": false,
+          "titel": "Förordning (2017:113) om Försvarsmaktens stöd till polisen med helikoptertransporter",
+          "dok_id": "sfs-2017-113",
+          "organ": "Försvarsdepartementet",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-113.html",
+          "has_surrounding_context": true,
+          "sfs_nr": "2017:113",
+          "paragraf": "4 §"
+        }
+      },
+      {
+        "text": "4 § Vid säkerhetskontrollen ska vapen och andra föremål \nsom är ägnade att komma till användning vid brott som avses i\n\n1 § eftersökas. Kontrollen får omfatta kroppsvisitation och \nundersökning av väskor och andra föremål som påträffas i \nlokaler som anges i beslutet om säkerhetskontroll.\n\n5 § Säkerhetskontrollen genomförs efter närmare \nanvisningar av Polismyndigheten av en polisman. Kontrollen \nkan också efter Polismyndighetens förordnande genomföras av \nen ordningsvakt under ledning av en polisman.",
+        "score_retrieval": 0.19093918800354004,
+        "score_rerank": 0.181640625,
+        "metadata": {
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2018-1974.html",
+          "titel": "Lag (2018:1974) om säkerhetskontroll vid Sametingets offentliga sammanträden",
+          "dok_id": "sfs-2018-1974",
+          "paragraf": "1 §",
+          "context_paragraphs": "4 §, 1 §, 5 §",
+          "is_short_document": false,
+          "organ": "Kulturdepartementet",
+          "has_surrounding_context": true,
+          "sfs_nr": "2018:1974",
+          "word_count": 72,
+          "typ": "lag"
+        }
+      },
+      {
+        "text": "1 § Denna lag innehåller bestämmelser om under vilka \nförutsättningar och för vilka ändamål ordningsvakter får \nanvändas. I lagen finns också bestämmelser om förordnande av \nordningsvakter och om ordningsvakters ingripanden.\n\nAnvändningen av ordningsvakter\n\n2 § Ordningsvakter får användas för att medverka till att \nupprätthålla allmän ordning och säkerhet eller främja \ntrygghet.",
+        "score_retrieval": 0.19247227907180786,
+        "score_rerank": 0.10693359375,
+        "metadata": {
+          "dok_id": "sfs-2023-421",
+          "titel": "Lag (2023:421) om ordningsvakter",
+          "context_paragraphs": "1 §, 2 §",
+          "is_short_document": false,
+          "has_surrounding_context": true,
+          "organ": "Justitiedepartementet L4",
+          "word_count": 51,
+          "paragraf": "1 §",
+          "typ": "lag",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2023-421.html",
+          "sfs_nr": "2023:421"
+        }
+      },
+      {
+        "text": "5 § /Träder i kraft I:2026-07-01/\nDen som tillhör Försvarsmaktens personal och som uppfyller \nde krav som föreskrivs av regeringen eller den myndighet \nregeringen bestämmer i fråga om tjänsteställning och \nkvalifikationer i övrigt har de befogenheter som en polisman \nhar enligt polislagen (1984:387) och lagen (2025:1062) om \npolisens användning av skjutvapen när han eller hon deltar i \nen stödinsats som sker med stöd av denna lag. Han eller hon \nhar också vid en stödinsats samma befogenhet som en polisman \natt gripa personer enligt 24 kap. 7 § första stycket \nrättegångsbalken. Vid utövandet av dessa befogenheter gäller \nvad som föreskrivs i 8 § polislagen om behov och \nproportionalitet. Lag (2025:1066).\n\n6 § Den som fullgör grundutbildning eller repetitionsutbildning\nmed totalförsvarsplikt är skyldig att delta i verksamhet enligt\ndenna lag endast om förutsättningarna i 5 kap. 3 § lagen\n(1994:1809) om totalförsvarsplikt är uppfyllda. Han eller hon\nfår inte användas för uppgifter som kan medföra en inte\nobetydlig risk för att han eller hon kommer att skadas.",
+        "score_retrieval": 0.19476991891860962,
+        "score_rerank": 0.6015625,
+        "metadata": {
+          "word_count": 165,
+          "is_short_document": false,
+          "dok_id": "sfs-2006-343",
+          "sfs_nr": "2006:343",
+          "paragraf": "5 §",
+          "has_surrounding_context": true,
+          "organ": "Justitiedepartementet L4",
+          "typ": "lag",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2006-343.html",
+          "titel": "Lag (2006:343) om Försvarsmaktens stöd till polisen vid terrorismbekämpning",
+          "context_paragraphs": "5 §, 6 §"
+        }
+      },
+      {
+        "text": "3 § Ordningsvakter får, utöver vad som följer av 5 §, användas \nendast om det finns ett beslut om tillstånd att använda \nordningsvakter eller om det följer av lag eller annan \nförfattning.\n\nTillstånd att använda ordningsvakter\n\nFörutsättningar för tillstånd\n\n4 § Tillstånd att använda ordningsvakter får efter ansökan \nmeddelas om det finns ett behov av sådan användning och det är \nändamålsenligt för att upprätthålla allmän ordning och \nsäkerhet eller främja trygghet på den plats, inom det område \neller i den verksamhet som ansökan avser.\n\nVid bedömningen av om det är ändamålsenligt att använda \nordningsvakter ska det särskilt beaktas\n\n1. vilken art och omfattning uppdraget ska ha,\n\n2. var uppdraget ska utföras, och\n\n3. vilka möjligheter till ledning och kontroll \nPolismyndigheten kommer att ha över ordningsvakternas arbete. \n\nUndantag från tillståndskravet",
+        "score_retrieval": 0.1961519718170166,
+        "score_rerank": 0.2353515625,
+        "metadata": {
+          "context_paragraphs": "3 §, 4 §",
+          "has_surrounding_context": true,
+          "typ": "lag",
+          "organ": "Justitiedepartementet L4",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2023-421.html",
+          "paragraf": "4 §",
+          "is_short_document": false,
+          "sfs_nr": "2023:421",
+          "word_count": 129,
+          "titel": "Lag (2023:421) om ordningsvakter",
+          "dok_id": "sfs-2023-421"
+        }
+      },
+      {
+        "text": "3 § Säkerhetskontrollen omfattar besökare till det sammanträde\noch de lokaler som anges i beslutet om säkerhetskontroll.\nKontrollen avser dock inte ledamöter och ersättare vid\nsammanträdet, eller andra som på grund av lag eller särskilt\nuppdrag närvarar vid sammanträdet. Den som är eller ska vara\nordförande vid sammanträdet får undanta även andra personer\nfrån kontrollen.\n\nIdentiteten får kontrolleras endast för att fastställa om en\nperson som uppger sig inte omfattas av säkerhetskontrollen ska\nundantas från den.\n\n4 § Vid säkerhetskontrollen ska vapen och andra föremål som är\nägnade att komma till användning vid brott som avses i 1 §\neftersökas. För detta ändamål får kroppsvisitation utföras och\nväskor och andra föremål som påträffas i lokaler som anges i\nbeslutet om säkerhetskontroll undersökas.\n\n5 § Säkerhetskontrollen genomförs efter närmare anvisningar av\nPolismyndigheten av en polisman eller, efter Polismyndighetens\nförordnande, av en ordningsvakt under ledning av en polisman.\nLag (2014:665).",
+        "score_retrieval": 0.19839441776275635,
+        "score_rerank": 0.1494140625,
+        "metadata": {
+          "sfs_nr": "2010:294",
+          "titel": "Lag (2010:294) om säkerhetskontroll vid offentliga sammanträden i kommuner och regioner",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2010-294.html",
+          "context_paragraphs": "3 §, 4 §, 5 §",
+          "dok_id": "sfs-2010-294",
+          "has_surrounding_context": true,
+          "typ": "lag",
+          "organ": "Finansdepartementet K",
+          "word_count": 148,
+          "paragraf": "4 §",
+          "is_short_document": false
+        }
+      },
+      {
+        "text": "5 § En identitetskontroll får bara göras för att ta reda på om \nen person som uppger att han eller hon inte omfattas av \nsäkerhetskontroll ska undantas från kontrollen.\n\nVem som utför kontrollen\n\n6 § En säkerhetskontroll får utföras av en anställd inom \nKriminalvården som har förordnats för uppgiften. \n\nEn säkerhetskontroll får också utföras av en polisman eller av \nen ordningsvakt som står under ledning av en polisman. \nSäkerhetskontrollen ska i sådana fall utföras efter närmare \nanvisningar av Polismyndigheten.\n\nHur kontrollen går till\n\n7 § En säkerhetskontroll ska inriktas på att upptäcka vapen \noch andra föremål som är ägnade att komma till användning vid \nbrott som avses i 1 §. \n\nFör detta ändamål får kroppsvisitation utföras. Väskor och \nandra föremål som påträffas i de lokaler som kontrollen \nomfattar får undersökas.",
+        "score_retrieval": 0.19851386547088623,
+        "score_rerank": 0.12109375,
+        "metadata": {
+          "organ": "Justitiedepartementet L5",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2021-77.html",
+          "is_short_document": false,
+          "sfs_nr": "2021:77",
+          "has_surrounding_context": true,
+          "typ": "lag",
+          "word_count": 130,
+          "context_paragraphs": "5 §, 6 §, 7 §",
+          "titel": "Lag (2021:77) om säkerhetskontroll på frivårdskontor",
+          "paragraf": "6 §",
+          "dok_id": "sfs-2021-77"
+        }
+      },
+      {
+        "text": "4 § Utländska tjänstemän ska ges tillstånd att utöva de \nbefogenheter som omfattas av 3 § första och andra stycket och \nsom bedöms nödvändiga för att tjänstemännen ska kunna utföra \nuppgifterna.\n\nAnvändning av vapen och annan särskild utrustning\n\n5 § Utländska tjänstemän som har getts tillstånd att utöva \nbefogenheter enligt 4 § har vid tjänstgöringen i Sverige rätt \natt använda skjutvapen endast i den utsträckning som reglerna \nom nödvärn medger. I övrigt har de samma rätt som motsvarande \nsvenska tjänstemän har enligt lag eller annan författning. \n\nFör att särskild utrustning ska få användas vid \nvåldsanvändning ska dock utrustningen motsvara den som svenska \npolismän, kustbevakningstjänstemän, tulltjänstemän eller \nkriminalvårdstjänstemän använder i motsvarande verksamhet. \n\nStraffrättsligt skydd och ansvar\n\n6 § Utländska tjänstemän som utövar myndighet i Sverige med \nstöd av denna lag ska vara skyddade enligt 17 kap. 1, 2 och \n4 §§ brottsbalken på motsvarande sätt som om det varit fråga \nom svensk myndighetsutövning.",
+        "score_retrieval": 0.1985248327255249,
+        "score_rerank": 0.52734375,
+        "metadata": {
+          "typ": "förordning",
+          "word_count": 152,
+          "is_short_document": false,
+          "titel": "Lag (2022:1057) med kompletterande bestämmelser till EU:s gräns- och kustbevakningsförordning",
+          "dok_id": "sfs-2022-1057",
+          "organ": "Justitiedepartementet L4",
+          "sfs_nr": "2022:1057",
+          "has_surrounding_context": true,
+          "context_paragraphs": "4 §, 5 §, 6 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2022-1057.html",
+          "paragraf": "5 §"
+        }
+      },
+      {
+        "text": "6 § Myndigheten skall årligen inventera de skjutvapen som\nmyndigheten har.\n\nFör Försvarsmakten gäller kravet på årlig inventering endast sådana\nskjutvapen som är under användning. I fråga om förrådsställda vapen\noch andra vapen som inte nyttjas får inventering göras med det längre\ntidsmellanrum som Försvarsmakten själv bestämmer. Om det finns\nsärskilda skäl, får Försvarsmakten avstå från inventering av äldre\nvapen som inte nyttjas.\n\n7 § Om ett skjutvapen har förlorats, ska myndigheten noga\nutreda förlusten. Myndigheten ska anmäla saken till\nPolismyndigheten om det inte är uppenbart att en anmälan är\nonödig. Förordning (2014:1219).\n\n8 § Myndigheten skall se till att endast den tilldelas ett\nskjutvapen som\n\n1. behöver skjutvapnet i sin tjänst,\n\n2. har tillräckliga kunskaper om hur vapnet skall handhas,\n\n3. har tillräckliga kunskaper om säkerhetsskyddet kring hanteringen\nav skjutvapen, och\n\n4. bedöms pålitlig från säkerhetssynpunkt.\n\nMyndigheten skall, om det inte är obehövligt, upplysa den som skall\ntilldelas ett skjutvapen om att en prövning görs av dennes\npålitlighet från säkerhetssynpunkt.\n\nBehörighetsbevis",
+        "score_retrieval": 0.19989776611328125,
+        "score_rerank": 0.345703125,
+        "metadata": {
+          "context_paragraphs": "6 §, 7 §, 8 §",
+          "organ": "Försvarsdepartementet",
+          "dok_id": "sfs-1996-31",
+          "has_surrounding_context": true,
+          "sfs_nr": "1996:31",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "paragraf": "7 §",
+          "typ": "förordning",
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m.",
+          "is_short_document": false,
+          "word_count": 162
+        }
+      },
+      {
+        "text": "1 § Denna lag innehåller bestämmelser om under vilka \nförutsättningar och för vilka ändamål ordningsvakter får \nanvändas. I lagen finns också bestämmelser om förordnande av \nordningsvakter och om ordningsvakters ingripanden.\n\nAnvändningen av ordningsvakter\n\n2 § Ordningsvakter får användas för att medverka till att \nupprätthålla allmän ordning och säkerhet eller främja \ntrygghet.\n\n3 § Ordningsvakter får, utöver vad som följer av 5 §, användas \nendast om det finns ett beslut om tillstånd att använda \nordningsvakter eller om det följer av lag eller annan \nförfattning.\n\nTillstånd att använda ordningsvakter\n\nFörutsättningar för tillstånd",
+        "score_retrieval": 0.20027875900268555,
+        "score_rerank": 0.1240234375,
+        "metadata": {
+          "has_surrounding_context": true,
+          "titel": "Lag (2023:421) om ordningsvakter",
+          "is_short_document": false,
+          "typ": "lag",
+          "word_count": 90,
+          "dok_id": "sfs-2023-421",
+          "context_paragraphs": "1 §, 2 §, 3 §",
+          "organ": "Justitiedepartementet L4",
+          "paragraf": "2 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2023-421.html",
+          "sfs_nr": "2023:421"
+        }
+      },
+      {
+        "text": "5 § Innan skott avlossas, skall tydlig varning ges genom tillrop, om det\ninte är uppenbart att en sådan varning skulle vara utan verkan. Om\nomständigheterna tillåter det, skall varningsskott först avlossas.\n\n6 § Vid skottlossning mot en person skall eftersträvas att denne\noskadliggörs endast för tillfället.\n\nVerkställighetsföreskrifter\n\n7 § Försvarsmakten får meddela de föreskrifter som behövs för\nverkställigheten av denna förordning. Förordning (1994:170).",
+        "score_retrieval": 0.20187926292419434,
+        "score_rerank": 0.1630859375,
+        "metadata": {
+          "is_short_document": false,
+          "typ": "förordning",
+          "paragraf": "6 §",
+          "has_surrounding_context": true,
+          "dok_id": "sfs-1992-98",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "organ": "Försvarsdepartementet",
+          "context_paragraphs": "5 §, 6 §, 7 §",
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "word_count": 64,
+          "sfs_nr": "1992:98"
+        }
+      },
+      {
+        "text": "2 § Ordningsvakter får användas för att medverka till att \nupprätthålla allmän ordning och säkerhet eller främja \ntrygghet.\n\n3 § Ordningsvakter får, utöver vad som följer av 5 §, användas \nendast om det finns ett beslut om tillstånd att använda \nordningsvakter eller om det följer av lag eller annan \nförfattning.\n\nTillstånd att använda ordningsvakter\n\nFörutsättningar för tillstånd\n\n4 § Tillstånd att använda ordningsvakter får efter ansökan \nmeddelas om det finns ett behov av sådan användning och det är \nändamålsenligt för att upprätthålla allmän ordning och \nsäkerhet eller främja trygghet på den plats, inom det område \neller i den verksamhet som ansökan avser.\n\nVid bedömningen av om det är ändamålsenligt att använda \nordningsvakter ska det särskilt beaktas\n\n1. vilken art och omfattning uppdraget ska ha,\n\n2. var uppdraget ska utföras, och\n\n3. vilka möjligheter till ledning och kontroll \nPolismyndigheten kommer att ha över ordningsvakternas arbete. \n\nUndantag från tillståndskravet",
+        "score_retrieval": 0.20274335145950317,
+        "score_rerank": 0.2080078125,
+        "metadata": {
+          "paragraf": "3 §",
+          "has_surrounding_context": true,
+          "is_short_document": false,
+          "titel": "Lag (2023:421) om ordningsvakter",
+          "typ": "lag",
+          "organ": "Justitiedepartementet L4",
+          "word_count": 147,
+          "dok_id": "sfs-2023-421",
+          "context_paragraphs": "2 §, 3 §, 4 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2023-421.html",
+          "sfs_nr": "2023:421"
+        }
+      },
+      {
+        "text": "3 § En enhet inom Försvarsmakten som ger stöd enligt denna\nlag ska stå under befäl av en militär chef. När en stödinsats\ngörs, ska enheten och dess chef stå under direkt ledning av\nden myndighet som har begärt stödet. Lag (2014:596).\n\n4 § Vid en stödinsats får endast sådan personal från\nFörsvarsmakten som har lämplig utbildning och erfarenhet för\nuppgiften medverka. Försvarsmakten skall se till att den\nmedverkande personalen har nödvändig kunskap om de särskilda\nförhållanden som kan gälla för uppgiften.\n\n5 § /Upphör att gälla U:2026-07-01/\nDen som tillhör Försvarsmaktens personal och som uppfyller\nde krav som föreskrivs av regeringen eller den myndighet\nregeringen bestämmer i fråga om tjänsteställning och\nkvalifikationer i övrigt har de befogenheter som en polisman\nhar enligt polislagen (1984:387) när han eller hon deltar i en\nstödinsats som sker med stöd av denna lag. Han eller hon har\nockså vid en stödinsats samma befogenhet som en polisman att\ngripa personer enligt 24 kap. 7 § första stycket\nrättegångsbalken. Vid utövandet av dessa befogenheter gäller\nvad som föreskrivs i 8 § polislagen om behov och\nproportionalitet.",
+        "score_retrieval": 0.20304787158966064,
+        "score_rerank": 0.08251953125,
+        "metadata": {
+          "has_surrounding_context": true,
+          "sfs_nr": "2006:343",
+          "context_paragraphs": "3 §, 4 §, 5 §",
+          "typ": "lag",
+          "organ": "Justitiedepartementet L4",
+          "dok_id": "sfs-2006-343",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2006-343.html",
+          "is_short_document": false,
+          "titel": "Lag (2006:343) om Försvarsmaktens stöd till polisen vid terrorismbekämpning",
+          "word_count": 181,
+          "paragraf": "4 §"
+        }
+      },
+      {
+        "text": "4 § En enhet inom Försvarsmakten som lämnar stöd enligt denna \nförordning ska stå under befäl av en militär chef. När stödet \nlämnas ska enheten och dess chef stå under direkt ledning av \nden myndighet som begärt stödet.\n\n5 § En begäran om stöd enligt denna förordning görs hos \nHögkvarteret av Polismyndigheten eller Säkerhetspolisen. \nBeslut om att lämna stöd ska fattas av överbefälhavaren eller \nav den inom Högkvarteret som överbefälhavaren bestämmer.\n\n6 § För att förbereda stöd till polisen får myndigheterna \ngenomföra samövningar. Begäran om samövning får göras av \nsåväl polisen som Försvarsmakten.",
+        "score_retrieval": 0.2036736011505127,
+        "score_rerank": 0.083984375,
+        "metadata": {
+          "sfs_nr": "2017:113",
+          "dok_id": "sfs-2017-113",
+          "paragraf": "5 §",
+          "organ": "Försvarsdepartementet",
+          "word_count": 93,
+          "context_paragraphs": "4 §, 5 §, 6 §",
+          "has_surrounding_context": true,
+          "is_short_document": false,
+          "titel": "Förordning (2017:113) om Försvarsmaktens stöd till polisen med helikoptertransporter",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-113.html",
+          "typ": "förordning"
+        }
+      },
+      {
+        "text": "4 § Vid en stödinsats får endast sådan personal från\nFörsvarsmakten som har lämplig utbildning och erfarenhet för\nuppgiften medverka. Försvarsmakten skall se till att den\nmedverkande personalen har nödvändig kunskap om de särskilda\nförhållanden som kan gälla för uppgiften.\n\n5 § /Upphör att gälla U:2026-07-01/\nDen som tillhör Försvarsmaktens personal och som uppfyller\nde krav som föreskrivs av regeringen eller den myndighet\nregeringen bestämmer i fråga om tjänsteställning och\nkvalifikationer i övrigt har de befogenheter som en polisman\nhar enligt polislagen (1984:387) när han eller hon deltar i en\nstödinsats som sker med stöd av denna lag. Han eller hon har\nockså vid en stödinsats samma befogenhet som en polisman att\ngripa personer enligt 24 kap. 7 § första stycket\nrättegångsbalken. Vid utövandet av dessa befogenheter gäller\nvad som föreskrivs i 8 § polislagen om behov och\nproportionalitet.",
+        "score_retrieval": 0.20527178049087524,
+        "score_rerank": 0.09814453125,
+        "metadata": {
+          "context_paragraphs": "4 §, 5 §",
+          "titel": "Lag (2006:343) om Försvarsmaktens stöd till polisen vid terrorismbekämpning",
+          "organ": "Justitiedepartementet L4",
+          "dok_id": "sfs-2006-343",
+          "paragraf": "5 §",
+          "word_count": 139,
+          "typ": "lag",
+          "sfs_nr": "2006:343",
+          "has_surrounding_context": true,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2006-343.html",
+          "is_short_document": false
+        }
+      },
+      {
+        "text": "16 § Försvarsmakten och Försvarets materielverk skall vid\ntransporter av större mängder skjutvapen upprätta en särskild\ntransportplan och därvid pröva om det behövs särskilda arrangemang,\nsåsom eskortstöd, för att trygga säkerheten vid transporten.\n\nFörsäljning av skjutvapen\n\n16 a § Skjutvapen som inte längre behövs för statens verksamhet\neller som har blivit obrukbara får inte säljas inom Sverige. Undantag\nfår dock göras för försäljning av ett litet antal vapen till museer\noch samlare. Förordning (1996:1477).\n\nInformation till Polismyndigheten\n\n17 § Försvarsmakten ska informera Polismyndigheten om sådana\nmilitära skjutvapen som har tilldelats hemvärnspersonal och\nsom förvaras i bostäder. Informationen ska avse vapentyp samt\nnamn och adress på den person som har vapnet.\nFörordning (2014:1219).\n\nBemyndigande att meddela föreskrifter",
+        "score_retrieval": 0.20592284202575684,
+        "score_rerank": 0.330078125,
+        "metadata": {
+          "word_count": 116,
+          "has_surrounding_context": true,
+          "paragraf": "16 a §",
+          "typ": "förordning",
+          "organ": "Försvarsdepartementet",
+          "sfs_nr": "1996:31",
+          "is_short_document": false,
+          "dok_id": "sfs-1996-31",
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m.",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "context_paragraphs": "16 §, 16 a §, 17 §"
+        }
+      },
+      {
+        "text": "12 § Frågor om tillstånd i fall som avses i 11 § prövas av\nPolismyndigheten. Förordning (2014:1301).\n\n13 § Meddelas tillstånd till utförsel av handeldvapen enligt\n\n13 § Meddelas tillstånd till utförsel av handeldvapen enligt",
+        "score_retrieval": 0.2060023546218872,
+        "score_rerank": 0.2353515625,
+        "metadata": {
+          "context_paragraphs": "12 §, 13 §, 13 §",
+          "titel": "Förordning (1992:1303) om krigsmateriel",
+          "has_surrounding_context": true,
+          "organ": "Utrikesdepartementet",
+          "paragraf": "12 §",
+          "sfs_nr": "1992:1303",
+          "merged_paragraphs": "12 §, 13 §",
+          "dok_id": "sfs-1992-1303",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-1303.html",
+          "typ": "förordning",
+          "is_short_document": false
+        }
+      },
+      {
+        "text": "7 § Om ett skjutvapen har förlorats, ska myndigheten noga\nutreda förlusten. Myndigheten ska anmäla saken till\nPolismyndigheten om det inte är uppenbart att en anmälan är\nonödig. Förordning (2014:1219).\n\n8 § Myndigheten skall se till att endast den tilldelas ett\nskjutvapen som\n\n1. behöver skjutvapnet i sin tjänst,\n\n2. har tillräckliga kunskaper om hur vapnet skall handhas,\n\n3. har tillräckliga kunskaper om säkerhetsskyddet kring hanteringen\nav skjutvapen, och\n\n4. bedöms pålitlig från säkerhetssynpunkt.\n\nMyndigheten skall, om det inte är obehövligt, upplysa den som skall\ntilldelas ett skjutvapen om att en prövning görs av dennes\npålitlighet från säkerhetssynpunkt.\n\nBehörighetsbevis\n\n9 § I samband med att myndigheten tilldelar någon som inte\nutgör totalförsvarspliktig personal ett skjutvapen skall\nmyndigheten utfärda bevis om mottagarens behörighet att ha\nskjutvapen i tjänsten (behörighetsbevis).\n\nBehörighetsbevis behöver inte utfärdas för en polisman eller en\nyrkesofficer. Behörighetsbevis behöver inte heller utfärdas för\nen reservofficer när denne fullgör tjänstgöring vid\nFörsvarsmakten. Förordning (2001:1267).\n\nÅterkallelse av skjutvapen och behörighetsbevis",
+        "score_retrieval": 0.2068052887916565,
+        "score_rerank": 0.298828125,
+        "metadata": {
+          "context_paragraphs": "7 §, 8 §, 9 §",
+          "paragraf": "8 §",
+          "is_short_document": false,
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m.",
+          "typ": "förordning",
+          "has_surrounding_context": true,
+          "dok_id": "sfs-1996-31",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "sfs_nr": "1996:31",
+          "word_count": 159,
+          "organ": "Försvarsdepartementet"
+        }
+      },
+      {
+        "text": "13 § En ordningsvakt står under Polismyndighetens ledning. \n\nEn ordningsvakt är skyldig att följa en anvisning som en \npolisman meddelar i tjänsten. Det gäller dock inte om det är \nuppenbart att anvisningen inte angår tjänstgöring som \nordningsvakt eller om den strider mot lag eller annan \nförfattning.\n\n14 § En ordningsvakt ska hålla Polismyndigheten underrättad om \nförhållanden som rör verksamheten och som är av sådan art att \nde bör komma till myndighetens kännedom.\n\nOrdningsvakters ingripanden\n\nProportionalitet vid ingripanden\n\n15 § En ordningsvakts ingripande ska ske på ett sätt som står \ni rimlig proportion till åtgärdens syfte och omständigheterna \ni övrigt. Om en mindre ingripande åtgärd är tillräcklig, ska \nden användas.\n\nBefogenheter",
+        "score_retrieval": 0.20754563808441162,
+        "score_rerank": 0.09814453125,
+        "metadata": {
+          "dok_id": "sfs-2023-421",
+          "is_short_document": false,
+          "organ": "Justitiedepartementet L4",
+          "sfs_nr": "2023:421",
+          "titel": "Lag (2023:421) om ordningsvakter",
+          "has_surrounding_context": true,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2023-421.html",
+          "word_count": 110,
+          "paragraf": "14 §",
+          "typ": "lag",
+          "context_paragraphs": "13 §, 14 §, 15 §"
+        }
+      },
+      {
+        "text": "4 § Bestämmelserna i förordningen skall inte tillämpas under höjd\nberedskap.\n\nMyndigheternas hantering av skjutvapen\n\nAllmänt\n\n5 § En myndighet som har skjutvapen skall hantera dem på ett sätt\nsom är betryggande från säkerhetssynpunkt.\n\nMyndigheten skall hålla god ordning på skjutvapnen och föra en\nförteckning över myndighetens samtliga skjutvapen. Av förteckningen\nskall framgå för vilket ändamål ett vapen disponeras och vid vilken\norganisatorisk enhet vapnet finns eller vem som har tilldelats det.\n\nFörteckning behöver inte föras över skjutvapen som en myndighet\nendast har tillfälligt som ett led i en anskaffning av vapen för\nnågon annans räkning.\n\n6 § Myndigheten skall årligen inventera de skjutvapen som\nmyndigheten har.\n\nFör Försvarsmakten gäller kravet på årlig inventering endast sådana\nskjutvapen som är under användning. I fråga om förrådsställda vapen\noch andra vapen som inte nyttjas får inventering göras med det längre\ntidsmellanrum som Försvarsmakten själv bestämmer. Om det finns\nsärskilda skäl, får Försvarsmakten avstå från inventering av äldre\nvapen som inte nyttjas.",
+        "score_retrieval": 0.20884400606155396,
+        "score_rerank": 0.1875,
+        "metadata": {
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "paragraf": "5 §",
+          "word_count": 159,
+          "dok_id": "sfs-1996-31",
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m.",
+          "context_paragraphs": "4 §, 5 §, 6 §",
+          "typ": "förordning",
+          "organ": "Försvarsdepartementet",
+          "sfs_nr": "1996:31",
+          "is_short_document": false,
+          "has_surrounding_context": true
+        }
+      },
+      {
+        "text": "15 § Myndigheten skall vid transporter av skjutvapen vidta de\nåtgärder och iaktta den försiktighet som fordras för att förebygga\neller hindra att vapnen blir åtkomliga för obehöriga eller på annat\nsätt går förlorade eller orsakar skada.\n\n16 § Försvarsmakten och Försvarets materielverk skall vid\ntransporter av större mängder skjutvapen upprätta en särskild\ntransportplan och därvid pröva om det behövs särskilda arrangemang,\nsåsom eskortstöd, för att trygga säkerheten vid transporten.\n\nFörsäljning av skjutvapen\n\n16 a § Skjutvapen som inte längre behövs för statens verksamhet\neller som har blivit obrukbara får inte säljas inom Sverige. Undantag\nfår dock göras för försäljning av ett litet antal vapen till museer\noch samlare. Förordning (1996:1477).\n\nInformation till Polismyndigheten",
+        "score_retrieval": 0.2093636393547058,
+        "score_rerank": 0.32421875,
+        "metadata": {
+          "sfs_nr": "1996:31",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "context_paragraphs": "15 §, 16 §, 16 a §",
+          "paragraf": "16 §",
+          "dok_id": "sfs-1996-31",
+          "organ": "Försvarsdepartementet",
+          "word_count": 114,
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m.",
+          "typ": "förordning",
+          "is_short_document": false,
+          "has_surrounding_context": true
+        }
+      },
+      {
+        "text": "1 § Följande kännetecken får inte användas på motorfordon \nutöver vad som följer av denna lag:\n\n1. Polismyndighetens och Säkerhetspolisens heraldiska vapen \neller något som lätt kan förväxlas med ett sådant vapen, och \n\n2. ordet polis i olika sammansättningar och böjningsformer \neller ett ord som lätt kan förväxlas med det. \n\nI 1 § lagen (1970:498) om skydd för vapen och vissa andra \nofficiella beteckningar finns bestämmelser om användning av \nPolismyndighetens och Säkerhetspolisens heraldiska vapen i \nnäringsverksamhet.\n\nTillåten användning av kännetecknen\n\n2 § Kännetecken som anges i 1 § första stycket får användas \npå \n\n1. motorfordon som Polismyndigheten eller Säkerhetspolisen \näger, har nyttjanderätt till eller disponerar på annan grund, \n\n2. annat motorfordon om det inte finns risk för att fordonet \nkan förväxlas med Polismyndighetens eller Säkerhetspolisens \nfordon, och \n\n3. annat motorfordon om ägaren till fordonet har tillstånd \nenligt 3 §.\n\n3 § Polismyndigheten får ge ägaren till ett motorfordon \ntillstånd att på fordonet använda de kännetecken som anges i",
+        "score_retrieval": 0.2094109058380127,
+        "score_rerank": 0.232421875,
+        "metadata": {
+          "word_count": 158,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2016-1122.html",
+          "organ": "Justitiedepartementet L5",
+          "typ": "lag",
+          "paragraf": "2 §",
+          "sfs_nr": "2016:1122",
+          "dok_id": "sfs-2016-1122",
+          "titel": "Lag (2016:1122) om skydd för vissa polisiära kännetecken på motorfordon",
+          "is_short_document": false,
+          "context_paragraphs": "1 §, 2 §, 3 §",
+          "has_surrounding_context": true
+        }
+      },
+      {
+        "text": "22 § Den myndighet som utövar tillsyn har rätt att av en\narbetsgivare på begäran få de upplysningar och handlingar som\nbehövs för tillsynen.\n\n23 § Den myndighet som utövar tillsyn har rätt att få tillträde\ntill arbetsställen för att kunna utöva tillsynen.\n\n24 § Polismyndigheten ska lämna den hjälp som behövs för att\ntillsynsmyndigheten ska kunna få dels upplysningar och\nhandlingar enligt 22 §, dels tillträde till arbetsställen\nenligt 23 §. Begäran om sådan hjälp får dock göras endast\nom\n\n1. det på grund av särskilda omständigheter kan befaras\natt åtgärden inte kan utföras utan att en polismans särskilda\nbefogenheter enligt 10 § polislagen (1984:387) behöver\ntillgripas, eller\n\n2. det annars finns synnerliga skäl.\nLag (2014:744).",
+        "score_retrieval": 0.20982837677001953,
+        "score_rerank": 0.08154296875,
+        "metadata": {
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2008-475.html",
+          "context_paragraphs": "22 §, 23 §, 24 §",
+          "sfs_nr": "2008:475",
+          "word_count": 117,
+          "typ": "lag",
+          "organ": "Landsbygds- och infrastrukturdepartementet RSIB TM",
+          "is_short_document": false,
+          "has_surrounding_context": true,
+          "titel": "Lag (2008:475) om kör- och vilotid vid internationell järnvägstrafik",
+          "paragraf": "23 §",
+          "dok_id": "sfs-2008-475"
+        }
+      },
+      {
+        "text": "1 § Denna förordning innehåller bestämmelser som kompletterar \nlagen (2023:421) om ordningsvakter.\n\nFörordningen är meddelad med stöd av 8 kap. 7 § \nregeringsformen i fråga om 2 och 5 §§ samt med stöd av 19 § \nlagen om ordningsvakter i fråga om 3, 4 och 6-20 §§.\n\nTillstånd att använda ordningsvakter\n\n2 § En ansökan om tillstånd att använda ordningsvakter ska \nvara skriftlig och innehålla \n\n1. uppgifter om sökandens namn, person- eller \norganisationsnummer och postadress, \n\n2. en beskrivning av den plats, det område eller den \nverksamhet som ansökan avser, \n\n3. en beskrivning av behovet av att använda ordningsvakter på \nden plats, inom det område eller i den verksamhet som ansökan \navser, och \n\n4. de övriga omständigheter som är av betydelse för prövningen \nav ansökan.\n\nAnsökan ska ges in till Polismyndigheten.\n\n3 § Ett beslut om tillstånd att använda ordningsvakter ska \ngälla i högst tre år. Beslutets giltighetstid får förlängas om \nförutsättningarna för ett meddelat tillstånd i väsentliga \ndelar är oförändrade eller om det annars finns särskilda skäl. \nEn förlängning av beslutets giltighetstid får meddelas för \nhögst tre år i taget.",
+        "score_retrieval": 0.20994585752487183,
+        "score_rerank": 0.158203125,
+        "metadata": {
+          "typ": "förordning",
+          "sfs_nr": "2023:422",
+          "is_short_document": false,
+          "context_paragraphs": "1 §, 2 §, 3 §",
+          "has_surrounding_context": true,
+          "word_count": 180,
+          "titel": "Förordning (2023:422) om ordningsvakter",
+          "organ": "Justitiedepartementet L4",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2023-422.html",
+          "paragraf": "2 §",
+          "dok_id": "sfs-2023-422"
+        }
+      },
+      {
+        "text": "8 § Myndigheten skall se till att endast den tilldelas ett\nskjutvapen som\n\n1. behöver skjutvapnet i sin tjänst,\n\n2. har tillräckliga kunskaper om hur vapnet skall handhas,\n\n3. har tillräckliga kunskaper om säkerhetsskyddet kring hanteringen\nav skjutvapen, och\n\n4. bedöms pålitlig från säkerhetssynpunkt.\n\nMyndigheten skall, om det inte är obehövligt, upplysa den som skall\ntilldelas ett skjutvapen om att en prövning görs av dennes\npålitlighet från säkerhetssynpunkt.\n\nBehörighetsbevis\n\n9 § I samband med att myndigheten tilldelar någon som inte\nutgör totalförsvarspliktig personal ett skjutvapen skall\nmyndigheten utfärda bevis om mottagarens behörighet att ha\nskjutvapen i tjänsten (behörighetsbevis).\n\nBehörighetsbevis behöver inte utfärdas för en polisman eller en\nyrkesofficer. Behörighetsbevis behöver inte heller utfärdas för\nen reservofficer när denne fullgör tjänstgöring vid\nFörsvarsmakten. Förordning (2001:1267).\n\nÅterkallelse av skjutvapen och behörighetsbevis\n\n10 § Om den som har tilldelats ett skjutvapen brister i fråga om\nhandhavandet av vapnet eller på något annat sätt visar att kravet på\npålitlighet inte längre kan anses uppfyllt, skall myndigheten ta\ntillbaka det tilldelade skjutvapnet. Om behörighetsbevis har\nutfärdats, skall även det återkallas.\n\nFörvaring av skjutvapen",
+        "score_retrieval": 0.2106689214706421,
+        "score_rerank": 0.3046875,
+        "metadata": {
+          "word_count": 178,
+          "dok_id": "sfs-1996-31",
+          "has_surrounding_context": true,
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m.",
+          "context_paragraphs": "8 §, 9 §, 10 §",
+          "paragraf": "9 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "sfs_nr": "1996:31",
+          "typ": "förordning",
+          "organ": "Försvarsdepartementet",
+          "is_short_document": false
+        }
+      },
+      {
+        "text": "9 § I samband med att myndigheten tilldelar någon som inte\nutgör totalförsvarspliktig personal ett skjutvapen skall\nmyndigheten utfärda bevis om mottagarens behörighet att ha\nskjutvapen i tjänsten (behörighetsbevis).\n\nBehörighetsbevis behöver inte utfärdas för en polisman eller en\nyrkesofficer. Behörighetsbevis behöver inte heller utfärdas för\nen reservofficer när denne fullgör tjänstgöring vid\nFörsvarsmakten. Förordning (2001:1267).\n\nÅterkallelse av skjutvapen och behörighetsbevis\n\n10 § Om den som har tilldelats ett skjutvapen brister i fråga om\nhandhavandet av vapnet eller på något annat sätt visar att kravet på\npålitlighet inte längre kan anses uppfyllt, skall myndigheten ta\ntillbaka det tilldelade skjutvapnet. Om behörighetsbevis har\nutfärdats, skall även det återkallas.\n\nFörvaring av skjutvapen\n\n11 § Skjutvapen skall förvaras på ett sådant sätt att det inte finns\nrisk för att någon obehörig kommer åt skjutvapnet eller att det på\nannat sätt går förlorat. Vapnen skall i all den utsträckning det är\nmöjligt förvaras i utrymmen som myndigheten disponerar.",
+        "score_retrieval": 0.21255344152450562,
+        "score_rerank": 0.28515625,
+        "metadata": {
+          "typ": "förordning",
+          "is_short_document": false,
+          "sfs_nr": "1996:31",
+          "paragraf": "10 §",
+          "organ": "Försvarsdepartementet",
+          "context_paragraphs": "9 §, 10 §, 11 §",
+          "has_surrounding_context": true,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1996-31.html",
+          "dok_id": "sfs-1996-31",
+          "word_count": 153,
+          "titel": "Förordning (1996:31) om statliga myndigheters skjutvapen m.m."
+        }
+      },
+      {
+        "text": "1 § Den som innehar ett skjutvapen eller ammunition utan att ha\nrätt till det skall inte dömas till ansvar för detta enligt 9\nkap. 1 § eller 2 § första stycket d vapenlagen (1996:67), om\nhan eller hon frivilligt lämnar in eller låter lämna in vapnet\neller ammunitionen till en polismyndighet under tiden mars-maj\n2007.\n\n2 § Den som lämnar in skjutvapen eller ammunition enligt 1 §\nbehöver inte lämna uppgift om sin identitet.",
+        "score_retrieval": 0.2127819061279297,
+        "score_rerank": 0.330078125,
+        "metadata": {
+          "is_short_document": false,
+          "organ": "Justitiedepartementet PO",
+          "dok_id": "sfs-2007-11",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2007-11.html",
+          "context_paragraphs": "1 §, 2 §",
+          "word_count": 75,
+          "typ": "lag",
+          "has_surrounding_context": true,
+          "paragraf": "1 §",
+          "sfs_nr": "2007:11",
+          "titel": "Lag (2007:11) om ansvarsfrihet vid vissa vapenbrott"
+        }
+      },
+      {
+        "text": "4 § Polismyndigheten ska ansvara för att de skjutvapen och \nden ammunition som har tillfallit staten förstörs. Om \negendomen behövs för ett musealt eller ett militärt ändamål \nska den dock överlämnas till den myndighet eller inrättning \nsom behöver egendomen.\n\n5 § Polismyndigheten får meddela föreskrifter om \nverkställigheten av denna förordning.",
+        "score_retrieval": 0.21281194686889648,
+        "score_rerank": 0.322265625,
+        "metadata": {
+          "has_surrounding_context": true,
+          "titel": "Förordning (2017:808) om skjutvapen och ammunition som har lämnats in till Polismyndigheten",
+          "dok_id": "sfs-2017-808",
+          "organ": "Justitiedepartementet L4",
+          "paragraf": "5 §",
+          "is_short_document": false,
+          "word_count": 50,
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-808.html",
+          "sfs_nr": "2017:808",
+          "context_paragraphs": "4 §, 5 §",
+          "typ": "förordning"
+        }
+      },
+      {
+        "text": "4 § Tillståndet ska avse anlitande av säkerhetspersonal för\nbevakning ombord på ett visst fartyg samt vara begränsat till\nen viss resa eller viss tid. I tillståndet ska anges vilka\nslag av skjutvapen och ammunition som säkerhetspersonalen får\ninneha ombord. Tillståndet ska också förenas med villkor om\nhur skjutvapen och ammunition ska förvaras på fartyget.\nGiltighetstiden för ett tillstånd får vara högst två år.\n\n5 § Säkerhetspersonalen är skyldig att följa vad som anges i\ntillståndet om vilka slag av skjutvapen och ammunition som\nfår innehas ombord. Säkerhetspersonalen är också skyldig att\nfölja villkor om hur skjutvapen och ammunition ska förvaras\npå fartyget.",
+        "score_retrieval": 0.21326684951782227,
+        "score_rerank": 0.2001953125,
+        "metadata": {
+          "context_paragraphs": "4 §, 5 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2013-283.html",
+          "titel": "Lag (2013:283) om bevakning ombord på svenskt fartyg",
+          "word_count": 103,
+          "paragraf": "4 §",
+          "has_surrounding_context": true,
+          "is_short_document": false,
+          "dok_id": "sfs-2013-283",
+          "organ": "Landsbygds- och infrastrukturdepartementet RSIB TM",
+          "sfs_nr": "2013:283",
+          "typ": "lag"
+        }
+      },
+      {
+        "text": "6 § Vid skottlossning mot en person skall eftersträvas att denne\noskadliggörs endast för tillfället.\n\nVerkställighetsföreskrifter\n\n7 § Försvarsmakten får meddela de föreskrifter som behövs för\nverkställigheten av denna förordning. Förordning (1994:170).",
+        "score_retrieval": 0.21336984634399414,
+        "score_rerank": 0.19921875,
+        "metadata": {
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-1992-98.html",
+          "is_short_document": false,
+          "typ": "förordning",
+          "titel": "Förordning (1992:98) om användande av skjutvapen vid vakttjänst inom Försvarsmakten",
+          "paragraf": "7 §",
+          "has_surrounding_context": true,
+          "organ": "Försvarsdepartementet",
+          "context_paragraphs": "6 §, 7 §",
+          "sfs_nr": "1992:98",
+          "word_count": 32,
+          "dok_id": "sfs-1992-98"
+        }
+      },
+      {
+        "text": "7 § En finsk polisman som utför uppgifter i Sverige i enlighet \nmed bestämmelserna i detta kapitel har samma rätt att använda \ntjänstevapen och andra särskilda hjälpmedel vid \nvåldsanvändning som en svensk polisman har att använda \nmotsvarande utrustning. Lag (2024:1259).\n\nRapportering och omedelbar prövning\n\n8 § En finsk polisman som har vidtagit en åtgärd ska så snart \ndet kan ske rapportera den till förmannen för verksamheten.\n\nPolismyndigheten ska omedelbart ta ställning till om ett \ntvångsmedel som har beslutats av en finsk polisman ska bestå. \nÅtgärden ska hävas om den är felaktig eller om det inte längre \nfinns skäl för den. Det gäller även vid prövning av ett \ngripande som ännu inte har anmälts till åklagare.\nLag (2024:1259).\n\nAnsvaret för vidtagna åtgärder\n\n9 § Från det att en åtgärd har rapporterats enligt 8 § ska \nPolismyndigheten fullgöra de skyldigheter som enligt lag eller \nannan författning är förenade med åtgärden. Lag (2024:1259).\n\nDokumentation",
+        "score_retrieval": 0.21390902996063232,
+        "score_rerank": 0.2490234375,
+        "metadata": {
+          "titel": "Lag (2017:496) om internationellt polisiärt samarbete",
+          "is_short_document": false,
+          "context_paragraphs": "7 §, 8 §, 9 §",
+          "dokument_url_html": "//data.riksdagen.se/dokument/sfs-2017-496.html",
+          "sfs_nr": "2017:496",
+          "word_count": 151,
+          "paragraf": "8 §",
+          "typ": "lag",
+          "organ": "Justitiedepartementet L4",
+          "has_surrounding_context": true,
+          "dok_id": "sfs-2017-496"
+        }
+      }
+    ]
+  }
+]
